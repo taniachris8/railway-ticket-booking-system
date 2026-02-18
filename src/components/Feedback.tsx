@@ -1,7 +1,7 @@
 export function Feedback() {
   return (
     <>
-      <section className="feedback">
+      <section id="feedback" className="feedback">
         <h4 className="feedback__title">отзывы</h4>
         <div className="feedback__items">
           <div className="feedback__item">

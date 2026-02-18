@@ -2,11 +2,13 @@ import "./App.css";
 import { Navigation } from "./components/Navigation";
 import { Outlet } from "react-router";
 import { Footer } from "./components/Footer";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
       <main className="main-container">
+        <ScrollToTop/>
         <Navigation />
         <Outlet />
         <Footer />

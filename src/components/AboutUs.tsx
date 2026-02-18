@@ -1,7 +1,7 @@
 export function AboutUs() {
   return (
     <>
-      <section className="about-us">
+      <section id="about" className="about-us">
         <h4 className="about-us__title">о нас</h4>
         <div className="about-us__content">
           <div className="about-us__deco-line"></div>

@@ -1,10 +1,12 @@
+import { Button } from "./button/Button";
+
 export function HowItWorks() {
   return (
     <>
-      <section className="how-it-works">
+      <section id="how-it-works" className="how-it-works">
         <div className="how-it-works__upper-block">
           <h4 className="how-it-works__title">Как это работает</h4>
-          <button className="how-it-works__btn">Узнать больше</button>
+          <Button variant="learn-more" text="Узнать больше" />
         </div>
         <div className="how-it-works__advantages">
           <div className="how-it-works__advantage">

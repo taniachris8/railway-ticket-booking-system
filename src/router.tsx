@@ -6,6 +6,7 @@ import { AboutUs } from "./components/AboutUs";
 import { HowItWorks } from "./components/HowItWorks";
 import { Feedback } from "./components/Feedback";
 import { Contacts } from "./components/Contacts";
+import { TicketsPage } from "./pages/TicketsPage";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/contacts",
         element: <Contacts />,
+      },
+      {
+        path: "/tickets",
+        element: <TicketsPage />,
       },
     ],
   },

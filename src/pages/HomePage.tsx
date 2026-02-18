@@ -5,6 +5,7 @@ import { Feedback } from "../components/Feedback";
 import { HeroSection } from "../components/HeroSection";
 import { HowItWorks } from "../components/HowItWorks";
 import { FindTicketsForm } from "../components/FindTicketsForm";
+import { ProgressBar } from "../components/ProgressBar";
 
 export function HomePage() {
   const location = useLocation();
@@ -22,22 +23,23 @@ export function HomePage() {
 
   return (
     <>
-      <HeroSection image="/images/image.png">
+      <HeroSection
+        image="/images/image.png"
+        containerClassName="hero__home-page">
         <h3 className="hero__title">
           Вся жизнь - <br />
           <span>путешествие!</span>
         </h3>
-        <FindTicketsForm/>
+
+        <FindTicketsForm
+          containerClassName="find-tickets__home-container"
+          inputsDivClassName="find-tickets__inputs__home-page"
+        />
       </HeroSection>
-      <section id="about">
-        <AboutUs />
-      </section>
-      <section id="how-it-works">
-        <HowItWorks />
-      </section>
-      <section id="feedback">
-        <Feedback />
-      </section>
+      <ProgressBar />
+      <AboutUs />
+      <HowItWorks />
+      <Feedback />
     </>
   );
 }

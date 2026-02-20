@@ -1,0 +1,38 @@
+.find-tickets {
+  display: flex;
+  flex-direction: column;
+  background-color: #292929cc;
+  opacity: 0.8;
+  align-items: center;
+  justify-content: center;
+  padding: 22.5px;
+  overflow: hidden;
+}
+
+.find-tickets__home-container {
+  width: 729px;
+  height: 574px;
+}
+
+.find-tickets__tickets-container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find-tickets__form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.find-tickets__inputs__tickets-page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.find-tickets__inputs__home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

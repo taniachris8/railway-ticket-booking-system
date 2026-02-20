@@ -1,0 +1,47 @@
+.seats {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 276px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f4f6;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 999;
+  margin-top: 5px;
+}
+
+.seats::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #f5f4f6;
+}
+
+.seats__upper,
+.seats__lower {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.seats__type {
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+}
+
+.seats__price {
+  display: flex;
+  gap: 5px;
+}

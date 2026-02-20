@@ -1,0 +1,63 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1920px;
+  overflow: hidden;
+}
+
+.hero__home-page {
+  height: 985px;
+}
+
+.hero__ticket-page {
+  height: 596px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.hero__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.hero__home-page > div {
+  padding-top: 411px;
+}
+
+.hero__ticket-page > div {
+  padding-top: 269px;
+}
+
+.hero__title {
+  font-size: 72px;
+  font-weight: 100;
+  color: #ffffff;
+}
+
+.hero__title > span {
+  font-weight: 700;
+}

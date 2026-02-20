@@ -1,0 +1,17 @@
+.ticket-location {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.location__city {
+  color: #292929;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.location__station {
+  color: #928F94;
+  font-weight: 400;
+  font-size: 16px;
+}

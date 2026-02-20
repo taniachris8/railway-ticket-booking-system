@@ -65,28 +65,22 @@
   background-color: #ffff;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
 }
 
 .ticket__directions {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   align-items: center;
   justify-content: center;
-  padding-left: 40px;
+  padding-left: 30px;
 }
 
 .ticket__direction {
   display: flex;
   gap: 60px;
   align-items: flex-start;
-}
-
-.ticket__direction-from,
-.ticket__direction-to {
-  display: flex;
-  flex-direction: column;
 }
 
 .ticket__direction-time {

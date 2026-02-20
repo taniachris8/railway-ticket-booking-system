@@ -2,7 +2,7 @@
 .last-tickets {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 
 .last-tickets__title {
@@ -23,7 +23,7 @@
 .last-ticket {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
   width: 360px;
   border: 1px solid #c4c4c4;
   box-shadow: 0px 2px 2px 0px #3e3c4140;
@@ -40,6 +40,19 @@
   text-align: left;
 }
 
+.last_tiket__direction-city {
+  color: #292929;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.last_tiket__direction-station {
+  color: #928f94;
+  font-weight: 400;
+  font-size: 16px;
+  white-space: pre-line;
+}
+
 .last-ticket__destination-location {
   text-align: right;
 }
@@ -53,7 +66,7 @@
 .last-ticket__facilities {
   width: 90px;
   height: 20px;
-  color: #C4C4C4;
+  color: #c4c4c4;
 }
 
 .last-ticket__price {
@@ -75,4 +88,10 @@
   font-size: 36px;
   line-height: 100%;
   letter-spacing: 0%;
+}
+
+.last-tiket__price-icon {
+  color: #928f94;
+  width: 20px;
+  height: 25px;
 }

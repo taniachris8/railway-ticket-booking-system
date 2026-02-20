@@ -1,28 +1,28 @@
 import "./TicketLocation.css";
 
 type TicketLocationProps = {
-  locationClassName: string;
+  children?: React.ReactNode;
   city: string;
   station: string;
-  multiline?: boolean;
+  containerClassName: string;
+  cityClassName: string;
+  stationClassName: string;
 };
 
 export function TicketLocation({
+  children,
   city,
   station,
-  locationClassName,
-  multiline,
+  containerClassName,
+  cityClassName,
+  stationClassName,
 }: TicketLocationProps) {
   return (
     <>
-      <div className={`ticket-location ${locationClassName}`}>
-        {/* <time className="ticket__direction-time">00:10</time> */}
-        <p className="location__city">{city}</p>
-        <p
-          className="location__station"
-          style={{ whiteSpace: multiline ? "pre-line" : "normal" }}>
-          {station}
-        </p>
+      <div className={`ticket-location ${containerClassName}`}>
+        {children}
+        <p className={cityClassName}>{city}</p>
+        <p className={stationClassName}>{station}</p>
       </div>
     </>
   );

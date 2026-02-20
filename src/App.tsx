@@ -2,7 +2,7 @@ import "./App.css";
 import { Navigation } from "./components/navbar/Navigation";
 import { Outlet } from "react-router";
 import { Footer } from "./components/footer/Footer";
-import { ScrollToTop } from "./components/ScrollToTop";
+import { ScrollToTop } from "./router/ScrollToTop";
 
 function App() {
   return (

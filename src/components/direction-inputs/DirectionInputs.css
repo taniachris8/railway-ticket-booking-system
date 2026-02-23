@@ -18,6 +18,8 @@
 }
 
 .direction__input {
+  position: relative;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,4 +54,30 @@
   width: 20px;
   height: 30px;
   color: #e5e5e5;
+}
+
+/* CitiesDropdown Styles */
+
+.dropdown {
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 3px;
+  background-color: #f5f4f6;
+  position: absolute;
+}
+
+.dropdown__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0px 10px 20px;
+}
+
+.dropdown__item {
+  cursor: pointer;
+}
+
+.dropdown__item-text {
+  font-weight: 400;
+  font-size: 18px;
+  text-transform: uppercase;
 }

@@ -1,5 +1,6 @@
-import { LocationIcon } from "../../icons/LocationIcon";
+import { DirectionInput } from "./DirectionInput";
 import "./DirectionInputs.css";
+import { useState } from "react";
 
 type DestinationInputProps = {
   containerClassName: string;
@@ -12,12 +13,18 @@ export function DestinationInput({
   inputClassName,
   iconClassName,
 }: DestinationInputProps) {
+  const [destinationCity, setDestinationCity] = useState("");
+
   return (
     <>
-      <div className={containerClassName}>
-        <input type="text" className={inputClassName} placeholder="Куда" />
-        <LocationIcon className={iconClassName} />
-      </div>
+      <DirectionInput
+        city={destinationCity}
+        setCity={setDestinationCity}
+        placeholderText="Куда"
+        containerClassName={containerClassName}
+        inputClassName={inputClassName}
+        iconClassName={iconClassName}
+      />
     </>
   );
 }

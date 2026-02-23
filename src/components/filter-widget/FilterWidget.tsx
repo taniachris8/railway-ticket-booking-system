@@ -1,9 +1,9 @@
-import "./FilterWidget.css"
+import "./FilterWidget.css";
 import { DepartureDateInput } from "../date-inputs/DepartureDateInput";
 import { ReturnDateInput } from "../date-inputs/ReturnDateInput";
-import { FilterDirections } from "./FilterDirections";
+import { FilterDirection } from "./FilterDirection";
 import { FilterOptions } from "./FilterOptions";
-import { FilterPriceSlider } from "./FilterPriceSlider";
+import { FilterPrice } from "./FilterPrice";
 
 export function FilterWidget() {
   return (
@@ -11,7 +11,7 @@ export function FilterWidget() {
       <section className="filter">
         <div className="filter__dates">
           <div className="filter__date filter__date--departure">
-            <h5 className="filter__title">Дата поездки</h5>
+            <h3 className="filter__title">Дата поездки</h3>
             <DepartureDateInput
               inputClassName="filter__date-input"
               inputFieldClassName="filter__date-input--field"
@@ -19,7 +19,7 @@ export function FilterWidget() {
             />
           </div>
           <div className="filter__date filter__date--return">
-            <h5 className="filter__title">Дата возвращения</h5>
+            <h3 className="filter__title">Дата возвращения</h3>
             <ReturnDateInput
               inputClassName="filter__date-input"
               inputFieldClassName="filter__date-input--field"
@@ -29,8 +29,9 @@ export function FilterWidget() {
         </div>
 
         <FilterOptions />
-        <FilterPriceSlider />
-      <FilterDirections/>
+        <FilterPrice />
+        <FilterDirection iconSrc="/icons/filter-to.svg" title="Туда" />
+        <FilterDirection iconSrc="/icons/filter-back.svg" title="Обратно" />
       </section>
     </>
   );

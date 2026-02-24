@@ -28,9 +28,9 @@ export function FilterToolbar() {
             ) : (
               <>
                 <ul className="toolbar__sort__list">
-                  {sortOptions.map((option) => (
+                  {sortOptions.map((option, index) => (
                     <li
-                      key={option}
+                      key={index}
                       className={
                         selected === option
                           ? "toolbar__sort__item active"
@@ -50,8 +50,8 @@ export function FilterToolbar() {
         </div>
         <div className="toolbar__limit">
           <span className="toolbar__limit-text">показывать по: </span>
-          {limits.map((l) => (
-            <button
+          {limits.map((l,index) => (
+            <button key={index}
               onClick={() => setLimit(l)}
               className={
                 limit === l

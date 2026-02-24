@@ -10,14 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
+    "axios": "^1.13.5",
     "react": "^19.2.0",
     "react-datepicker": "^9.1.0",
-    "react-day-picker": "^9.13.2",
     "react-dom": "^19.2.4",
     "react-paginate": "^8.3.0",
     "react-range": "^1.10.0",
+    "react-redux": "^9.2.0",
     "react-router": "^7.13.0",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.0",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.4.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

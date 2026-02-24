@@ -1,4 +1,4 @@
-import "./FindTicketsForm.css"
+import "./FindTicketsForm.css";
 import { useNavigate } from "react-router";
 import { DateInputs } from "../date-inputs/DateInputs";
 import { DirectionInputs } from "../direction-inputs/DirectionInputs";

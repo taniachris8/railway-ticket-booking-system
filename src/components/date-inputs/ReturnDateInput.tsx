@@ -1,5 +1,7 @@
-import { useState } from "react";
 import { DatePiker } from "./DatePiker";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../state/store";
+import { setReturnDate } from "../../state/reducers/ticketsSlice";
 
 type ReturnDateInputProps = {
   inputClassName: string;
@@ -12,16 +14,23 @@ export function ReturnDateInput({
   inputFieldClassName,
   iconClassName,
 }: ReturnDateInputProps) {
-  const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const dispatch = useDispatch();
+  const returnDate = useSelector(
+    (state: RootState) => state.tickets.returnDate,
+  );
+
+  const handleSelectDate = (date: Date | null) => {
+    dispatch(setReturnDate(date));
+  };
 
   return (
     <>
       <DatePiker
         date={returnDate}
-        setDate={setReturnDate}
         inputClassName={inputClassName}
         inputFieldClassName={inputFieldClassName}
         iconClassName={iconClassName}
+        onSelect={handleSelectDate}
       />
     </>
   );

@@ -9,15 +9,15 @@ setDefaultLocale("ru");
 
 type DatePikerProps = {
   date: Date | null;
-  setDate: (date: Date | null) => void;
   inputClassName: string;
   inputFieldClassName?: string;
   iconClassName?: string;
+  onSelect: (date: Date | null) => void
 };
 
 export function DatePiker({
   date,
-  setDate,
+  onSelect,
   inputClassName,
   inputFieldClassName,
   iconClassName,
@@ -34,7 +34,7 @@ export function DatePiker({
         maxDate={endOfYear}
         locale="ru"
         selected={date}
-        onChange={(date: Date | null) => setDate(date)}
+        onChange={(date: Date | null) => onSelect(date)}
         dateFormat="dd/MM/yy"
         placeholderText="ДД/ММ/ГГ"
         popperPlacement="bottom"

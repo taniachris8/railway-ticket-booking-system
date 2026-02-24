@@ -1,5 +1,7 @@
-import { useState } from "react";
 import { DatePiker } from "./DatePiker";
+import { useSelector, useDispatch} from "react-redux";
+import type { RootState } from "../../state/store";
+import { setDepartureDate } from "../../state/reducers/ticketsSlice";
 
 type DepartureDateInputProps = {
   inputClassName: string;
@@ -12,16 +14,21 @@ export function DepartureDateInput({
   inputFieldClassName,
   iconClassName,
 }: DepartureDateInputProps) {
-  const [departureDate, setDepartureDate] = useState<Date | null>(null);
- 
+  const dispatch = useDispatch();
+  const departureDate = useSelector((state: RootState) => state.tickets.departureDate);
+
+  const handleSelectDate = (date : Date | null) => { 
+     dispatch(setDepartureDate(date));
+  }
+
   return (
     <>
       <DatePiker
         date={departureDate}
-        setDate={setDepartureDate}
         inputClassName={inputClassName}
         inputFieldClassName={inputFieldClassName}
         iconClassName={iconClassName}
+        onSelect={handleSelectDate}
       />
     </>
   );

@@ -1,40 +1,32 @@
 import "./DirectionInputs.css";
 import { createPortal } from "react-dom";
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../state/store";
+import type { CityType } from "../../state/reducers/citiesSlice";
 
 type CitiesDropdownProps = {
-  setValue: (value: string) => void;
   setShowDropdown: (value: boolean) => void;
   containerRef: React.RefObject<HTMLDivElement | null>;
   searchTerm: string;
+  onSelect: (city: string) => void;
 };
 
 export function CitiesDropdown({
-  setValue,
   setShowDropdown,
   containerRef,
   searchTerm,
+  onSelect,
 }: CitiesDropdownProps) {
   const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const cities = useSelector((state: RootState) => state.cities.data);
 
-  const cities = [
-    "Ангарск",
-    "Архангельск",
-    "Астрахань",
-    "Барнаул",
-    "Белгород",
-    "Благовещенск",
-    "Братск",
-    "Брянск",
-    "Великий Новгород",
-  ];
+  const noMatches = searchTerm.length > 0 && cities.length === 0;
 
-  const filteredCities = searchTerm
-    ? cities.filter((city) =>
-        city.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-    : cities;
+  const handleClick = (city: CityType) => {
+    onSelect(city.name);
+  };
 
   useEffect(() => {
     if (containerRef.current) {
@@ -79,19 +71,20 @@ export function CitiesDropdown({
         zIndex: 9999,
       }}>
       <ul className="dropdown__list">
-        {filteredCities.map((city) => (
-          <li
-            key={city}
-            onClick={() => {
-              setValue(city);
-              setShowDropdown(false);
-            }}
-            className="dropdown__item">
-            <span className="dropdown__item-text">
-              {city.charAt(0).toUpperCase() + city.slice(1)}
-            </span>
-          </li>
-        ))}
+        {noMatches ? (
+          <span>Населенный пункт не найден</span>
+        ) : (
+          <>
+            {cities.map((city) => (
+              <li
+                key={city._id}
+                onClick={() => handleClick(city)}
+                className="dropdown__item">
+                <span className="dropdown__item-text">{city.name}</span>
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </div>,
     document.body,

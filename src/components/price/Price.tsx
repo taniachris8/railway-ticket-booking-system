@@ -1,8 +1,8 @@
 import { RubIcon } from "../../icons/RubIncon";
-import "./Price.css";
+import styles from "./Price.module.css";
 
 type PriceProps = {
-  amount: string;
+  amount: number;
   amountClassName: string;
   iconClassName: string;
 };
@@ -10,9 +10,9 @@ type PriceProps = {
 export function Price({ amount, amountClassName, iconClassName }: PriceProps) {
   return (
     <>
-      <div className="price">
+      <div className={styles.price}>
         <p className={amountClassName}>{amount}</p>
-        <RubIcon className={ iconClassName} />
+        <RubIcon className={iconClassName} />
       </div>
     </>
   );

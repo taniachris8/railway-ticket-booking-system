@@ -1,34 +1,34 @@
 import { NavLink } from "react-router";
-import "./Navigation.css"
+import styles from "./Navigation.module.css";
 
 export function Navigation() {
   return (
     <>
       <header>
-        <nav className="navbar">
-          <div className="navbar__logo-wrapper">
-            <NavLink className="navbar__logo" to="/">
+        <nav className={styles.navbar}>
+          <div className={styles.logo__wrapper}>
+            <NavLink className={styles.logo} to="/">
               Лого
             </NavLink>
           </div>
-          <ul className="navbar__list">
-            <li className="navbar__item">
-              <NavLink className="navbar__link" to="/#about">
+          <ul className={styles.navbar__list}>
+            <li className={styles.navbar__item}>
+              <NavLink className={styles.navbar__link} to="/#about">
                 О нас
               </NavLink>
             </li>
-            <li className="navbar__item">
-              <NavLink className="navbar__link" to="/#how-it-works">
+            <li className={styles.navbar__item}>
+              <NavLink className={styles.navbar__link} to="/#how-it-works">
                 Как это работает
               </NavLink>
             </li>
-            <li className="navbar__item">
-              <NavLink className="navbar__link" to="/#feedback">
+            <li className={styles.navbar__item}>
+              <NavLink className={styles.navbar__link} to="/#feedback">
                 Отзывы
               </NavLink>
             </li>
-            <li className="navbar__item">
-              <NavLink className="navbar__link" to="/#contacts">
+            <li className={styles.navbar__item}>
+              <NavLink className={styles.navbar__link} to="/#contacts">
                 Контакты
               </NavLink>
             </li>

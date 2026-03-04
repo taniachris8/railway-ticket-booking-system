@@ -1,13 +1,13 @@
-import "./AboutUs.css"
+import styles from "./AboutUs.module.css";
 
 export function AboutUs() {
   return (
     <>
-      <section id="about" className="about-us">
-        <h4 className="about-us__title">о нас</h4>
-        <div className="about-us__content">
-          <div className="about-us__deco-line"></div>
-          <div className="about-us__text">
+      <section id="about" className={styles.container}>
+        <h4 className={styles.title}>о нас</h4>
+        <div className={styles.content}>
+          <div className={styles.line}></div>
+          <div className={styles.text}>
             <p>
               Мы рады видеть вас! Мы рботаем для Вас с 2003 года. 14 лет мы
               наблюдаем, как с каждым днем <br /> все больше людей заказывают жд

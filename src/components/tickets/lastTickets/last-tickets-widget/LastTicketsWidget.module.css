@@ -1,0 +1,19 @@
+.last-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.last-tickets__title {
+  font-weight: 500;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.last-tickets__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+

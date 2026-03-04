@@ -1,0 +1,26 @@
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.options__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.options__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+.option {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}

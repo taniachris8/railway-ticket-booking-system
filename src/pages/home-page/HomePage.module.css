@@ -1,0 +1,29 @@
+.hero__home {
+  height: 985px;
+}
+
+.hero__title {
+  font-size: 72px;
+  font-weight: 100;
+  color: #ffffff;
+}
+
+.hero__title > span {
+  font-weight: 700;
+}
+
+.hero__home > div {
+  padding-top: 411px;
+}
+
+.find__tickets {
+  width: 729px;
+  height: 574px;
+}
+
+.find__tickets_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+

@@ -1,0 +1,15 @@
+.find__tickets {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(41, 41, 41, 0.8);
+  align-items: center;
+  justify-content: center;
+  padding: 22.5px;
+  z-index: 999;
+}
+
+.find__tickets_form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

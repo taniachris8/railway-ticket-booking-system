@@ -1,7 +1,14 @@
 import "./Button.css";
 
 type ButtonProps = {
-  variant: string;
+  variant:
+    | "find"
+    | "more"
+    | "choose"
+    | "change"
+    | "confirm"
+    | "learn-more"
+    | "send";
   text: string;
   onClick?: () => void;
 };

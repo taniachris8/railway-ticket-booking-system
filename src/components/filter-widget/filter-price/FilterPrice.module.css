@@ -1,0 +1,26 @@
+.filter__price {
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.filter__price_title {
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.filter__price_thumb {
+  height: 24px;
+  width: 24px;
+}
+
+.filter__price__slider_outer {
+  height: 24px;
+}
+
+.filter__price__slider_text {
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 18px;
+}

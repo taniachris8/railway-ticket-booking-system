@@ -1,7 +1,8 @@
-import { DatePiker } from "./DatePiker";
-import { useSelector, useDispatch} from "react-redux";
+import { Calendar } from "./date-picker/Calendar";
+import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../state/store";
-import { setDepartureDate } from "../../state/reducers/ticketsSlice";
+import { setFilterField } from "../../state/reducers/filterSlice";
+import { formatDate } from "../../utils/formatDate";
 
 type DepartureDateInputProps = {
   inputClassName: string;
@@ -15,20 +16,24 @@ export function DepartureDateInput({
   iconClassName,
 }: DepartureDateInputProps) {
   const dispatch = useDispatch();
-  const departureDate = useSelector((state: RootState) => state.tickets.departureDate);
+  const departureDate = useSelector(
+    (state: RootState) => state.filters.date_start,
+  );
+  const today = new Date();
 
-  const handleSelectDate = (date : Date | null) => { 
-     dispatch(setDepartureDate(date));
-  }
+  const handleSelectDate = (date: Date | null) => {
+    dispatch(setFilterField({ key: "date_start", value: formatDate(date) }));
+  };
 
   return (
     <>
-      <DatePiker
+      <Calendar
         date={departureDate}
         inputClassName={inputClassName}
         inputFieldClassName={inputFieldClassName}
         iconClassName={iconClassName}
-        onSelect={handleSelectDate}
+        setDate={handleSelectDate}
+        minDate={today}
       />
     </>
   );

@@ -22,7 +22,7 @@ export function MoreIcon({ className, onClick}: IconProps) {
           height="18"
           rx="4"
           stroke="currentColor"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </svg>
     </>

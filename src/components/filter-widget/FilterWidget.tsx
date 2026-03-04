@@ -1,37 +1,45 @@
-import "./FilterWidget.css";
+import styles from "./FilterWidget.module.css";
 import { DepartureDateInput } from "../date-inputs/DepartureDateInput";
 import { ReturnDateInput } from "../date-inputs/ReturnDateInput";
-import { FilterDirection } from "./FilterDirection";
-import { FilterOptions } from "./FilterOptions";
-import { FilterPrice } from "./FilterPrice";
+import { FilterDirection } from "./filter-direction/FilterDirection";
+import { FilterOptions } from "./filter-options/FilterOptions";
+import { FilterPrice } from "./filter-price/FilterPrice";
 
 export function FilterWidget() {
   return (
     <>
-      <section className="filter">
-        <div className="filter__dates">
-          <div className="filter__date filter__date--departure">
-            <h3 className="filter__title">Дата поездки</h3>
+      <section className={ styles.filter}>
+        <div className={ styles.filter__dates}>
+          <div className={ `${styles.filter__date} ${styles.filter__date_departure}`}>
+            <h3 className={ styles.filter__title }>Дата поездки</h3>
             <DepartureDateInput
-              inputClassName="filter__date-input"
-              inputFieldClassName="filter__date-input--field"
-              iconClassName="filter__date-input--icon"
+              inputClassName={ styles.filter__date_input }
+              inputFieldClassName={ styles.input__field }
+              iconClassName={ styles.input__icon }
             />
           </div>
-          <div className="filter__date filter__date--return">
-            <h3 className="filter__title">Дата возвращения</h3>
+          <div className={ `${styles.filter__date} ${styles.filter__date_return}` }>
+            <h3 className={ styles.filter__title }>Дата возвращения</h3>
             <ReturnDateInput
-              inputClassName="filter__date-input"
-              inputFieldClassName="filter__date-input--field"
-              iconClassName="filter__date-input--icon"
+              inputClassName={ styles.filter__date_input }
+              inputFieldClassName={ styles.input__field }
+              iconClassName={ styles.input__icon }
             />
           </div>
         </div>
 
         <FilterOptions />
         <FilterPrice />
-        <FilterDirection iconSrc="/icons/filter-to.svg" title="Туда" />
-        <FilterDirection iconSrc="/icons/filter-back.svg" title="Обратно" />
+        <FilterDirection
+          iconSrc="/icons/filter-to.svg"
+          title="Туда"
+          base="departure"
+        />
+        <FilterDirection
+          iconSrc="/icons/filter-back.svg"
+          title="Обратно"
+          base="arrival"
+        />
       </section>
     </>
   );

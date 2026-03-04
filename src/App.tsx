@@ -5,6 +5,7 @@ import { Footer } from "./components/footer/Footer";
 import { ScrollToTop } from "./router/ScrollToTop";
 
 function App() {
+
   return (
     <>
       <main className="main-container">

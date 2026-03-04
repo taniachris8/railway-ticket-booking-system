@@ -1,4 +1,4 @@
-import "./Footer.css";
+import styles from "./Footer.module.css";
 import { NavLink } from "react-router";
 import { Button } from "../buttons/Button";
 import { PhoneIcon } from "../../icons/PhoneIcon";
@@ -21,42 +21,42 @@ export function Footer() {
   };
 
   return (
-    <footer className="footer">
-      <div className="footer__details">
-        <section id="contacts" className="footer__contacts">
-          <h3 className="footer__title">Свяжитесь с нами</h3>
-          <ul className="footer__contacts-list">
-            <li className="footer__contact">
-              <PhoneIcon className="footer__icon footer__icon__phone" />
-              <span className="footer__contact-text">8 (800) 000 00 00</span>
+    <footer className={styles.footer}>
+      <div className={styles.details}>
+        <section id="contacts" className={styles.contacts}>
+          <h3 className={styles.title}>Свяжитесь с нами</h3>
+          <ul className={styles.contacts__list}>
+            <li className={styles.contact__item}>
+              <PhoneIcon className={`${styles.icon} ${styles.phone}`} />
+              <span className={styles.contact__text}>8 (800) 000 00 00</span>
             </li>
-            <li className="footer__contact">
-              <MailIcon className="footer__icon footer__icon__mail" />
-              <span className="footer__contact-text">tu.train.tickets</span>
+            <li className={styles.contact__item}>
+              <MailIcon className={`${styles.icon} ${styles.mail}`} />
+              <span className={styles.contact__text}>tu.train.tickets</span>
             </li>
-            <li className="footer__contact">
-              <SkypeIcon className="footer__icon footer__icon__skype" />
-              <span className="footer__contact-text">inbox@mail.ru</span>
+            <li className={styles.contact__item}>
+              <SkypeIcon className={`${styles.icon} ${styles.skype}`} />
+              <span className={styles.contact__text}>inbox@mail.ru</span>
             </li>
-            <li className="footer__contact">
-              <LocationIcon className="footer__icon footer__icon__location" />
-              <span className="footer__contact-text">
+            <li className={styles.contact__item}>
+              <LocationIcon className={`${styles.icon} ${styles.location}`} />
+              <span className={styles.contact__text}>
                 г. Москва <br /> ул. Московская 27-35 <br /> 555 555
               </span>
             </li>
           </ul>
         </section>
 
-        <div className="footer__subscribe">
-          <ul className="footer__subscribe-list">
-            <li className="footer__subscribe-item">
-              <h3 className="footer__title">Подписка</h3>
-              <form action="" className="footer__form">
-                <label className="footer__label">Будьте в курсе событий</label>
-                <div className="footer__form__group">
+        <div className={styles.subscribe}>
+          <ul className={styles.subscribe__list}>
+            <li className={styles.subscribe__item}>
+              <h3 className={styles.title}>Подписка</h3>
+              <form action="" className={styles.form}>
+                <label className={styles.label}>Будьте в курсе событий</label>
+                <div className={styles.group}>
                   <input
                     type="text"
-                    className="footer__input"
+                    className={styles.input}
                     placeholder="email"
                   />
                   <Button variant="send" text="отправить" />
@@ -64,33 +64,43 @@ export function Footer() {
               </form>
             </li>
 
-            <li className="footer__subscribe-item">
-              <h3 className="footer__title">Подписывайтесь на нас</h3>
-              <div className="footer__social-media">
-                <YoutubeIcon className="footer__icon-social footer__icon-social_youtube" />
-                <LinkedInIcon className="footer__icon-social footer__icon-social_linkedin" />
-                <GmailIcon className="footer__icon-social footer__icon-social_gmail" />
+            <li className={styles.subscribe__item}>
+              <h3 className={styles.title}>Подписывайтесь на нас</h3>
+              <div className={styles.social}>
+                <YoutubeIcon
+                  className={`${styles.icon__social} ${styles.youtube}`}
+                />
+                <LinkedInIcon
+                  className={`${styles.icon__social} ${styles.linkedIn}`}
+                />
+                <GmailIcon
+                  className={`${styles.icon__social} ${styles.gmail}`}
+                />
 
-                <FacebookIcon className="footer__icon-social footer__icon-social_facebook" />
+                <FacebookIcon
+                  className={`${styles.icon__social} ${styles.facebook}`}
+                />
 
-                <TwitterIcon className="footer__icon-social footer__icon-social_twitter" />
+                <TwitterIcon
+                  className={`${styles.icon__social} ${styles.twitter}`}
+                />
               </div>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="footer__deco-line"></div>
+      <div className={styles.line}></div>
 
-      <div className="footer__lower-part">
-        <NavLink className="footer__logo" to="/" onClick={handleScroll}>
+      <div className={styles.lower__part}>
+        <NavLink className={styles.logo} to="/" onClick={handleScroll}>
           Лого
         </NavLink>
         <ScrollUpIcon
-          className="footer__icon footer__scrollup-icon"
+          className={`${styles.icon} ${styles.scrollup}`}
           onClick={handleScroll}
         />
-        <time className="footer__date">{new Date().getFullYear()} WEB</time>
+        <time className={styles.date}>{new Date().getFullYear()} WEB</time>
       </div>
     </footer>
   );

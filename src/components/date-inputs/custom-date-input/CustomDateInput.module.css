@@ -1,0 +1,33 @@
+.custom__date_input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.date__input_field {
+  color: #292929;
+  font-size: 18px;
+  font-weight: 400;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.date__input_field::placeholder {
+  font-size: 18px;
+  font-weight: 400;
+  color: #e5e5e5;
+}
+
+.date__icon {
+  width: 30px;
+  height: 33px;
+  color: #e5e5e5;
+}
+
+:global(.react-datepicker-popper){
+  z-index: 9999 !important;
+}

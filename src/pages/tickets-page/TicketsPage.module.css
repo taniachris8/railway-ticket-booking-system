@@ -1,0 +1,49 @@
+.hero__ticket_page {
+  height: 596px;
+}
+
+.hero__ticket_page > div {
+  padding-top: 269px;
+}
+
+.find_tickets__tickets_container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find_tickets__inputs__tickets_page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+
+.tickets {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 200px;
+}
+
+.tickets__sidebar {
+  width: 379px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.tickets__content {
+  width: 959px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.tickets__list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

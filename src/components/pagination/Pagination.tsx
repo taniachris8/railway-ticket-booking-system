@@ -1,26 +1,36 @@
-import "./Pagination.css";
-import { useState } from "react";
+import styles from "./Pagination.module.css";
 import ReactPaginate from "react-paginate";
 import { PaginationLeftArrow } from "../../icons/PaginationLeftArrow";
 import { PaginationRightArrow } from "../../icons/PaginationRightArrow";
+import type { RootState } from "../../state/store";
+import { useSelector, useDispatch } from "react-redux";
+import { setFilterField } from "../../state/reducers/filterSlice";
 
-export function Pagination() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const pageCount = 10;
+type PaginationProps = {
+  totalCount: number;
+};
+
+export function Pagination({ totalCount }: PaginationProps) {
+  const dispatch = useDispatch();
+  const { limit, offset } = useSelector((state: RootState) => state.filters);
+
+  const pageCount = Math.ceil(totalCount / Number(limit));
+  const currentPage = Math.floor(offset / Number(limit));
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected);
+    const newOffset = selected * Number(limit);
+    dispatch(setFilterField({ key: "offset", value: newOffset }));
   };
 
   return (
     <ReactPaginate
       previousLabel={
-        <div className="pagination__item">
+        <div className={styles.pagination__item}>
           <PaginationLeftArrow width="18px" height="29px" />
         </div>
       }
       nextLabel={
-        <div className="pagination__item">
+        <div className={styles.pagination__item}>
           <PaginationRightArrow width="18px" height="29px" />
         </div>
       }
@@ -29,16 +39,17 @@ export function Pagination() {
       forcePage={currentPage}
       pageRangeDisplayed={3}
       marginPagesDisplayed={1}
-      containerClassName={"pagination"}
-      pageClassName={"pagination__item"}
-      pageLinkClassName={"pagination__item-number"}
-      activeClassName={"pagination__item--active"}
-      breakClassName={"pagination__item-ellipsis"}
+      containerClassName={styles.pagination}
+      pageClassName={styles.pagination__item}
+      pageLinkClassName={styles.pagination__item_number}
+      activeClassName={styles.pagination__item_active}
+      breakClassName={styles.pagination__item_ellipsis}
       breakLabel={
-        <div className="pagination__item pagination__item-ellipsis">
-          <div className="pagination__item-ellipse"></div>
-          <div className="pagination__item-ellipse"></div>
-          <div className="pagination__item-ellipse"></div>
+        <div
+          className={`${styles.pagination__item} ${styles.pagination__item_ellipsis}`}>
+          <div className={styles.pagination__item_ellipse}></div>
+          <div className={styles.pagination__item_ellipse}></div>
+          <div className={styles.pagination__item_ellipse}></div>
         </div>
       }
     />

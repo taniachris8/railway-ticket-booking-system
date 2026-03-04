@@ -1,22 +1,22 @@
-import "./Feedback.css"
+import styles from "./Feedback.module.css";
 
 export function Feedback() {
   return (
     <>
-      <section id="feedback" className="feedback">
-        <h4 className="feedback__title">отзывы</h4>
-        <div className="feedback__items">
-          <div className="feedback__item">
-            <div className="feedback__item__img-wrapper">
+      <section id="feedback" className={styles.container}>
+        <h4 className={styles.title}>отзывы</h4>
+        <div className={styles.items}>
+          <div className={styles.item}>
+            <div className={styles.image__wrapper}>
               <img
                 src="/images/image3.png"
                 alt="feedback image"
-                className="feedback__item__image"
+                className={styles.image}
               />
             </div>
-            <div className="feedback__item__text-wrapper">
-              <p className="feedback__item__name">Екатерина Вальнова</p>
-              <p className="feedback__item-text">
+            <div className={styles.text__wrapper}>
+              <p className={styles.name}>Екатерина Вальнова</p>
+              <p className={styles.text}>
                 <span>“</span> Доброжелательные подсказки <br /> на всех этапах
                 помогут правильно заполнить <br /> поля и без затруднений купить
                 авиа или ж/д <br />
@@ -25,18 +25,18 @@ export function Feedback() {
               </p>
             </div>
           </div>
-          <div className="feedback__item">
-            <div className="feedback__item__img-wrapper">
+          <div className={styles.item}>
+            <div className={styles.image__wrapper}>
               <img
                 src="/images/image4.png"
                 alt="feedback image"
-                className="feedback__item__image"
+                className={styles.image}
               />
             </div>
 
-            <div className="feedback__item__text-wrapper">
-              <p className="feedback__item__name">Евгений Стрыкало</p>
-              <p className="feedback__item-text">
+            <div className={styles.text__wrapper}>
+              <p className={styles.name}>Евгений Стрыкало</p>
+              <p className={styles.text}>
                 <span>“</span> СМС-сопровождение до посадки <br /> Сразу после
                 оплаты ж/д билетов <br /> и за 3 часа до отправления мы пришлем
                 вам <br />
@@ -46,8 +46,8 @@ export function Feedback() {
             </div>
           </div>
         </div>
-        <div className="feedback__dot-paging">
-          <span className="active"></span>
+        <div className={styles.paging}>
+          <span className={styles.active}></span>
           <span></span>
           <span></span>
           <span></span>

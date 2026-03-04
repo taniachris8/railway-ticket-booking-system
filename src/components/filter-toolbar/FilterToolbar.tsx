@@ -1,46 +1,65 @@
-import "./FilterToolbar.css";
+import { useSelector, useDispatch } from "react-redux";
+import styles from "./FilterToolbar.module.css";
 import { useState } from "react";
+import type { RootState } from "../../state/store";
+import { setFilterField } from "../../state/reducers/filterSlice";
 
-export function FilterToolbar() {
+type FilterToolbarProps = {
+  totalCount: number;
+};
+
+export function FilterToolbar({ totalCount }: FilterToolbarProps) {
+  const dispatch = useDispatch();
   const [openToolbarSort, setOpenToolbarSort] = useState(false);
-  const [selected, setSelected] = useState("времени");
-  const [limit, setLimit] = useState("5");
+  const limit = useSelector((state: RootState) => state.filters.limit);
+  const sort = useSelector((state: RootState) => state.filters.sort);
 
-  const sortOptions = ["времени", "стоимости", "длительности"];
   const limits = ["5", "10", "20"];
 
-  return (
-    <div className="toolbar">
-      <p className="toolbar__results">найдено 20</p>
+  const sortOptions = [
+    { value: "date", label: "времени" },
+    { value: "price", label: "стоимости" },
+    { value: "duration", label: "длительности" },
+  ] as const;
 
-      <div className="toolbar__controls">
-        <div className="toolbar__sort">
+  return (
+    <div className={styles.toolbar}>
+      <p className={styles.toolbar__results}>
+        найдено {totalCount && totalCount}
+      </p>
+
+      <div className={styles.toolbar__controls}>
+        <div className={styles.toolbar__sort}>
           сортировать по:
-          <div className="toolbar__sort__container">
+          <div
+            className={styles.toolbar__sort__container}
+            onClick={() => setOpenToolbarSort(!openToolbarSort)}>
             {!openToolbarSort ? (
-              <>
-                <div
-                  className="toolbar__sort__selected"
-                  onClick={() => setOpenToolbarSort(!openToolbarSort)}>
-                  {selected}
-                </div>
-              </>
+              <div className={styles.toolbar__sort__selected}>
+                {sortOptions.find((option) => option.value === sort)?.label}
+              </div>
             ) : (
               <>
-                <ul className="toolbar__sort__list">
+                <ul className={styles.toolbar__sort__list}>
                   {sortOptions.map((option, index) => (
                     <li
                       key={index}
                       className={
-                        selected === option
-                          ? "toolbar__sort__item active"
-                          : "toolbar__sort__item"
+                        sort === option.value
+                          ? `${styles.toolbar__sort__item} ${styles.active}`
+                          : styles.toolbar__sort__item
                       }
-                      onClick={() => {
-                        setSelected(option);
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setOpenToolbarSort(false);
+                        dispatch(
+                          setFilterField({
+                            key: "sort",
+                            value: option.value,
+                          }),
+                        );
                       }}>
-                      <p>{option}</p>
+                      <p>{option.label}</p>
                     </li>
                   ))}
                 </ul>
@@ -48,15 +67,18 @@ export function FilterToolbar() {
             )}
           </div>
         </div>
-        <div className="toolbar__limit">
-          <span className="toolbar__limit-text">показывать по: </span>
-          {limits.map((l,index) => (
-            <button key={index}
-              onClick={() => setLimit(l)}
+        <div className={styles.toolbar__limit}>
+          <span className={styles.toolbar__limit_text}>показывать по: </span>
+          {limits.map((l, index) => (
+            <button
+              key={index}
+              onClick={() =>
+                dispatch(setFilterField({ key: "limit", value: l }))
+              }
               className={
                 limit === l
-                  ? "toolbar__limit-option active"
-                  : "toolbar__limit-option"
+                  ? `${styles.toolbar__limit_option} ${styles.active}`
+                  : styles.toolbar__limit_option
               }>
               {l}
             </button>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import "./HeroSection.css"
+import styles from "./HeroSection.module.css";
 
 type HeroSectionProps = {
   image: string;
@@ -14,9 +14,9 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <>
-      <section className={`hero ${containerClassName}`}>
-        <img src={image} alt="Hero Image" className="hero__img" />
-        <div className="hero__content">{children}</div>
+      <section className={`${styles.hero} ${containerClassName}`}>
+        <img src={image} alt="Hero Image" className={styles.hero__img} />
+        <div className={styles.hero__content}>{children}</div>
       </section>
     </>
   );

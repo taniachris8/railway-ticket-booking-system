@@ -1,15 +1,15 @@
-import "./DateInputs.css"
+import styles from "./DateInputs.module.css"
 import { DepartureDateInput } from "./DepartureDateInput";
 import { ReturnDateInput } from "./ReturnDateInput";
 
 export function DateInputs() {
   return (
     <>
-      <div className="date">
+      <div className={styles.date}>
         <label htmlFor="">Дата</label>
-        <div className="date__inputs">
-          <DepartureDateInput inputClassName="date__departure__input" />
-          <ReturnDateInput inputClassName="date__return__input" />
+        <div className={styles.date__inputs}>
+          <DepartureDateInput inputClassName={styles.date__departure_input} />
+          <ReturnDateInput inputClassName={styles.date__return_input} />
         </div>
       </div>
     </>

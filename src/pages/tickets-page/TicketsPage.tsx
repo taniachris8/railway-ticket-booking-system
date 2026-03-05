@@ -139,10 +139,6 @@ export function TicketsPage() {
     }
   }, [dispatch, preparedFilters]);
 
-  const handleReset = () => {
-    dispatch(resetFilters());
-  };
-
   return (
     <>
       <HeroSection
@@ -178,7 +174,6 @@ export function TicketsPage() {
               <nav className={styles.tickets__pagination}>
                 <Pagination totalCount={tickets?.total_count} />
               </nav>
-              <button onClick={handleReset}>Сбросить фильтры</button>
             </main>
           </section>
         </>

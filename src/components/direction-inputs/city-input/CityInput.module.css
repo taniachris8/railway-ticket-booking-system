@@ -1,0 +1,22 @@
+.typeahead__wrapper {
+  position: relative;
+}
+
+.typeahead__suggestion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  white-space: pre;
+}
+
+.typeahead__gray {
+ font-family: Roboto, sans-serif;
+  color: #aaa;
+}
+
+.typeahead__input {
+  font-family: Roboto, sans-serif;
+  position: relative;
+  background: transparent;
+}

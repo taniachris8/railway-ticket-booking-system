@@ -49,43 +49,6 @@ function createProgressChannel(totalSteps: number): EventChannel<number> {
   });
 }
 
-// function* workGetTicketsFetch(): Generator{
-//   try {
-//     const state: RootState = yield select();
-//     const { from_city_id, to_city_id, limit } = state.filters;
-
-//     const progressChannel: EventChannel<number> = yield call(
-//       createProgressChannel,
-//       100,
-//     );
-//     yield call(function* (): Generator{
-//       try {
-//         while (true) {
-//           const progress: number = yield take(progressChannel);
-//           yield put(setProgress(progress));
-//         }
-//       } finally {
-//         progressChannel.close();
-//       }
-//     });
-
-//     const data: TicketsType = yield call(
-//       searchDirections,
-//       from_city_id,
-//       to_city_id,
-//       limit,
-//     );
-
-//     console.log("IDs:", from_city_id, to_city_id);
-//     console.log("Response:", data);
-
-//     yield put(getTicketsSuccess(data));
-//     progressChannel.close();
-//   } catch (error) {
-//     yield put(getTicketsFailure(getErrorMessage(error)));
-//   }
-// }
-
 function* workGetTicketsFetch(): Generator {
   try {
     const filters: RootState["filters"] = yield select(

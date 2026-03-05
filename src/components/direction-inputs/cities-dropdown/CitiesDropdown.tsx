@@ -58,6 +58,15 @@ export function CitiesDropdown({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [containerRef, dropdownRef, setShowDropdown]);
+  
+   const sortedCities = [...cities].sort((a, b) => {
+     const aStarts = a.name.toLowerCase().startsWith(searchTerm.toLowerCase());
+     const bStarts = b.name.toLowerCase().startsWith(searchTerm.toLowerCase());
+
+     if (aStarts && !bStarts) return -1;
+     if (!aStarts && bStarts) return 1;
+     return 0;
+   });
 
   return createPortal(
     <div
@@ -75,7 +84,7 @@ export function CitiesDropdown({
           <span>Населенный пункт не найден</span>
         ) : (
           <>
-            {cities.map((city) => (
+            {sortedCities.map((city) => (
               <li
                 key={city._id}
                 onClick={() => handleClick(city)}

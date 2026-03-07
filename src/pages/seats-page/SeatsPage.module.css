@@ -1,0 +1,49 @@
+.hero__seats_page {
+  height: 596px;
+}
+
+.hero__seats_page > div {
+  padding-top: 269px;
+}
+
+.find_tickets__seats_container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find_tickets__inputs__seats_page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.seats {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 200px;
+}
+
+.seats__sidebar {
+  width: 379px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.seats__content {
+  width: 959px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seats__title {
+  font-weight: 500;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #292929;
+}
+

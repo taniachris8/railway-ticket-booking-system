@@ -7,12 +7,19 @@ import type { AvailableSeatsInfoType, TicketType } from "../../../types";
 import { WifiIcon } from "../../../icons/WifiIcon";
 import { ExpressIcon } from "../../../icons/ExpressIcon";
 import { ACIcon } from "../../../icons/ACIcon";
+import { useNavigate } from "react-router-dom";
+import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../../state/store";
 
 type TicketSeatsProps = {
   ticket: TicketType;
 };
 
 export function TicketSeats({ ticket }: TicketSeatsProps) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const seatsId = useSelector((state: RootState) => state.seatsFilters.id); 
   const [showAvailableSeats, setShowAvailableSeats] = useState<string | null>(
     null,
   );
@@ -24,6 +31,13 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
     const min = Math.min(...prices);
     return min;
   };
+
+  const navigateToSeatsPage = () => { 
+    dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
+    if (seatsId) {
+      navigate("/seats");
+    }
+  }
 
   return (
     <>
@@ -77,7 +91,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
               <ACIcon className={ styles.seats__icon} />
             )}
           </div>
-          <Button variant="choose" text="Выбрать места" />
+          <Button variant="choose" text="Выбрать места" onClick={navigateToSeatsPage}/>
         </div>
       </div>
     </>

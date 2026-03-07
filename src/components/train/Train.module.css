@@ -1,0 +1,44 @@
+.train {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.train__directions{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.train__number {
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  color: #3e3c41;
+}
+
+.train__direction {
+  display: flex;
+  flex-direction: column;
+}
+
+.train__direction_arrow {
+  margin-left: 8px;
+  color: #292929;
+}
+
+.train__direction_arrow.inactive {
+  margin-left: 8px;
+  color: #928F94
+}
+
+.train__city {
+  font-weight: 400;
+  font-size: 16px;
+  color: #3e3c41;
+}
+
+.train__city.inactive {
+  color: #928f94;
+}

@@ -1,0 +1,75 @@
+.train__info {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  width: 100%;
+  height: 123px;
+}
+
+.arrow {
+  color: #ffa800c9;
+}
+
+.train__info__item {
+  display: flex;
+  align-items: center;
+  background-color: #f7f6f6;
+  gap: 8px;
+  height: 100%;
+   padding: 0 30px 0 30px;
+}
+
+.train__item {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: transparent;
+  justify-content: center;
+  /* flex: 1; */
+}
+
+.train__icon {
+  color: #ffa800;
+  width: 30px;
+  height: 30px;
+}
+
+.directions__item {
+  gap: 30px;
+  flex: 2;
+}
+
+.duration__item {
+  /* flex: 1; */
+}
+
+.arrow__icon {
+  color: #ffa800;
+}
+
+.clock__icon {
+  color: #ffa800;
+}
+
+.city {
+  font-weight: 400;
+  font-size: 18px;
+  color: #3e3c41;
+}
+
+.station {
+  font-weight: 400;
+  font-size: 18px;
+  color: gray;
+}
+
+.time {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.duration {
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+}

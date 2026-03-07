@@ -6,6 +6,7 @@ type ButtonProps = {
     | "more"
     | "choose"
     | "change"
+    | "change-train"
     | "confirm"
     | "learn-more"
     | "send";

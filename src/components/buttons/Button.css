@@ -50,7 +50,7 @@ button {
 }
 
 .choose {
-  width: 228px;
+  min-width: 228px;
   height: 39px;
   border: none;
   color: #ffff;
@@ -86,6 +86,26 @@ button {
 }
 
 .change:active {
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border: none;
+  background-color: #ffa800;
+  color: #292929;
+}
+
+.change-train {
+  width: 325px;
+  height: 60px;
+  border: 1px solid #292929;
+  background-color: #ffff;
+  color: #292929;
+}
+
+.change-train:hover {
+  box-shadow: 0px 4px 4px 0px #00000040;
+  color: #ffa800;
+}
+
+.change-train:active {
   box-shadow: 0px 4px 4px 0px #00000040;
   border: none;
   background-color: #ffa800;

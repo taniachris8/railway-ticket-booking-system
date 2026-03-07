@@ -14,10 +14,15 @@ import {
   setProgress,
 } from "./reducers/ticketsSlice";
 
-import { searchCities, searchDirections } from "../api/api";
+import {  getSeatsRequired,
+  getSeatsSuccess,
+  getSeatsFailure,
+  setSeatsProgress,} from "./reducers/seatsSlice";
+
+import { searchCities, searchDirections, searchSeats } from "../api/api";
 import type { CityType } from "./reducers/citiesSlice";
 import { getErrorMessage } from "../utils/getErrorMessage";
-import type { TicketsType } from "../types";
+import type { TicketsType, SeatsInfoType } from "../types";
 import type { RootState } from "./store";
 
 function* workGetCitiesFetch(action: ReturnType<typeof getCitiesRequired>) {
@@ -86,6 +91,45 @@ function* ticketsSaga() {
   yield takeLatest(getTicketsRequired.type, workGetTicketsFetch);
 }
 
+//////////////////////////////
+function* workGetSeatsFetch(): Generator {
+  try {
+    const filters: RootState["seatsFilters"] = yield select(
+      (state: RootState) => state.seatsFilters,
+    );
+
+    const progressChannel: EventChannel<number> = yield call(
+      createProgressChannel,
+      100,
+    );
+
+    const progressTask = yield fork(function* () {
+      try {
+        while (true) {
+          const progress: number = yield take(progressChannel);
+          yield put(setSeatsProgress(progress));
+        }
+      } finally {
+        progressChannel.close();
+      }
+    });
+
+    const data: SeatsInfoType[] = yield call(searchSeats, filters);
+    console.log("Response:", data);
+
+    yield cancel(progressTask);
+    yield put(setSeatsProgress(100));
+    yield put(getSeatsSuccess(data));
+  } catch (error) {
+    yield put(getSeatsFailure(getErrorMessage(error)));
+  }
+}
+
+function* seatsSaga() {
+  yield takeLatest(getSeatsRequired.type, workGetSeatsFetch);
+}
+/////////////////////////////
+
 export default function* rootSaga() {
-  yield all([citiesSaga(), ticketsSaga()]);
+  yield all([citiesSaga(), ticketsSaga(), seatsSaga()]);
 }

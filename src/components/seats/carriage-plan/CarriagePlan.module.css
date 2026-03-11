@@ -1,0 +1,33 @@
+.carriage__plan {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  padding-bottom: 40px;
+  
+}
+
+ .seat.selected {
+  width: 28px;
+  height: 31px;
+  border: 2px solid #FFA800;
+}
+
+.clients__online {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  text-align: center;
+  top: -65px;
+  right: 20px;
+  width: 199px;
+  height: 72px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  color: #292929;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 16px;
+}

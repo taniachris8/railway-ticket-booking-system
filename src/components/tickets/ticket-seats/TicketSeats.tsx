@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../state/store";
+import { setSeatsField } from "../../../state/reducers/seatsSlice";
 
 type TicketSeatsProps = {
   ticket: TicketType;
@@ -34,6 +35,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
 
   const navigateToSeatsPage = () => { 
     dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
+    dispatch(setSeatsField({ key: "departureTrain", value: departure }));
     if (seatsId) {
       navigate("/seats");
     }

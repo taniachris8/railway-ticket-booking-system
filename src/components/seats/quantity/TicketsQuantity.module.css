@@ -1,0 +1,19 @@
+.tickets__quantity {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tickets__quantity_title {
+  font-weight: 700;
+  font-size: 30px;
+  color: #292929;
+  padding-left: 20px;
+}
+
+.tickets__quantity_items {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+

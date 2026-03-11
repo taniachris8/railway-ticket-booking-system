@@ -38,3 +38,16 @@ ul {
   display: flex;
   flex-direction: column;
 }
+
+
+:global(.tippy-box[data-theme~="custom"]) {
+  box-shadow: 0px 4px 4px 0px #00000040;
+  background-color: #f5f4f6;
+  color: black;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+:global(.tippy-box[data-theme~="custom"] > .tippy-arrow::before) {
+  color: #f5f4f6;
+}

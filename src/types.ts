@@ -4,6 +4,11 @@ export type TicketsType = {
 };
 
 export type SeatsInfoType = {
+  coach: CoachType;
+  seats: SeatType[];
+};
+
+export type CoachType = {
   _id: string;
   name: string;
   class_type: string;
@@ -22,13 +27,13 @@ export type SeatsInfoType = {
   wifi_price: number;
   available_seats: number;
   is_linens_included: boolean;
-  seats: SeatType[];
 };
 
 export type SeatType = {
   index: number;
   available: boolean;
 };
+
 
 export type TicketType = {
   have_first_class: boolean;

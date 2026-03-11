@@ -10,6 +10,7 @@ type TrainsProps = {
   to_city: string;
   containerStyles?: string;
   iconStyles?: string;
+  trainDirectionsStyles?: string;
 };
 
 export function Train({
@@ -18,12 +19,13 @@ export function Train({
   to_city,
   containerStyles,
   iconStyles,
+  trainDirectionsStyles,
 }: TrainsProps) {
   return (
     <>
       <div className={`${styles.train} ${containerStyles}`}>
         <TrainIcon className={`${styles.train__icon} ${iconStyles}`} />
-        <div className={styles.train__directions}>
+        <div className={`${styles.train__directions} ${trainDirectionsStyles}`}>
           <p className={styles.train__number}>{formatTrainName(name)}</p>
           <div className={styles.train__direction}>
             <div className={styles.train__stop}>

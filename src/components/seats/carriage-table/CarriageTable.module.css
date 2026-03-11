@@ -1,0 +1,111 @@
+.carriage__table_wrapper {
+  width: 100%;
+}
+
+.carriage__table {
+  width: 100%;
+  padding: 20px 30px 20px 60px;
+}
+
+.carriage__table th {
+  text-align: left;
+  padding-bottom: 18px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #928f94;
+}
+
+.total__count {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: black;
+  padding-left: 8px;
+}
+
+.count {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-left: 10px;
+}
+
+.service {
+  color: #c4c4c4;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  padding-left: 8px;
+}
+
+.carriage__table td {
+  text-align: left;
+}
+
+.seats__type {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: black;
+}
+
+.amount {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: black;
+}
+
+.currency {
+  width: 14px;
+  height: 14px;
+  color: #928f94;
+}
+
+.icon__container {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  --border-color: #292929;
+  color: #292929;
+  cursor: pointer;
+  --background-fill: transparent;
+}
+
+.icon:hover {
+  --background-fill: #ffa800;
+}
+
+.icon.chosen {
+  --background-fill: #fdb935;
+  --border-color: transparent;
+  color: white;
+}
+
+.icon__inactive {
+  --background-fill: #fcdc9d;
+  --border-color: transparent;
+  color: black;
+}
+
+:global(.tippy-box[data-theme~="custom"]) {
+  box-shadow: 0px 4px 4px 0px #00000040;
+  background-color: #f5f4f6;
+  color: black;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+:global(.tippy-box[data-theme~="custom"] > .tippy-arrow::before) {
+  color: #f5f4f6;
+}

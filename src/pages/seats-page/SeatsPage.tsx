@@ -14,15 +14,15 @@ import { SeatsTrain } from "../../components/seats/train/SeatsTrain";
 // type SeatsPageProps = {};
 
 export function SeatsPage() {
-    const dispatch = useDispatch();
-    const status = useSelector((state: RootState) => state.seats.status);
-    const seatsData = useSelector((state: RootState) => state.seats.data);
-    console.log("seatsData:", seatsData)
+  const dispatch = useDispatch();
+  const status = useSelector((state: RootState) => state.seats.status);
+  const seatsData = useSelector((state: RootState) => state.seats.data);
+  console.log("from seatsPage:", seatsData);
 
-    useEffect(() => {
-        dispatch(getSeatsRequired());
-    }, [dispatch]);
-    
+  useEffect(() => {
+    dispatch(getSeatsRequired());
+  }, [dispatch]);
+
   return (
     <>
       <HeroSection
@@ -47,9 +47,7 @@ export function SeatsPage() {
 
             <main className={styles.seats__content}>
               <h3 className={styles.seats__title}>Выбор мест</h3>
-              {seatsData.map((data) => (
-                  <SeatsTrain data={ data} direction="to" />
-              ))}
+              <SeatsTrain direction="to" />
               {/* <SeatsTrain direction="from" /> */}
             </main>
           </section>

@@ -1,8 +1,10 @@
 export type IconProps = {
   className: string;
   onClick?: () => void
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
-
+      
 export function PhoneIcon({ className }: IconProps) {
   return (
     <>

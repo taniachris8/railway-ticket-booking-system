@@ -16,7 +16,7 @@
   background-color: #f7f6f6;
   gap: 8px;
   height: 100%;
-   padding: 0 30px 0 30px;
+  padding: 0 30px 0 30px;
 }
 
 .train__item {
@@ -25,13 +25,16 @@
   gap: 20px;
   background-color: transparent;
   justify-content: center;
-  /* flex: 1; */
 }
 
 .train__icon {
   color: #ffa800;
   width: 30px;
   height: 30px;
+}
+
+.train__directions {
+  align-items: flex-start;
 }
 
 .directions__item {
@@ -72,4 +75,5 @@
   font-weight: 400;
   font-size: 18px;
   color: #000000;
+   white-space: pre-line;
 }

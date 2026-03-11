@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { SeatsInfoType } from "../../types";
+import type { DepartureType, SeatsInfoType } from "../../types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export type SeatsState = {
@@ -7,6 +7,12 @@ export type SeatsState = {
   data: SeatsInfoType[];
   error: string | null;
   progressSeats: number;
+  departureTrain: DepartureType | null;
+  arrivalTrain: DepartureType | null;
+  adultCount: number;
+  childCount: number;
+  infantCount: number;
+  
 };
 
 const initialState: SeatsState = {
@@ -14,18 +20,23 @@ const initialState: SeatsState = {
   data: [],
   error: null,
   progressSeats: 0,
+  departureTrain: null,
+  arrivalTrain: null,
+  adultCount: 0,
+  childCount: 0,
+  infantCount: 0,
 };
 
 const seatsSlice = createSlice({
   name: "seats",
   initialState,
   reducers: {
-    // setTicketField: <K extends keyof TicketsState>(
-    //   state: TicketsState,
-    //   action: PayloadAction<{ key: K; value: TicketsState[K] }>,
-    // ) => {
-    //   state[action.payload.key] = action.payload.value;
-    // },
+    setSeatsField: <K extends keyof SeatsState>(
+      state: SeatsState,
+      action: PayloadAction<{ key: K; value: SeatsState[K] }>,
+    ) => {
+      state[action.payload.key] = action.payload.value;
+    },
     getSeatsRequired: (state) => {
       state.status = "loading";
       state.progressSeats = 0;
@@ -51,6 +62,7 @@ export const {
   getSeatsSuccess,
   getSeatsFailure,
   setSeatsProgress,
+  setSeatsField,
 } = seatsSlice.actions;
 
 export default seatsSlice.reducer;

@@ -2,7 +2,7 @@ import styles from "./TicketSeats.module.css";
 import { useState } from "react";
 import { AvailableSeatsTooltip } from "../available-seats-tooltip/AvailableSeatsTooltip";
 import { Price } from "../../price/Price";
-import { Button } from "../../buttons/Button";
+import { Button } from "../../button/Button";
 import type { AvailableSeatsInfoType, TicketType } from "../../../types";
 import { WifiIcon } from "../../../icons/WifiIcon";
 import { ExpressIcon } from "../../../icons/ExpressIcon";
@@ -24,7 +24,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
   const [showAvailableSeats, setShowAvailableSeats] = useState<string | null>(
     null,
   );
-  const { departure } = ticket;
+  const { departure, arrival } = ticket;
   const { have_air_conditioning, have_wifi, is_express } = ticket;
 
   const findMinPrice = (obj: Record<string, number>): number => {
@@ -36,6 +36,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
   const navigateToSeatsPage = () => { 
     dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
     dispatch(setSeatsField({ key: "departureTrain", value: departure }));
+    dispatch(setSeatsField({ key: "arrivalTrain", value: arrival }));
     if (seatsId) {
       navigate("/seats");
     }

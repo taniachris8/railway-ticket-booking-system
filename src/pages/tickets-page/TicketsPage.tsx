@@ -143,7 +143,7 @@ export function TicketsPage() {
     <>
       <HeroSection
         image="/images/background2.png"
-        containerClassName={ styles.hero__ticket_page }>
+        containerClassName={styles.hero__ticket_page}>
         <FindTicketsForm
           containerClassName={styles.find_tickets__tickets_container}
           inputsDivClassName={styles.find_tickets__inputs__tickets_page}

@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./TicketsQuantity.module.css";
-import { TicketsQuantityItem } from "./TicketsQuantityItem";
+import { TicketsQuantityItem } from "../tickets-quantity-item/TicketsQuantityItem";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../../state/store";
-import type { TicketItem } from "./TicketsQuantityItem";
+import type { RootState } from "../../../../state/store";
+import type { TicketItem } from "../tickets-quantity-item/TicketsQuantityItem";
 
-export function TicketsQuantity() {
+export function TicketsQuantity({
+  direction,
+}: {
+  direction: "departure" | "arrival";
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { adultCount, childCount } = useSelector(
-    (state: RootState) => state.seats,
+    (state: RootState) => state.seats[direction],
   );
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setActiveIndex(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const items: TicketItem[] = [
     {
@@ -26,13 +48,14 @@ export function TicketsQuantity() {
     },
     {
       type: "Детских «без места» — ",
-      maxCount: 5,
+      maxCount: adultCount,
+      info: `Количество детских билетов без места не может превышать количество взрослых пассажиров. За детей без места платить не нужно.`,
       keyLabel: "infantCount",
     },
   ];
 
   return (
-    <div className={styles.tickets__quantity}>
+    <div ref={containerRef} className={styles.tickets__quantity}>
       <h4 className={styles.tickets__quantity_title}>Количество билетов</h4>
       <div className={styles.tickets__quantity_items}>
         {items.map((item, index) => (
@@ -44,7 +67,7 @@ export function TicketsQuantity() {
             keyLabel={item.keyLabel}
             active={activeIndex === index}
             onClick={() => setActiveIndex(index)}
-            
+            direction={direction}
           />
         ))}
       </div>

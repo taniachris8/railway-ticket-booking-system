@@ -1,6 +1,6 @@
 import styles from "./Footer.module.css";
 import { NavLink } from "react-router";
-import { Button } from "../buttons/Button";
+import { Button } from "../button/Button";
 import { PhoneIcon } from "../../icons/PhoneIcon";
 import { MailIcon } from "../../icons/MailIcon";
 import { SkypeIcon } from "../../icons/SkypeIcons";

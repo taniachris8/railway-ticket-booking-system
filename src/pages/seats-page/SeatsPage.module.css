@@ -47,3 +47,8 @@
   color: #292929;
 }
 
+.button {
+  align-self: flex-end;
+  margin-top: 60px;
+}
+

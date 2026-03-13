@@ -1,22 +1,23 @@
 import styles from "./TicketsQuantityItem.module.css";
-import type { RootState } from "../../../state/store";
+import type { RootState } from "../../../../state/store";
 import { useSelector, useDispatch } from "react-redux";
-import { setSeatsField, type SeatsState } from "../../../state/reducers/seatsSlice";
+import { setPassengers } from "../../../../state/reducers/seatsSlice";
+import { useState } from "react";
+import { Module } from "../../../module/Module";
+
+type PassengerKey = "adultCount" | "childCount" | "infantCount";
 
 export type TicketItem = {
   type: string;
   maxCount: number;
   info?: string;
-  keyLabel: keyof SeatsState;
+  keyLabel: PassengerKey;
 };
 
-type TicketsQuantityItemProps = {
-  type: string;
-  maxCount: number;
-  info?: string;
+type TicketsQuantityItemProps = TicketItem & {
   active: boolean;
-  keyLabel: keyof SeatsState;
   onClick: () => void;
+  direction: "departure" | "arrival";
 };
 
 export function TicketsQuantityItem({
@@ -25,31 +26,46 @@ export function TicketsQuantityItem({
   info,
   active,
   keyLabel,
-  onClick,
+  onClick, direction
 }: TicketsQuantityItemProps) {
   const dispatch = useDispatch();
 
   const { adultCount, childCount, infantCount } = useSelector(
-    (state: RootState) => state.seats,
+    (state: RootState) => state.seats[direction],
   );
+  const [showWarningModule, setShowWarningModule] = useState(false);
 
-   const currentCount =
-     keyLabel === "adultCount"
-       ? adultCount
-       : keyLabel === "childCount"
-         ? childCount
-         : infantCount;
+  const currentCount =
+    keyLabel === "adultCount"
+      ? adultCount
+      : keyLabel === "childCount"
+        ? childCount
+        : infantCount;
 
   const increment = () => {
     if (currentCount < maxCount) {
-      dispatch(setSeatsField({ key: keyLabel, value: currentCount + 1 }));
+      if (adultCount === 0 && keyLabel === "childCount") {
+        setShowWarningModule(true);
+        return;
+      }
+      dispatch(
+        setPassengers({
+          direction,
+          [keyLabel]: currentCount + 1,
+        }),
+      );
     }
   };
 
   const decrement = () => {
-    if (currentCount > 0) {
-      dispatch(setSeatsField({ key: keyLabel, value: currentCount - 1 }));
-    }
+   if (currentCount > 0) {
+     dispatch(
+       setPassengers({
+         direction,
+         [keyLabel]: currentCount - 1,
+       }),
+     );
+   }
   };
 
   return (
@@ -64,7 +80,6 @@ export function TicketsQuantityItem({
       }`}>
       <div className={styles.tickets__quantity_wrapper}>
         <p className={styles.tickets__quantity_type}>{type}</p>
-
         {active && (
           <button
             className={styles.tickets__quantity_button}
@@ -74,9 +89,7 @@ export function TicketsQuantityItem({
           </button>
         )}
 
-        <span className={styles.tickets__quantity_current}>
-          {currentCount}
-        </span>
+        <span className={styles.tickets__quantity_current}>{currentCount}</span>
 
         {active && (
           <button
@@ -89,6 +102,13 @@ export function TicketsQuantityItem({
       </div>
 
       {info && <p className={styles.tickets__quantity_info}>{info}</p>}
+      {showWarningModule && (
+        <Module
+          message="Пожалуйста, сначала добавьте хотя бы одного взрослого пассажира"
+          type="info"
+          onClick={() => setShowWarningModule(false)}
+        />
+      )}
     </div>
   );
 }

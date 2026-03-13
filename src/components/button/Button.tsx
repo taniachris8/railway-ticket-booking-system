@@ -12,12 +12,15 @@ type ButtonProps = {
     | "send";
   text: string;
   onClick?: () => void;
+  className?: string;
 };
 
-export function Button({ variant, text, onClick }: ButtonProps) {
+export function Button({ variant, text, onClick, className }: ButtonProps) {
   return (
     <>
-      <button className={variant} onClick={onClick}>{text}</button>
+      <button className={`${variant} ${className || ""}`} onClick={onClick}>
+        {text}
+      </button>
     </>
   );
 }

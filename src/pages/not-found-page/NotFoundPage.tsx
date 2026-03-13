@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { Button } from "../../components/buttons/Button";
+import { Button } from "../../components/button/Button";
 import styles from "./NotFoundPage.module.css";
 
 export function NotFoundPage() {

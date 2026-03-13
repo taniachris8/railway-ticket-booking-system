@@ -1,5 +1,5 @@
 import styles from "./HowItWorks.module.css";
-import { Button } from "../buttons/Button";
+import { Button } from "../button/Button";
 
 export function HowItWorks() {
   return (

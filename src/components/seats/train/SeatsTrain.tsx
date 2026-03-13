@@ -1,22 +1,24 @@
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { ToIcon } from "../../../icons/ToIcon";
-import { Button } from "../../buttons/Button";
+import { Button } from "../../button/Button";
 import { CarriageType } from "../carriage-type/CarriageType";
-import { TicketsQuantity } from "../quantity/TicketsQuantity";
+import { TicketsQuantity } from "../quantity/tickets-quantity/TicketsQuantity";
 import { TrainInfo } from "../train-info/TrainInfo";
 import styles from "./SeatsTrain.module.css";
-import type { RootState } from "../../../state/store";
+import { resetTrainState } from "../../../state/reducers/seatsSlice";
 
 type SeatsTrainProps = {
-  direction: string;
+  direction: "departure" | "arrival";
 };
 
 export function SeatsTrain({ direction }: SeatsTrainProps) {
-  const seatsData = useSelector((state: RootState) => state.seats.data);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChoseAnotherTrain = () => {
+    dispatch(resetTrainState("arrival"));
+    dispatch(resetTrainState("departure"));
     navigate("/tickets");
   };
 
@@ -33,10 +35,8 @@ export function SeatsTrain({ direction }: SeatsTrainProps) {
           />
         </div>
         <TrainInfo direction={direction} />
-        <TicketsQuantity />
-        {seatsData.map((data, index) => (
-          <CarriageType key={index} data ={data}/>
-        ))}
+        <TicketsQuantity direction={direction} />
+        <CarriageType direction={direction} />
       </section>
     </>
   );

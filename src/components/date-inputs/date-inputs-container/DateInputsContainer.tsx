@@ -1,8 +1,8 @@
-import styles from "./DateInputs.module.css"
-import { DepartureDateInput } from "./DepartureDateInput";
-import { ReturnDateInput } from "./ReturnDateInput";
+import styles from "./DateInputsContainer.module.css"
+import { DepartureDateInput } from "../departure-date-input/DepartureDateInput";
+import { ReturnDateInput } from "../return-date-input/ReturnDateInput";
 
-export function DateInputs() {
+export function DateInputsContainer() {
   return (
     <>
       <div className={styles.date}>

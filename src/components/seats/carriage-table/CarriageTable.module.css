@@ -5,6 +5,8 @@
 .carriage__table {
   width: 100%;
   padding: 20px 30px 20px 60px;
+  border-collapse: separate; 
+  border-spacing: 0 10px; 
 }
 
 .carriage__table th {
@@ -16,6 +18,8 @@
   letter-spacing: 0%;
   color: #928f94;
 }
+
+
 
 .total__count {
   font-weight: 400;

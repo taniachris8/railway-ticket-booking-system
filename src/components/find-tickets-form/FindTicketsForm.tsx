@@ -2,9 +2,9 @@ import styles from "./FindTicketsForm.module.css";
 import { useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { DateInputs } from "../date-inputs/DateInputs";
+import { DateInputsContainer } from "../date-inputs/date-inputs-container/DateInputsContainer";
 import { DirectionInputs } from "../direction-inputs/direction-inputs/DirectionInputs";
-import { Button } from "../buttons/Button";
+import { Button } from "../button/Button";
 import type { RootState } from "../../state/store";
 
 type FindTicketsFormProps = {
@@ -55,7 +55,7 @@ export function FindTicketsForm({
           onSubmit={handleFindTickets}>
           <div className={inputsDivClassName}>
             <DirectionInputs visibleFromCityTooltip={visibleFromCityTooltip} visibleToCityTooltip={visibleToCityTooltip} />
-            <DateInputs />
+            <DateInputsContainer />
           </div>
           <Button variant="find" text="Найти билеты" />
         </form>

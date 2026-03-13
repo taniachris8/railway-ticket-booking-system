@@ -9,22 +9,27 @@ import type { RootState } from "../../../state/store";
 import { formatCityName } from "../../../utils/formatCityName";
 import { formatDuration, formatTime } from "../../../utils/formatTime";
 
-export function TrainInfo({ direction }: { direction: string }) {
+export function TrainInfo({ direction }: { direction: "departure" | "arrival" }) {
   const departureTrain = useSelector(
     (state: RootState) => state.seats.departureTrain,
+  );
+  const arrivalTrain = useSelector(
+    (state: RootState) => state.seats.arrivalTrain,
   );
 
   console.log("departureTrain in TrainInfo:", departureTrain);
 
-  if (!departureTrain) return null;
+  const train = direction === "departure" ? departureTrain : arrivalTrain;
+
+  if (!train) return null;
 
   return (
     <div className={styles.train__info}>
       <div className={styles.train__info__item}>
         <Train
           name={departureTrain ? departureTrain.train.name : "Название поезда"}
-          from_city={formatCityName(departureTrain.from.city.name)}
-          to_city={formatCityName(departureTrain.to.city.name)}
+          from_city={formatCityName(train.from.city.name)}
+          to_city={formatCityName(train.to.city.name)}
           containerStyles={styles.train__item}
           iconStyles={styles.train__icon}
           trainDirectionsStyles={styles.train__directions}
@@ -33,33 +38,33 @@ export function TrainInfo({ direction }: { direction: string }) {
 
       <div className={`${styles.train__info__item} ${styles.directions__item}`}>
         <TicketLocation
-          city={formatCityName(departureTrain.from.city.name)}
+          city={formatCityName(train.from.city.name)}
           station={
-            formatCityName(departureTrain.from.railway_station_name) + " вокзал"
+            formatCityName(train.from.railway_station_name) + " вокзал"
           }
           containerClassName={styles.ticket_location}
           cityClassName={styles.city}
           stationClassName={styles.station}>
           <time className={styles.time}>
-            {formatTime(departureTrain.from.datetime)}
+            {formatTime(train.from.datetime)}
           </time>
         </TicketLocation>
-        {direction === "to" && (
+        {direction === "departure" && (
           <ArrowRightIcon className={styles.arrow__icon} />
         )}
-        {direction === "from" && (
+        {direction === "arrival" && (
           <ArrowLeftIcon className={styles.arrow__icon} />
         )}
         <TicketLocation
-          city={formatCityName(departureTrain.to.city.name)}
+          city={formatCityName(train.to.city.name)}
           station={
-            formatCityName(departureTrain.to.railway_station_name) + " вокзал"
+            formatCityName(train.to.railway_station_name) + " вокзал"
           }
           containerClassName={styles.ticket_location}
           cityClassName={styles.city}
           stationClassName={styles.station}>
           <time className={styles.time}>
-            {formatTime(departureTrain.to.datetime)}
+            {formatTime(train.to.datetime)}
           </time>
         </TicketLocation>
       </div>
@@ -67,7 +72,7 @@ export function TrainInfo({ direction }: { direction: string }) {
       <div className={`${styles.train__info__item} ${styles.duration__item}`}>
         <ClockIcon className={styles.clock__icon} />
         <time className={styles.duration}>
-          {formatDuration(departureTrain.duration)}
+          {formatDuration(train.duration)}
         </time>
       </div>
     </div>

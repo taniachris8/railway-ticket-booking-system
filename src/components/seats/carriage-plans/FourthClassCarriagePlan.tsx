@@ -4,6 +4,7 @@ export function FourthClassCarriagePlan({
   isSeatAvailable,
   handleSelectSeat,
   selected,
+  carriageNumber, 
 }: ClassCarriagePlanProps) {
   const drawLeftSideSeats = () => {
     const seats = [];
@@ -13,22 +14,34 @@ export function FourthClassCarriagePlan({
       const seatNumber = i + 1;
       const y = i % 2 === 0 ? 55 : 34;
       const available = isSeatAvailable(seatNumber);
+       const isSelected = selected.includes(seatNumber);
 
       seats.push(
-        <rect
+        <g
           key={seatNumber}
-          x={x}
-          y={y}
-          width="24"
-          height="18"
-          stroke="none"
-          fill="transparent"
-          style={{
-            cursor: available ? "pointer" : "not-allowed",
-            outline: selected === seatNumber ? "2px solid #FFA800" : "none",
-          }}
           onClick={available ? () => handleSelectSeat(seatNumber) : undefined}
-        />,
+          style={{ cursor: available ? "pointer" : "not-allowed" }}>
+          <rect
+            x={x}
+            y={y}
+            width="24"
+            height="18"
+            fill={available ? "#E5E5E5" : "#777"}
+            stroke={isSelected ? "#FFA800" : "none"}
+            strokeWidth={isSelected ? 2 : 0}
+          />
+
+          <text
+            x={x + 12}
+            y={y + 9}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize="9"
+            fill={available ? "black" : "#ccc"}
+            pointerEvents="none">
+            {seatNumber}
+          </text>
+        </g>,
       );
 
       if ((i + 1) % 4 === 0) {
@@ -45,43 +58,66 @@ export function FourthClassCarriagePlan({
     const seats = [];
 
     seats.push(
-      <rect
+      <g
         key={33}
-        x={147}
-        y={115}
-        width="24"
-        height="18"
-        stroke="none"
-        fill="transparent"
-        style={{
-          cursor: isSeatAvailable(33) ? "pointer" : "not-allowed",
-          outline: selected === 33 ? "2px solid #FFA800" : "none",
-        }}
         onClick={isSeatAvailable(33) ? () => handleSelectSeat(33) : undefined}
-      />,
+        style={{ cursor: isSeatAvailable(33) ? "pointer" : "not-allowed" }}>
+        <rect
+          x={147}
+          y={115}
+          width="24"
+          height="18"
+          fill={isSeatAvailable(33) ? "#E5E5E5" : "#777"}
+          stroke={selected.includes(33) ? "#FFA800" : "none"}
+          strokeWidth={selected.includes(33) ? 2 : 0}
+        />
+
+        <text
+          x={147 + 12}
+          y={115 + 9}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize="9"
+          fill={isSeatAvailable(33) ? "black" : "#ccc"}
+          pointerEvents="none">
+          33
+        </text>
+      </g>,
     );
 
     let x = 190;
 
-    for (let seatNumber = 34, i = 0; seatNumber <= 60; seatNumber++, i++) {
+    for (let seatNumber = 34, i = 0; seatNumber <= 61; seatNumber++, i++) {
       const y = seatNumber % 2 === 0 ? 95 : 115;
       const available = isSeatAvailable(seatNumber);
+       const isSelected = selected.includes(seatNumber);
 
       seats.push(
-        <rect
+        <g
           key={seatNumber}
-          x={x}
-          y={y}
-          width="24"
-          height="18"
-          stroke="none"
-          fill="transparent"
-          style={{
-            cursor: available ? "pointer" : "not-allowed",
-            outline: selected === seatNumber ? "2px solid #FFA800" : "none",
-          }}
           onClick={available ? () => handleSelectSeat(seatNumber) : undefined}
-        />,
+          style={{ cursor: available ? "pointer" : "not-allowed" }}>
+          <rect
+            x={x}
+            y={y}
+            width="24"
+            height="18"
+            fill={available ? "#E5E5E5" : "#777"}
+            stroke={isSelected ? "#FFA800" : "none"}
+            strokeWidth={isSelected ? 2 : 0}
+          />
+
+          <text
+            x={x + 12}
+            y={y + 9}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize="9"
+            fill={available ? "black" : "#ccc"}
+            pointerEvents="none">
+            {seatNumber}
+          </text>
+        </g>,
       );
 
       if ((i + 1) % 4 === 0) {
@@ -92,20 +128,31 @@ export function FourthClassCarriagePlan({
     }
 
     seats.push(
-      <rect
+      <g
         key={62}
-        x={806}
-        y={115}
-        width="24"
-        height="18"
-        stroke="none"
-        fill="transparent"
-        style={{
-          cursor: isSeatAvailable(62) ? "pointer" : "not-allowed",
-          outline: selected === 62 ? "2px solid #FFA800" : "none",
-        }}
         onClick={isSeatAvailable(62) ? () => handleSelectSeat(62) : undefined}
-      />,
+        style={{ cursor: isSeatAvailable(62) ? "pointer" : "not-allowed" }}>
+        <rect
+          x={806}
+          y={115}
+          width="24"
+          height="18"
+          fill={isSeatAvailable(62) ? "#E5E5E5" : "#777"}
+          stroke={selected.includes(62) ? "#FFA800" : "none"}
+          strokeWidth={selected.includes(62) ? 2 : 0}
+        />
+
+        <text
+          x={806 + 12}
+          y={115 + 9}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize="9"
+          fill={isSeatAvailable(62) ? "black" : "#ccc"}
+          pointerEvents="none">
+          62
+        </text>
+      </g>,
     );
 
     return seats;
@@ -115,6 +162,18 @@ export function FourthClassCarriagePlan({
     <>
       <svg width="921" height="145">
         <image href="images\fourth-class-plan.png" width="921" height="145" />
+        <g>
+          <rect x={40} y={-1} width="35" height="26" fill="black" />
+          <text
+            x={40 + 35 / 2}
+            y={-1 + 26 / 2}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="white"
+            fontSize="12">
+            {carriageNumber}
+          </text>
+        </g>
         {drawLeftSideSeats()}
         {drawRightSideSeats()}
       </svg>

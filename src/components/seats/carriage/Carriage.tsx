@@ -5,17 +5,17 @@ import type { SeatsInfoType } from "../../../types";
 import { formatCarriageName } from "../../../utils/formatCarriageName";
 
 type CarriageProps = {
-    data: SeatsInfoType;
+  data: SeatsInfoType;
+  direction: "departure" | "arrival";
 };
 
-export function Carriage({ data }: CarriageProps) {
-    const { class_type} = data.coach;
-    
+export function Carriage({ data, direction }: CarriageProps) {
+  const carriageNumber = formatCarriageName(data.coach.name);
+
   console.log("from carriage:", data);
   return (
     <>
-      <div
-        className={styles.carriage__content}>
+      <div className={styles.carriage__content}>
         <div className={styles.carriage__content_header}>
           <div className={styles.carriages}>
             <p className={styles.carriage__content_text}>Вагоны</p>
@@ -28,12 +28,12 @@ export function Carriage({ data }: CarriageProps) {
         </div>
         <div className={styles.carriage__details}>
           <div className={styles.carriage__details_number}>
-            <p>{formatCarriageName(data.coach.name)}</p>
+            <p>{carriageNumber}</p>
             <span>вагон</span>
           </div>
-          <CarriageTable data={data} />
+          <CarriageTable data={data} direction={direction} />
         </div>
-        <CarriagePlan availableSeats={data.seats} classType={class_type} />
+        <CarriagePlan data={data} direction={direction} />
       </div>
     </>
   );

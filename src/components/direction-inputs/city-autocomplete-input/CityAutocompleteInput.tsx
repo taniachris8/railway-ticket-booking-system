@@ -1,11 +1,14 @@
-import type { RootState } from "../../state/store";
 import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTicketField } from "../../state/reducers/ticketsSlice";
-import { getCitiesRequired } from "../../state/reducers/citiesSlice";
-import type { CityType } from "../../types";
-import { setFilterField } from "../../state/reducers/filterSlice";
-import { CityInput } from "./city-input/CityInput";
+
+import type { RootState } from "../../../state/store";
+import type { CityType } from "../../../types";
+
+import { setTicketField } from "../../../state/reducers/ticketsSlice";
+import { getCitiesRequired } from "../../../state/reducers/citiesSlice";
+import { setFilterField } from "../../../state/reducers/filterSlice";
+
+import { CityInput } from "../city-input/CityInput";
 
 type CityAutocompleteInputProps = {
   containerClassName: string;

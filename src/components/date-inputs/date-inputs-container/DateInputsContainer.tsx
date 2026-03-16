@@ -1,6 +1,7 @@
-import styles from "./DateInputsContainer.module.css"
 import { DepartureDateInput } from "../departure-date-input/DepartureDateInput";
 import { ReturnDateInput } from "../return-date-input/ReturnDateInput";
+
+import styles from "./DateInputsContainer.module.css";
 
 export function DateInputsContainer() {
   return (

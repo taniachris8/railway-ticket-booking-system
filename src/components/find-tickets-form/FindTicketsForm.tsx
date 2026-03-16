@@ -1,11 +1,14 @@
-import styles from "./FindTicketsForm.module.css";
 import { useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+
+import type { RootState } from "../../state/store";
+
 import { DateInputsContainer } from "../date-inputs/date-inputs-container/DateInputsContainer";
 import { DirectionInputs } from "../direction-inputs/direction-inputs/DirectionInputs";
 import { Button } from "../button/Button";
-import type { RootState } from "../../state/store";
+
+import styles from "./FindTicketsForm.module.css";
 
 type FindTicketsFormProps = {
   containerClassName: string;

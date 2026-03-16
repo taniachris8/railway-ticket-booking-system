@@ -5,8 +5,8 @@
 .carriage__table {
   width: 100%;
   padding: 20px 30px 20px 60px;
-  border-collapse: separate; 
-  border-spacing: 0 10px; 
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
 .carriage__table th {
@@ -18,8 +18,6 @@
   letter-spacing: 0%;
   color: #928f94;
 }
-
-
 
 .total__count {
   font-weight: 400;
@@ -84,22 +82,25 @@
   color: #292929;
   cursor: pointer;
   --background-fill: transparent;
+  cursor: pointer;
 }
 
 .icon:hover {
   --background-fill: #ffa800;
 }
 
-.icon.chosen {
+.icon__selected {
   --background-fill: #fdb935;
   --border-color: transparent;
   color: white;
+  cursor: pointer;
 }
 
 .icon__inactive {
   --background-fill: #fcdc9d;
   --border-color: transparent;
   color: black;
+  cursor: pointer;
 }
 
 :global(.tippy-box[data-theme~="custom"]) {

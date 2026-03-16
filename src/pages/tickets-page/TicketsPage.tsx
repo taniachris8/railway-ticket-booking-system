@@ -157,7 +157,7 @@ export function TicketsPage() {
           <ProgressWidget stage="tickets-page" />
           <section className={styles.tickets}>
             <aside className={styles.tickets__sidebar}>
-              <FilterWidget />
+              <FilterWidget filterType="filters" />
               <LastTicketsWidget />
             </aside>
 

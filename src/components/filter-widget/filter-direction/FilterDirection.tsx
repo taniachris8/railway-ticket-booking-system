@@ -1,8 +1,10 @@
-import styles from "./FilterDirection.module.css";
 import { useState } from "react";
+import { FilterSlider } from "../filter-slider/FilterSlider";
+
 import { MoreIcon } from "../../../icons/MoreIcon";
 import { LessIcon } from "../../../icons/LessIcon";
-import { FilterSlider } from "../filter-slider/FilterSlider";
+
+import styles from "./FilterDirection.module.css";
 
 type FilterDirectionProps = {
   title: string;

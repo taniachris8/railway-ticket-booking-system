@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { TicketsType } from "../../types";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { resetSearchStateAction } from "../actions/resetSearch";
 
 export type TicketsState = {
   from_city: string;
@@ -50,6 +51,16 @@ const ticketsSlice = createSlice({
     setProgress: (state, action: PayloadAction<number>) => {
       state.progress = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetSearchStateAction, (state) => {
+      state.from_city = "";
+      state.to_city = "";
+      state.status = "idle";
+      state.data = { total_count: 0, items: [] };
+      state.error = null;
+      state.progress = 0;
+    });
   },
 });
 

@@ -1,11 +1,12 @@
-import styles from "./FilterWidget.module.css";
 import { DepartureDateInput } from "../date-inputs/departure-date-input/DepartureDateInput";
 import { ReturnDateInput } from "../date-inputs/return-date-input/ReturnDateInput";
 import { FilterDirection } from "./filter-direction/FilterDirection";
 import { FilterOptions } from "./filter-options/FilterOptions";
 import { FilterPrice } from "./filter-price/FilterPrice";
 
-export function FilterWidget() {
+import styles from "./FilterWidget.module.css";
+
+export function FilterWidget({filterType}: {filterType: "filters" | "seatsFilters"}) {
   return (
     <>
       <section className={ styles.filter}>
@@ -28,7 +29,7 @@ export function FilterWidget() {
           </div>
         </div>
 
-        <FilterOptions />
+        <FilterOptions filterType={filterType} />
         <FilterPrice />
         <FilterDirection
           iconSrc="/icons/filter-to.svg"

@@ -1,10 +1,18 @@
-import styles from "./FilterOptions.module.css";
-import { setFilterField } from "../../../state/reducers/filterSlice";
-import type { RootState } from "../../../state/store";
-import { ToggleSwitch } from "../toggle-switch/ToggleSwitch";
 import { useDispatch, useSelector } from "react-redux";
 
-export function FilterOptions() {
+import type { RootState } from "../../../state/store";
+
+import { setFilterField } from "../../../state/reducers/filterSlice";
+import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
+import { ToggleSwitch } from "../toggle-switch/ToggleSwitch";
+
+import styles from "./FilterOptions.module.css";
+
+export function FilterOptions({
+  filterType,
+}: {
+  filterType: "filters" | "seatsFilters";
+}) {
   const dispatch = useDispatch();
 
   const {
@@ -14,24 +22,31 @@ export function FilterOptions() {
     have_fourth_class,
     have_wifi,
     have_express,
-  } = useSelector((state: RootState) => state.filters);
+  } = useSelector((state: RootState) => state[filterType]);
 
-const handleChange = (key: keyof RootState["filters"], value: boolean) => {
-  dispatch(setFilterField({ key, value }));
-};
+  const handleChange = (
+    key: keyof RootState[typeof filterType],
+    value: boolean,
+  ) => {
+    if (filterType === "filters") {
+      dispatch(setFilterField({ key, value }));
+    } else {
+      dispatch(setSeatsFiltersField({ key, value }));
+    }
+  };
 
   return (
     <>
-      <div className={ styles.options}>
-        <ul className={ styles.options__list}>
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+      <div className={styles.options}>
+        <ul className={styles.options__list}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/compartment.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Купе</p>
+              <p className={styles.options__name}>Купе</p>
             </div>
             <ToggleSwitch
               checked={have_second_class}
@@ -39,14 +54,14 @@ const handleChange = (key: keyof RootState["filters"], value: boolean) => {
             />
           </li>
 
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/general.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Плацкарт</p>
+              <p className={styles.options__name}>Плацкарт</p>
             </div>
             <ToggleSwitch
               checked={have_third_class}
@@ -54,56 +69,56 @@ const handleChange = (key: keyof RootState["filters"], value: boolean) => {
             />
           </li>
 
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/seated.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Сидячий</p>
+              <p className={styles.options__name}>Сидячий</p>
             </div>
             <ToggleSwitch
               checked={have_fourth_class}
               onChange={(checked) => handleChange("have_fourth_class", checked)}
             />
           </li>
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/luxe.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Люкс</p>
+              <p className={styles.options__name}>Люкс</p>
             </div>
             <ToggleSwitch
               checked={have_first_class}
               onChange={(checked) => handleChange("have_first_class", checked)}
             />
           </li>
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/wifi.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Wi-Fi</p>
+              <p className={styles.options__name}>Wi-Fi</p>
             </div>
             <ToggleSwitch
               checked={have_wifi}
               onChange={(checked) => handleChange("have_wifi", checked)}
             />
           </li>
-          <li className={ styles.options__item}>
-            <div className={ styles.option}>
+          <li className={styles.options__item}>
+            <div className={styles.option}>
               <img
                 src="/icons/express.svg"
                 alt=""
-                className={ styles.options__icon }
+                className={styles.options__icon}
               />
-              <p className={ styles.options__name }>Экспресс</p>
+              <p className={styles.options__name}>Экспресс</p>
             </div>
             <ToggleSwitch
               checked={have_express}

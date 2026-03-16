@@ -1,17 +1,22 @@
-import styles from "./CarriagePlan.module.css";
-import type { SeatsInfoType } from "../../../types";
-import { ThirdClassCarriagePlan } from "../carriage-plans/ThirdClassCarriagePlan";
-import { FirstClassCarriagePlan } from "../carriage-plans/FirstClassCarriagePlan";
-import { FourthClassCarriagePlan } from "../carriage-plans/FourthClassCarriagePlan";
-import { SecondClassCarriagePlan } from "../carriage-plans/SecondClassCarriagePlan";
-import type { RootState } from "../../../state/store";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+
+import type { SeatsInfoType } from "../../../types";
+import type { RootState } from "../../../state/store";
+
+import { selectSelectedSeats } from "../../../state/selectors/seatSelectors";
 import { toggleSeat } from "../../../state/reducers/seatsSlice";
-import { Module } from "../../module/Module";
-import { useState, useEffect } from "react";
-import { Price } from "../../price/Price";
-import { setSeatsField } from "../../../state/reducers/seatsSlice";
+
 import { formatCarriageName } from "../../../utils/formatCarriageName";
+
+import { Module } from "../../module/Module";
+import { FirstClassCarriagePlan } from "../carriage-plans/first-class-carriage-plan/FirstClassCarriagePlan";
+import { SecondClassCarriagePlan } from "../carriage-plans/second-class-carriage-plan/SecondClassCarriagePlan";
+import { ThirdClassCarriagePlan } from "../carriage-plans/third-class-carriage-plan/ThirdClassCarriagePlan";
+import { FourthClassCarriagePlan } from "../carriage-plans/fourth-class-carriage-plan/FourthClassCarriagePlan";
+import { Price } from "../../price/Price";
+
+import styles from "./CarriagePlan.module.css";
 
 type CarriagePlanProps = {
   data: SeatsInfoType;
@@ -23,18 +28,12 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
     data.coach;
   const carriageNumber = formatCarriageName(name);
   const dispatch = useDispatch();
-  const { adultCount, childCount } = useSelector(
+  const { adultCount, childCount, wifiPrice, linenPrice } = useSelector(
     (state: RootState) => state.seats[direction],
   );
-  const selectedSeats = useSelector(
-    (state: RootState) => state.seats[direction].selectedSeats,
+  const selectedSeats = useSelector((state: RootState) =>
+    selectSelectedSeats(state, direction),
   );
-
-  const carriagePrices = useSelector(
-    (state: RootState) => state.seats[direction].carriagePrices,
-  );
-
-  console.log("carriagePrices", carriagePrices);
 
   const [showWarningModule, setShowWarningModule] = useState(false);
   const [showMaxSeatsModule, setShowMaxSeatsModule] = useState(false);
@@ -69,10 +68,6 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
     }
   };
 
-  const carriageState = useSelector(
-    (state: RootState) => state.seats[direction],
-  );
-
   const handleSelectSeat = (seatNumber: number) => {
     if (adultCount === 0) {
       setShowWarningModule(true);
@@ -92,34 +87,14 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
     dispatch(toggleSeat({ direction, carriageId: _id, seatNumber }));
   };
 
-  useEffect(() => {
-    const seatsInCarriage = selectedSeats[_id] ?? [];
-    const totalForCarriage = seatsInCarriage.reduce(
-      (sum, seatNumber) => sum + getSeatPrice(seatNumber),
-      0,
-    );
+  const seatsInCarriage = selectedSeats[_id] ?? [];
+  const totalPassengers = adultCount + childCount;
+  const optionPrice = ((wifiPrice ?? 0) + (linenPrice ?? 0)) * totalPassengers;
 
-    const newCarriagePrices = {
-      ...carriageState.carriagePrices,
-      [_id]: totalForCarriage,
-    };
-
-    const newTotalPrice = Object.values(newCarriagePrices).reduce(
-      (sum, price) => sum + price,
-      0,
-    );
-
-    dispatch(
-      setSeatsField({
-        key: direction,
-        value: {
-          ...carriageState,
-          carriagePrices: newCarriagePrices,
-          totalPrice: newTotalPrice,
-        },
-      }),
-    );
-  }, [selectedSeats[_id], dispatch]);
+  const carriagePrice = seatsInCarriage.reduce(
+    (sum, seatNumber) => sum + getSeatPrice(seatNumber) + optionPrice,
+    0,
+  );
 
   return (
     <div className={styles.carriage__plan}>
@@ -175,7 +150,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
       {
         <div className={styles.price__container}>
           <Price
-            amount={carriagePrices[_id] || 0}
+            amount={carriagePrice}
             amountClassName={styles.amount}
             iconClassName={styles.currency}
           />

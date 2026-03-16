@@ -1,11 +1,14 @@
-import styles from "./TicketCard.module.css";
-import { TicketLocation } from "../ticket-location/TicketLocation";
-import { TicketSeats } from "../ticket-seats/TicketSeats";
 import type { TicketType } from "../../../types";
+
 import { formatCityName } from "../../../utils/formatCityName";
 import { formatDuration } from "../../../utils/formatDuration";
 import { formatTime } from "../../../utils/formatTime";
+
+import { TicketLocation } from "../ticket-location/TicketLocation";
+import { TicketSeats } from "../ticket-seats/TicketSeats";
 import { Train } from "../../train/Train";
+
+import styles from "./TicketCard.module.css";
 
 export type TicketCardProps = {
   ticket: TicketType;
@@ -20,8 +23,8 @@ export function TicketCard({ ticket }: TicketCardProps) {
         name={departure.train.name}
         from_city={departure.from.city.name}
         to_city={departure.to.city.name}
-        containerStyles={ styles.train__item}
-        iconStyles={ styles.train__icon}
+        containerStyles={styles.train__item}
+        iconStyles={styles.train__icon}
       />
 
       <div className={styles.details}>

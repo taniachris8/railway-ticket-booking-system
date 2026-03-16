@@ -1,8 +1,11 @@
-import "./App.css";
-import { Navigation } from "./components/navbar/Navigation";
 import { Outlet } from "react-router";
-import { Footer } from "./components/footer/Footer";
+
 import { ScrollToTop } from "./router/ScrollToTop";
+
+import { Navigation } from "./components/navbar/Navigation";
+import { Footer } from "./components/footer/Footer";
+
+import "./App.css";
 
 function App() {
 

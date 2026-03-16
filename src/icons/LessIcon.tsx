@@ -26,9 +26,9 @@ export function LessIcon({ className, onClick}: IconProps) {
           x2="14.3846"
           y2="9.76929"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </>

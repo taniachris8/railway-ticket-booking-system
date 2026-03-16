@@ -1,18 +1,28 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+import type { RootState } from "../../../state/store";
+
+import { Module } from "../../module/Module";
+import { Carriage } from "../carriage/Carriage";
+
 import { FirstClassIcon } from "../../../icons/FirstClassIcon";
-import { FourthClassIcon } from "../../../icons/FourthClassIcon";
 import { SecondClassIcon } from "../../../icons/SecondClassIcon";
 import { ThirdClassIcon } from "../../../icons/ThirdClassIcon";
-import styles from "./CarriageType.module.css";
-import { Carriage } from "../carriage/Carriage";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../state/store";
-import { useState } from "react";
-import { Module } from "../../module/Module";
+import { FourthClassIcon } from "../../../icons/FourthClassIcon";
 
-export function CarriageType({ direction }: { direction: "departure" | "arrival" }) {
+import styles from "./CarriageType.module.css";
+
+export function CarriageType({
+  direction,
+}: {
+  direction: "departure" | "arrival";
+}) {
   const seatsData = useSelector((state: RootState) => state.seats.data);
-  const { adultCount } = useSelector((state: RootState) => state.seats[direction]);
-  console.log("from carriageType:", seatsData);
+  const { adultCount } = useSelector(
+    (state: RootState) => state.seats[direction],
+  );
+
   const [showWarningModule, setShowWarningModule] = useState(false);
   const [
     showUnavailableCarriageTypeModule,

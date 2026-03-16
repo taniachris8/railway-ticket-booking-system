@@ -1,6 +1,8 @@
-import styles from "./CustomDateInput.module.css";
 import { forwardRef } from "react";
+
 import { CalendarIcon } from "../../../icons/CalendarIcon";
+
+import styles from "./CustomDateInput.module.css";
 
 
 type CustomDateInputProps = {

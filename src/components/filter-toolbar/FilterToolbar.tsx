@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import styles from "./FilterToolbar.module.css";
 import { useState } from "react";
+
 import type { RootState } from "../../state/store";
 import { setFilterField } from "../../state/reducers/filterSlice";
+
+import styles from "./FilterToolbar.module.css";
 
 type FilterToolbarProps = {
   totalCount: number;

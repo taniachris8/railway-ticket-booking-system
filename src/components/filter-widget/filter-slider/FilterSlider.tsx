@@ -1,10 +1,13 @@
-import "./FilterSlider.css";
 import { Range, getTrackBackground } from "react-range";
-import { setFilterField } from "../../../state/reducers/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
-import type { FilterState } from "../../../state/reducers/filterSlice";
 import { useEffect, useState } from "react";
+
+import { setFilterField } from "../../../state/reducers/filterSlice";
+import type { FilterState } from "../../../state/reducers/filterSlice";
+
 import type { RootState } from "../../../state/store";
+
+import "./FilterSlider.css";
 
 type FilterSliderProps = {
   MIN: number;
@@ -33,10 +36,8 @@ export function FilterSlider({
 }: FilterSliderProps) {
   const dispatch = useDispatch();
 
-   const fromValue = useSelector((state: RootState) => state.filters[fromKey]);
+  const fromValue = useSelector((state: RootState) => state.filters[fromKey]);
   const toValue = useSelector((state: RootState) => state.filters[toKey]);
-  
-
 
   const safeMin = Math.min(MIN, MAX - 1);
   const safeMax = Math.max(MAX, MIN + 1);
@@ -51,10 +52,6 @@ export function FilterSlider({
     dispatch(setFilterField({ key: fromKey, value: vals[0] }));
     dispatch(setFilterField({ key: toKey, value: vals[1] }));
   };
-
-  useEffect(() => {
-    console.log("SLIDER MOUNTED");
-  }, []);
 
   return (
     <>

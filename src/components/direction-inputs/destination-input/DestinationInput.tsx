@@ -1,4 +1,4 @@
-import { CityAutocompleteInput } from "./CityAutocompleteInput";
+import { CityAutocompleteInput } from "../city-autocomplete-input/CityAutocompleteInput";
 
 type DestinationInputProps = {
   containerClassName: string;

@@ -1,5 +1,6 @@
-import styles from "./FilterPrice.module.css";
 import { FilterSlider } from "../filter-slider/FilterSlider";
+
+import styles from "./FilterPrice.module.css";
 
 export function FilterPrice() {
   return (

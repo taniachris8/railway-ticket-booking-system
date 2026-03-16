@@ -1,10 +1,14 @@
-import styles from "./Pagination.module.css";
 import ReactPaginate from "react-paginate";
+import { useSelector, useDispatch } from "react-redux";
+
+import type { RootState } from "../../state/store";
+
+import { setFilterField } from "../../state/reducers/filterSlice";
+
 import { PaginationLeftArrow } from "../../icons/PaginationLeftArrow";
 import { PaginationRightArrow } from "../../icons/PaginationRightArrow";
-import type { RootState } from "../../state/store";
-import { useSelector, useDispatch } from "react-redux";
-import { setFilterField } from "../../state/reducers/filterSlice";
+
+import styles from "./Pagination.module.css";
 
 type PaginationProps = {
   totalCount: number;

@@ -1,12 +1,16 @@
-import styles from "./DirectionInputs.module.css";
-import { DepartureInput } from "../DepartureInput";
-import { DestinationInput } from "../DestinationInput";
-import { setTicketField } from "../../../state/reducers/ticketsSlice";
-import { setFilterField } from "../../../state/reducers/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../../state/store";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+
+import type { RootState } from "../../../state/store";
+
+import { setTicketField } from "../../../state/reducers/ticketsSlice";
+import { setFilterField } from "../../../state/reducers/filterSlice";
+
+import { DepartureInput } from "../departure-input/DepartureInput";
+import { DestinationInput } from "../destination-input/DestinationInput";
+
+import styles from "./DirectionInputs.module.css";
 
 type DirectionInputsProps = {
   visibleFromCityTooltip: boolean;

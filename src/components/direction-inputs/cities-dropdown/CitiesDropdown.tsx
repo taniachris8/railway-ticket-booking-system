@@ -1,9 +1,12 @@
-import styles from "./CitiesDropdown.module.css";
 import { createPortal } from "react-dom";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../../state/store";
+
 import type { CityType } from "../../../types";
+
+import type { RootState } from "../../../state/store";
+
+import styles from "./CitiesDropdown.module.css";
 
 type CitiesDropdownProps = {
   setShowDropdown: (value: boolean) => void;

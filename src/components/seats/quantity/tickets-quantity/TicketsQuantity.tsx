@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import styles from "./TicketsQuantity.module.css";
-import { TicketsQuantityItem } from "../tickets-quantity-item/TicketsQuantityItem";
 import { useSelector } from "react-redux";
+
 import type { RootState } from "../../../../state/store";
 import type { TicketItem } from "../tickets-quantity-item/TicketsQuantityItem";
+
+import { TicketsQuantityItem } from "../tickets-quantity-item/TicketsQuantityItem";
+
+import styles from "./TicketsQuantity.module.css";
 
 export function TicketsQuantity({
   direction,

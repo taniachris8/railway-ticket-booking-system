@@ -1,6 +1,8 @@
 import { WarningIcon } from "../../icons/WarningIcon";
 import { ErrorIcon } from "../../icons/ErrorIcon";
+
 import styles from "./Module.module.css";
+
 type ModuleProps = {
   message: string;
   onClick?: () => void;

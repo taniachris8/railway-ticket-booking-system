@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import type { CityType } from "../state/reducers/citiesSlice";
 import type { DirectionType, SeatsInfoType } from "../types";
 import type { TicketsType } from "../types";
@@ -36,7 +37,7 @@ export const searchDirections = async (
     cleanedParams[key] = value;
   });
 
-  console.log("Cleaned Params:", cleanedParams);
+  console.log("Cleaned Params from searchDirections api:", cleanedParams);
 
   const response = await axios.get(BASE_URL + "routes", {
     params: cleanedParams,
@@ -62,7 +63,7 @@ export const searchSeats = async (
     cleanedParams[key] = value;
   });
 
-  console.log("Cleaned Params:", cleanedParams);
+  console.log("Cleaned Params from searchSeats api:", cleanedParams);
 
   const response = await axios.get(BASE_URL + `routes/${params.id}/seats`, {
     params: cleanedParams,

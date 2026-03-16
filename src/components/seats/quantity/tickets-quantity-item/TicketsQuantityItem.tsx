@@ -1,9 +1,12 @@
-import styles from "./TicketsQuantityItem.module.css";
-import type { RootState } from "../../../../state/store";
-import { useSelector, useDispatch } from "react-redux";
-import { setPassengers } from "../../../../state/reducers/seatsSlice";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import type { RootState } from "../../../../state/store";
+
+import { setPassengers } from "../../../../state/reducers/seatsSlice";
 import { Module } from "../../../module/Module";
+
+import styles from "./TicketsQuantityItem.module.css";
 
 type PassengerKey = "adultCount" | "childCount" | "infantCount";
 
@@ -26,7 +29,8 @@ export function TicketsQuantityItem({
   info,
   active,
   keyLabel,
-  onClick, direction
+  onClick,
+  direction,
 }: TicketsQuantityItemProps) {
   const dispatch = useDispatch();
 
@@ -58,14 +62,14 @@ export function TicketsQuantityItem({
   };
 
   const decrement = () => {
-   if (currentCount > 0) {
-     dispatch(
-       setPassengers({
-         direction,
-         [keyLabel]: currentCount - 1,
-       }),
-     );
-   }
+    if (currentCount > 0) {
+      dispatch(
+        setPassengers({
+          direction,
+          [keyLabel]: currentCount - 1,
+        }),
+      );
+    }
   };
 
   return (

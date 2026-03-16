@@ -1,8 +1,11 @@
-import styles from "./Carriage.module.css";
+import type { SeatsInfoType } from "../../../types";
+
+import { formatCarriageName } from "../../../utils/formatCarriageName";
+
 import { CarriageTable } from "../carriage-table/CarriageTable";
 import { CarriagePlan } from "../carriage-plan/CarriagePlan";
-import type { SeatsInfoType } from "../../../types";
-import { formatCarriageName } from "../../../utils/formatCarriageName";
+
+import styles from "./Carriage.module.css";
 
 type CarriageProps = {
   data: SeatsInfoType;
@@ -12,7 +15,6 @@ type CarriageProps = {
 export function Carriage({ data, direction }: CarriageProps) {
   const carriageNumber = formatCarriageName(data.coach.name);
 
-  console.log("from carriage:", data);
   return (
     <>
       <div className={styles.carriage__content}>

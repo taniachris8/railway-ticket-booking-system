@@ -1,13 +1,21 @@
-import styles from "./HomePage.module.css";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { resetSearchStateAction } from "../../state/actions/resetSearch";
+
 import { AboutUs } from "../../components/about-us/AboutUs";
 import { Feedback } from "../../components/feedback/Feedback";
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { HowItWorks } from "../../components/how-it-works/HowItWorks";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
+
+import styles from "./HomePage.module.css";
+
+
 export function HomePage() {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (location.hash) {
@@ -19,6 +27,10 @@ export function HomePage() {
       }
     }
   }, [location]);
+
+    useEffect(() => {
+      dispatch(resetSearchStateAction())
+    }, [dispatch]);
 
   return (
     <>

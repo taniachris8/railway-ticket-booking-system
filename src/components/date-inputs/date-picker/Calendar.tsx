@@ -1,10 +1,14 @@
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./Calendar.module.css";
-import { CustomDateInput } from "../custom-date-input/CustomDateInput";
 import DatePicker from "react-datepicker";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
+
 import { format } from "date-fns";
 import { ru } from "date-fns/locale/ru";
+
+import { CustomDateInput } from "../custom-date-input/CustomDateInput";
+
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "./Calendar.module.css";
+
 registerLocale("ru", ru);
 setDefaultLocale("ru");
 

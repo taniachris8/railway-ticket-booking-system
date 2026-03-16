@@ -1,4 +1,5 @@
 import { ProgressBar } from "../progress-bar/ProgressBar";
+
 import styles from "./Loader.module.css";
 
 export function Loader() {

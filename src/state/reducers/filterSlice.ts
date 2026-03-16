@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { resetSearchStateAction } from "../actions/resetSearch";
 
 export type FilterState = {
   from_city_id: string;
@@ -97,6 +98,37 @@ const filterSlice = createSlice({
       state.offset = initialState.offset;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(resetSearchStateAction, (state) => {
+          state.from_city_id = initialState.from_city_id;
+          state.to_city_id = initialState.to_city_id;
+          state.date_start = initialState.date_start;
+          state.date_end = initialState.date_end;
+          state.date_start_arrival = initialState.date_start_arrival;
+          state.date_end_arrival = initialState.date_end_arrival;
+          state.limit = initialState.limit;
+          state.have_first_class = initialState.have_first_class;
+          state.have_second_class = initialState.have_second_class;
+          state.have_third_class = initialState.have_third_class;
+          state.have_fourth_class = initialState.have_fourth_class;
+          state.have_wifi = initialState.have_wifi;
+          state.have_air_conditioning = initialState.have_air_conditioning;
+          state.have_express = initialState.have_express;
+          state.price_from = initialState.price_from;
+          state.price_to = initialState.price_to;
+          state.start_departure_hour_from =
+            initialState.start_departure_hour_from;
+          state.start_departure_hour_to = initialState.start_departure_hour_to;
+          state.start_arrival_hour_from = initialState.start_arrival_hour_from;
+          state.start_arrival_hour_to = initialState.start_arrival_hour_to;
+          state.end_departure_hour_from = initialState.end_departure_hour_from;
+          state.end_departure_hour_to = initialState.end_departure_hour_to;
+          state.end_arrival_hour_from = initialState.end_arrival_hour_from;
+          state.end_arrival_hour_to = initialState.end_arrival_hour_to;
+          state.offset = initialState.offset;
+          state.sort = initialState.sort;
+        });
+      },
 });
 
 export const {

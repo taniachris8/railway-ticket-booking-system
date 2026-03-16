@@ -1,5 +1,7 @@
 import type { SeatPriceType } from "../../../types";
+
 import { Price } from "../../price/Price";
+
 import styles from "./AvailableSeatsTooltip.module.css";
 
 type AvailableSeatsTooltipProps = {

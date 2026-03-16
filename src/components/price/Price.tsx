@@ -1,4 +1,5 @@
-import { RubIcon } from "../../icons/RubIncon";
+import { RubIcon } from "../../icons/RubIcon";
+
 import styles from "./Price.module.css";
 
 type PriceProps = {

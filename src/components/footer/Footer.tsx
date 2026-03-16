@@ -1,5 +1,5 @@
-import styles from "./Footer.module.css";
 import { NavLink } from "react-router";
+
 import { Button } from "../button/Button";
 import { PhoneIcon } from "../../icons/PhoneIcon";
 import { MailIcon } from "../../icons/MailIcon";
@@ -11,6 +11,8 @@ import { GmailIcon } from "../../icons/GmailIcon";
 import { FacebookIcon } from "../../icons/FacebookIcon";
 import { TwitterIcon } from "../../icons/TwitterIcon";
 import { ScrollUpIcon } from "../../icons/ScrollUpIcon";
+
+import styles from "./Footer.module.css";
 
 export function Footer() {
   const handleScroll = () => {

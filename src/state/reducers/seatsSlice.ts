@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import type { DepartureType, SeatsInfoType } from "../../types";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+import { resetSearchStateAction } from "../actions/resetSearch";
 
 type TrainSeatsState = {
   adultCount: number;
   childCount: number;
   infantCount: number;
   selectedSeats: Record<string, number[]>;
-  carriagePrices: Record<string, number>;
-  totalPrice: number;
   wifiSelected: boolean;
   linenSelected: boolean;
+  ACSelected: boolean;
+  foodSelected: boolean;
+  wifiPrice?: number;
+  linenPrice?: number;
 };
 
 export type SeatsState = {
@@ -31,10 +36,12 @@ const trainInitialState: TrainSeatsState = {
   childCount: 0,
   infantCount: 0,
   selectedSeats: {},
-  carriagePrices: {},
-  totalPrice: 0,
   wifiSelected: false,
   linenSelected: false,
+  ACSelected: false,
+  foodSelected: false,
+  wifiPrice: 0,
+  linenPrice: 0,
 };
 
 const initialState: SeatsState = {
@@ -121,7 +128,6 @@ const seatsSlice = createSlice({
       action: PayloadAction<{ key: K; value: SeatsState[K] }>,
     ) => {
       const { key, value } = action.payload;
-
       state[key] = value;
     },
     getSeatsRequired: (state) => {
@@ -146,10 +152,23 @@ const seatsSlice = createSlice({
       action: PayloadAction<"departure" | "arrival">,
     ) => {
       const direction = action.payload;
-
       state[direction] = { ...trainInitialState };
     },
   },
+   extraReducers: (builder) => {
+     builder.addCase(resetSearchStateAction, (state) => {
+          state.status = "idle";
+          state.progressSeats = 0;
+          state.error = null;
+          state.data = [];
+
+          state.departureTrain = null;
+          state.arrivalTrain = null;
+
+          state.departure = { ...trainInitialState };
+          state.arrival = { ...trainInitialState };
+      });
+    },
 });
 
 export const {

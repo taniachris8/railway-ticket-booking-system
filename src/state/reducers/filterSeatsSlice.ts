@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { resetSearchStateAction } from "../actions/resetSearch";
 
 export type FilterSeatsState = {
     id: string;
@@ -44,6 +45,18 @@ const seatsFiltersSlice = createSlice({
       state.have_express = initialState.have_express;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(resetSearchStateAction, (state) => {
+          state.id = initialState.id;
+          state.have_first_class = initialState.have_first_class;
+          state.have_second_class = initialState.have_second_class;
+          state.have_third_class = initialState.have_third_class;
+          state.have_fourth_class = initialState.have_fourth_class;
+          state.have_wifi = initialState.have_wifi;
+          state.have_air_conditioning = initialState.have_air_conditioning;
+          state.have_express = initialState.have_express;
+        });
+      },
 });
 
 export const { setSeatsFiltersField, resetSeatsFilters } = seatsFiltersSlice.actions;

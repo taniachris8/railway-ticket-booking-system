@@ -1,8 +1,10 @@
-import styles from "./Train.module.css";
 import { formatTrainName } from "../../utils/formatTrainName";
 import { formatCityName } from "../../utils/formatCityName";
+
 import { ThinRightArrow } from "../../icons/ThinRightArrow";
 import { TrainIcon } from "../../icons/TrainIcon";
+
+import styles from "./Train.module.css";
 
 type TrainsProps = {
   name: string;

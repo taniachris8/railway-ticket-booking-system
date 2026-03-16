@@ -1,9 +1,14 @@
-import styles from "./LastTicketsWidget.module.css";
-import { LastTicketCard } from "../last-ticket-card/LastTicketCard";
 import { useState, useEffect } from "react";
+
 import type { DirectionType } from "../../../../types";
+
 import { fetchLastDirections } from "../../../../api/api";
+
 import { getErrorMessage } from "../../../../utils/getErrorMessage";
+
+import { LastTicketCard } from "../last-ticket-card/LastTicketCard";
+
+import styles from "./LastTicketsWidget.module.css";
 
 export function LastTicketsWidget() {
   const [lastDirections, setLastDirections] = useState<DirectionType[]>([]);

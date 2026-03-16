@@ -1,10 +1,11 @@
 import type { IconProps } from "../PhoneIcon";
 
-export function FoodIcon({ className }: IconProps) {
+export function FoodIcon({ className, onClick}: IconProps) {
   return (
     <>
       <svg
         className={className}
+        onClick={onClick}
         width="36"
         height="35"
         viewBox="0 0 36 35"

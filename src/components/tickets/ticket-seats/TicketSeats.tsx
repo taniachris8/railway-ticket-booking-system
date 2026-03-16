@@ -1,17 +1,22 @@
-import styles from "./TicketSeats.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import type { RootState } from "../../../state/store";
+import type { AvailableSeatsInfoType, TicketType } from "../../../types";
+
+import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
+import { setSeatsField } from "../../../state/reducers/seatsSlice";
+
 import { AvailableSeatsTooltip } from "../available-seats-tooltip/AvailableSeatsTooltip";
 import { Price } from "../../price/Price";
 import { Button } from "../../button/Button";
-import type { AvailableSeatsInfoType, TicketType } from "../../../types";
+
 import { WifiIcon } from "../../../icons/WifiIcon";
 import { ExpressIcon } from "../../../icons/ExpressIcon";
 import { ACIcon } from "../../../icons/ACIcon";
-import { useNavigate } from "react-router-dom";
-import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../../state/store";
-import { setSeatsField } from "../../../state/reducers/seatsSlice";
+
+import styles from "./TicketSeats.module.css";
 
 type TicketSeatsProps = {
   ticket: TicketType;
@@ -20,7 +25,6 @@ type TicketSeatsProps = {
 export function TicketSeats({ ticket }: TicketSeatsProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const seatsId = useSelector((state: RootState) => state.seatsFilters.id); 
   const [showAvailableSeats, setShowAvailableSeats] = useState<string | null>(
     null,
   );
@@ -37,9 +41,8 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
     dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
     dispatch(setSeatsField({ key: "departureTrain", value: departure }));
     dispatch(setSeatsField({ key: "arrivalTrain", value: arrival }));
-    if (seatsId) {
-      navigate("/seats");
-    }
+  
+    navigate("/seats");
   }
 
   return (
@@ -88,9 +91,9 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
         </ul>
         <div className={ styles.seats__lower_wrapper}>
           <div className={ styles.seats__icons_wrapper}>
-            {!have_wifi && <WifiIcon className={ styles.seats__icon} />}
-            {!is_express && <ExpressIcon className={ styles.seats__icon} />}
-            {!have_air_conditioning && (
+            {have_wifi && <WifiIcon className={ styles.seats__icon} />}
+            {is_express && <ExpressIcon className={ styles.seats__icon} />}
+            {have_air_conditioning && (
               <ACIcon className={ styles.seats__icon} />
             )}
           </div>

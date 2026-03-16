@@ -1,8 +1,11 @@
-import { Calendar } from "../date-picker/Calendar";
 import { useSelector, useDispatch } from "react-redux";
+
 import type { RootState } from "../../../state/store";
 import { setFilterField } from "../../../state/reducers/filterSlice";
+
 import { formatDate } from "../../../utils/formatDate";
+
+import { Calendar } from "../date-picker/Calendar";
 
 type ReturnDateInputProps = {
   inputClassName: string;

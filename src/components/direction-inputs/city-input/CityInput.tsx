@@ -1,9 +1,14 @@
-import styles from "./CityInput.module.css";
 import { useRef } from "react";
-import { LocationIcon } from "../../../icons/LocationIcon";
-import { CitiesDropdown } from "../cities-dropdown/CitiesDropdown";
-import { formatCityName } from "../../../utils/formatCityName";
+
 import type { CityType } from "../../../types";
+
+import { formatCityName } from "../../../utils/formatCityName";
+
+import { CitiesDropdown } from "../cities-dropdown/CitiesDropdown";
+
+import { LocationIcon } from "../../../icons/LocationIcon";
+
+import styles from "./CityInput.module.css";
 
 type CityInputProps = {
   containerClassName: string;
@@ -58,7 +63,7 @@ export function CityInput({
 
       <LocationIcon className={iconClassName} />
 
-      {showDropdown  && (
+      {showDropdown && (
         <CitiesDropdown
           searchTerm={searchTerm.trim()}
           setShowDropdown={setShowDropdown}

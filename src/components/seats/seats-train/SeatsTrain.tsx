@@ -1,12 +1,16 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { ToIcon } from "../../../icons/ToIcon";
+
+import { resetTrainState } from "../../../state/reducers/seatsSlice";
+
 import { Button } from "../../button/Button";
 import { CarriageType } from "../carriage-type/CarriageType";
 import { TicketsQuantity } from "../quantity/tickets-quantity/TicketsQuantity";
 import { TrainInfo } from "../train-info/TrainInfo";
+
+import { ToIcon } from "../../../icons/ToIcon";
+
 import styles from "./SeatsTrain.module.css";
-import { resetTrainState } from "../../../state/reducers/seatsSlice";
 
 type SeatsTrainProps = {
   direction: "departure" | "arrival";

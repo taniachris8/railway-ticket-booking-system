@@ -5,7 +5,7 @@ import filterReducer from "./reducers/filterSlice";
 import seatsReducer from "./reducers/seatsSlice";
 import seatsFilterReducer from "./reducers/filterSeatsSlice";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "./sagas";
+import rootSaga from "./sagas/rootSaga";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 

@@ -11,7 +11,6 @@ import { TicketCard } from "../../components/tickets/ticket-card/TicketCard";
 import { FilterToolbar } from "../../components/filter-toolbar/FilterToolbar";
 import type { RootState } from "../../state/store";
 import { getTicketsRequired } from "../../state/reducers/ticketsSlice";
-import { resetFilters } from "../../state/reducers/filterSlice";
 import { Loader } from "../../components/loader/Loader";
 
 export function TicketsPage() {

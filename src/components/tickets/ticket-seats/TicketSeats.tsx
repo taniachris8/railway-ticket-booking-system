@@ -39,6 +39,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
 
   const navigateToSeatsPage = () => { 
     dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
+    if (arrival) {dispatch(setSeatsFiltersField({ key: "id", value: arrival._id }))}
     dispatch(setSeatsField({ key: "departureTrain", value: departure }));
     dispatch(setSeatsField({ key: "arrivalTrain", value: arrival }));
   

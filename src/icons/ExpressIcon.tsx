@@ -5,8 +5,6 @@ export function ExpressIcon({ className }: IconProps) {
     <>
       <svg
         className={className}
-        // width="20"
-        // height="20"
         viewBox="36 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">

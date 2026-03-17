@@ -9,7 +9,7 @@ import { toggleSeat } from "../../../state/reducers/seatsSlice";
 
 import { formatCarriageName } from "../../../utils/formatCarriageName";
 
-import { Module } from "../../module/Module";
+import { Modal } from "../../modal/Modal";
 import { FirstClassCarriagePlan } from "../carriage-plans/first-class-carriage-plan/FirstClassCarriagePlan";
 import { SecondClassCarriagePlan } from "../carriage-plans/second-class-carriage-plan/SecondClassCarriagePlan";
 import { ThirdClassCarriagePlan } from "../carriage-plans/third-class-carriage-plan/ThirdClassCarriagePlan";
@@ -35,8 +35,8 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
     selectSelectedSeats(state, direction),
   );
 
-  const [showWarningModule, setShowWarningModule] = useState(false);
-  const [showMaxSeatsModule, setShowMaxSeatsModule] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showMaxSeatsModal, setShowMaxSeatsModal] = useState(false);
 
   const maxSeats = adultCount + childCount;
   const totalSelected = Object.values(selectedSeats).flat().length;
@@ -70,7 +70,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
 
   const handleSelectSeat = (seatNumber: number) => {
     if (adultCount === 0) {
-      setShowWarningModule(true);
+      setShowWarningModal(true);
       return;
     }
 
@@ -80,7 +80,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
 
     const isSelected = selected.includes(seatNumber);
     if (!isSelected && totalSelected >= maxSeats) {
-      setShowMaxSeatsModule(true);
+      setShowMaxSeatsModal(true);
       return;
     }
 
@@ -133,18 +133,18 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
       <div className={styles.clients__online}>
         11 человек выбирают места в этом поезде
       </div>
-      {showWarningModule && (
-        <Module
+      {showWarningModal && (
+        <Modal
           message="Пожалуйста, добавьте хотя бы одного взрослого пассажира"
           type="info"
-          onClick={() => setShowWarningModule(false)}
+          onClick={() => setShowWarningModal(false)}
         />
       )}
-      {showMaxSeatsModule && (
-        <Module
+      {showMaxSeatsModal && (
+        <Modal
           message={`Вы можете выбрать не более ${maxSeats} мест. Пожалуйста, увеличьте количество билетов, чтобы выбрать больше мест.`}
           type="info"
-          onClick={() => setShowMaxSeatsModule(false)}
+          onClick={() => setShowMaxSeatsModal(false)}
         />
       )}
       {

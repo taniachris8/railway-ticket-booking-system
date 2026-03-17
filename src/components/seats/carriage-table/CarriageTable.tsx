@@ -14,7 +14,7 @@ import { ConditionerIcon } from "../../../icons/additional-options/ConditionerIc
 import { WiFiIcon } from "../../../icons/additional-options/WiFiIcon";
 import { LinenIcon } from "../../../icons/additional-options/LinenIcon";
 import { FoodIcon } from "../../../icons/additional-options/FoodIcon";
-import { Module } from "../../module/Module";
+import { Modal } from "../../modal/Modal";
 
 import styles from "./CarriageTable.module.css";
 
@@ -87,7 +87,7 @@ export function CarriageTable({
     },
   ];
 
-  const [showOptionModule, setShowOptionModule] = useState(false);
+  const [showOptionModal, setShowOptionModal] = useState(false);
 
   const toggleAddOption = (optionName: string) => {
     const isIncludedInCoach = Boolean(
@@ -95,7 +95,7 @@ export function CarriageTable({
     );
 
     if (isIncludedInCoach) {
-      setShowOptionModule(true);
+      setShowOptionModal(true);
       return;
     }
 
@@ -195,11 +195,11 @@ export function CarriageTable({
         </tbody>
       </table>
 
-      {showOptionModule && (
-        <Module
+      {showOptionModal && (
+        <Modal
           type="info"
           message="Данная опция уже включена в стоимость билета"
-          onClick={() => setShowOptionModule(false)}
+          onClick={() => setShowOptionModal(false)}
         />
       )}
     </div>

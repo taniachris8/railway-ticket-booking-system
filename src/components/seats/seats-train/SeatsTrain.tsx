@@ -14,9 +14,10 @@ import styles from "./SeatsTrain.module.css";
 
 type SeatsTrainProps = {
   direction: "departure" | "arrival";
+  handleCarriageTypeChange: (id: "first" | "second" | "third" | "fourth") => void;
 };
 
-export function SeatsTrain({ direction }: SeatsTrainProps) {
+export function SeatsTrain({ direction, handleCarriageTypeChange }: SeatsTrainProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export function SeatsTrain({ direction }: SeatsTrainProps) {
         </div>
         <TrainInfo direction={direction} />
         <TicketsQuantity direction={direction} />
-        <CarriageType direction={direction} />
+        <CarriageType direction={direction} handleCarriageTypeChange={handleCarriageTypeChange} />
       </section>
     </>
   );

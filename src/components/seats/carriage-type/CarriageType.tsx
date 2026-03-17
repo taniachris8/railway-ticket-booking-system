@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import { useSelector } from "react-redux";
 
 import type { RootState } from "../../../state/store";
 
-import { Module } from "../../module/Module";
+import { Modal } from "../../modal/Modal";
 import { Carriage } from "../carriage/Carriage";
 
 import { FirstClassIcon } from "../../../icons/FirstClassIcon";
@@ -13,44 +13,54 @@ import { FourthClassIcon } from "../../../icons/FourthClassIcon";
 
 import styles from "./CarriageType.module.css";
 
+type CarriageClassType = "first" | "second" | "third" | "fourth";
+
 export function CarriageType({
   direction,
+  handleCarriageTypeChange,
 }: {
   direction: "departure" | "arrival";
+  handleCarriageTypeChange: (
+    id: "first" | "second" | "third" | "fourth",
+  ) => void;
 }) {
   const seatsData = useSelector((state: RootState) => state.seats.data);
-  const { adultCount } = useSelector(
-    (state: RootState) => state.seats[direction],
+  const seatsFilters = useSelector((state: RootState) => state.seatsFilters);
+  const {
+    have_first_class,
+    have_second_class,
+    have_third_class,
+    have_fourth_class,
+  } = seatsFilters;
+
+  const [showWarningModal, setShowWarningModal] = useState(false);
+
+  const activeClassType = (() => {
+    if (have_first_class) return "first";
+    if (have_second_class) return "second";
+    if (have_third_class) return "third";
+    if (have_fourth_class) return "fourth";
+    return "";
+  })();
+
+  const filteredCarriages = seatsData.filter((data) =>
+    activeClassType ? data.coach.class_type === activeClassType : true,
   );
 
-  const [showWarningModule, setShowWarningModule] = useState(false);
-  const [
-    showUnavailableCarriageTypeModule,
-    setShowUnavailableCarriageTypeModule,
-  ] = useState(false);
-  const [activeClassType, setActiveClassType] = useState("");
+  const classMap = {
+    first: "have_first_class",
+    second: "have_second_class",
+    third: "have_third_class",
+    fourth: "have_fourth_class",
+  } as const;
 
-  const filteredCarriages = seatsData.filter(
-    (data) => data.coach.class_type === activeClassType,
-  );
-
-  const handleChooseCarriageType = (id: string) => {
-    if (adultCount === 0) {
-      setShowWarningModule(true);
-      return;
-    }
-
-    const hasCarriage = seatsData.some((data) => data.coach.class_type === id);
-
-    if (!hasCarriage) {
-      setShowUnavailableCarriageTypeModule(true);
-      return;
-    }
-
-    setActiveClassType(id);
+  const handleChooseCarriageType = (
+    id: "first" | "second" | "third" | "fourth",
+  ) => {
+    handleCarriageTypeChange(id);
   };
 
-  const types = [
+  const types: { id: CarriageClassType; label: string; icon: JSX.Element }[] = [
     {
       id: "fourth",
       label: "Сидячий",
@@ -83,7 +93,7 @@ export function CarriageType({
               <li
                 key={type.id}
                 className={
-                  type.id === activeClassType
+                  seatsFilters[classMap[type.id]]
                     ? `${styles.carriage__type_item} ${styles.carriage__type_item_active}`
                     : styles.carriage__type_item
                 }
@@ -99,18 +109,11 @@ export function CarriageType({
           filteredCarriages.map((data) => (
             <Carriage key={data.coach._id} data={data} direction={direction} />
           ))}
-        {showWarningModule && (
-          <Module
+        {showWarningModal && (
+          <Modal
             type="info"
             message="Выберите количество взрослых пассажиров, чтобы продолжить"
-            onClick={() => setShowWarningModule(false)}
-          />
-        )}
-        {showUnavailableCarriageTypeModule && (
-          <Module
-            type="info"
-            message="Выбранный тип вагона недоступен для данного поезда"
-            onClick={() => setShowUnavailableCarriageTypeModule(false)}
+            onClick={() => setShowWarningModal(false)}
           />
         )}
       </section>

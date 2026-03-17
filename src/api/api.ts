@@ -37,8 +37,6 @@ export const searchDirections = async (
     cleanedParams[key] = value;
   });
 
-  console.log("Cleaned Params from searchDirections api:", cleanedParams);
-
   const response = await axios.get(BASE_URL + "routes", {
     params: cleanedParams,
   });
@@ -53,21 +51,26 @@ export const searchSeats = async (
 
   Object.entries(params).forEach(([key, value]) => {
     if (
+      key === "_persist" ||
+      value === false ||
+      key === "id" ||
       value === null ||
       value === undefined ||
       value === "" ||
-      value === false
+      key === "have_first_class" ||
+      key === "have_second_class" ||
+      key === "have_third_class" ||
+      key === "have_fourth_class"
     )
       return;
 
     cleanedParams[key] = value;
   });
 
-  console.log("Cleaned Params from searchSeats api:", cleanedParams);
-
-  const response = await axios.get(BASE_URL + `routes/${params.id}/seats`, {
-    params: cleanedParams,
-  });
+  const response = await axios.get(
+    `https://students.netoservices.ru/fe-diplom/routes/${params.id}/seats`,
+    { params: cleanedParams },
+  );
 
   return response.data;
 };

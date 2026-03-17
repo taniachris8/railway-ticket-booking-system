@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../../../state/store";
 
 import { setPassengers } from "../../../../state/reducers/seatsSlice";
-import { Module } from "../../../module/Module";
+import { Modal } from "../../../modal/Modal";
 
 import styles from "./TicketsQuantityItem.module.css";
 
@@ -37,7 +37,7 @@ export function TicketsQuantityItem({
   const { adultCount, childCount, infantCount } = useSelector(
     (state: RootState) => state.seats[direction],
   );
-  const [showWarningModule, setShowWarningModule] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
 
   const currentCount =
     keyLabel === "adultCount"
@@ -49,7 +49,7 @@ export function TicketsQuantityItem({
   const increment = () => {
     if (currentCount < maxCount) {
       if (adultCount === 0 && keyLabel === "childCount") {
-        setShowWarningModule(true);
+        setShowWarningModal(true);
         return;
       }
       dispatch(
@@ -106,11 +106,11 @@ export function TicketsQuantityItem({
       </div>
 
       {info && <p className={styles.tickets__quantity_info}>{info}</p>}
-      {showWarningModule && (
-        <Module
+      {showWarningModal && (
+        <Modal
           message="Пожалуйста, сначала добавьте хотя бы одного взрослого пассажира"
           type="info"
-          onClick={() => setShowWarningModule(false)}
+          onClick={() => setShowWarningModal(false)}
         />
       )}
     </div>

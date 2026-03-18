@@ -9,6 +9,12 @@ import type { RootState } from "../../../state/store";
 import { setSeatsField } from "../../../state/reducers/seatsSlice";
 import { selectTrainSeats } from "../../../state/selectors/seatSelectors";
 
+import {
+  calculateAvailableTopSeats,
+  calculateAvailableBottomSeats,
+  calculateAvailableSideSeats,
+} from "../../../utils/calculateAvailableSeats";
+
 import { Price } from "../../price/Price";
 import { ConditionerIcon } from "../../../icons/additional-options/ConditionerIcon";
 import { WiFiIcon } from "../../../icons/additional-options/WiFiIcon";
@@ -31,29 +37,58 @@ export function CarriageTable({
   const carriageState = useSelector((state: RootState) =>
     selectTrainSeats(state, direction),
   );
+  const availableSeats = data.seats.filter((seat) => seat.available).length;
 
   const { class_type, side_price, top_price, bottom_price, price } = data.coach;
 
   let seatTypes: SeatType[] = [];
 
+  const topCount = calculateAvailableTopSeats(data.seats);
+  const bottomCount = calculateAvailableBottomSeats(data.seats);
+  const sideCount = calculateAvailableSideSeats(data.seats);
+
+  const topPrice = Number(top_price) || 0;
+  const bottomPrice = Number(bottom_price) || 0;
+  const sidePrice = Number(side_price) || 0;
+
   if (class_type === "first" || class_type === "fourth") {
     seatTypes = [{ label: "", price: price! }];
   } else if (class_type === "second") {
-    if (top_price && top_price > 0) {
-      seatTypes.push({ label: "Верхние", price: top_price, count: 8 });
+    if (topPrice > 0 && topCount > 0) {
+      seatTypes.push({
+        label: "Верхние",
+        price: topPrice,
+        count: calculateAvailableTopSeats(data.seats),
+      });
     }
-    if (bottom_price && bottom_price > 0) {
-      seatTypes.push({ label: "Нижние", price: bottom_price, count: 8 });
+    if (bottomPrice > 0 && bottomCount > 0) {
+      seatTypes.push({
+        label: "Нижние",
+        price: bottomPrice,
+        count: calculateAvailableBottomSeats(data.seats),
+      });
     }
   } else if (class_type === "third") {
-    if (top_price && top_price > 0) {
-      seatTypes.push({ label: "Верхние", price: top_price, count: 8 });
+    if (topPrice > 0 && topCount > 0) {
+      seatTypes.push({
+        label: "Верхние",
+        price: topPrice,
+        count: calculateAvailableTopSeats(data.seats),
+      });
     }
-    if (bottom_price && bottom_price > 0) {
-      seatTypes.push({ label: "Нижние", price: bottom_price, count: 8 });
+    if (bottomPrice > 0 && bottomCount > 0) {
+      seatTypes.push({
+        label: "Нижние",
+        price: bottomPrice,
+        count: calculateAvailableBottomSeats(data.seats),
+      });
     }
-    if (side_price && side_price > 0) {
-      seatTypes.push({ label: "Боковые", price: side_price, count: 8 });
+    if (sidePrice > 0 && sideCount > 0) {
+      seatTypes.push({
+        label: "Боковые",
+        price: sidePrice,
+        count: calculateAvailableSideSeats(data.seats),
+      });
     }
   }
 
@@ -139,9 +174,7 @@ export function CarriageTable({
           <tr>
             <th>
               Места
-              <span className={styles.total__count}>
-                {data.coach.available_seats}
-              </span>
+              <span className={styles.total__count}>{availableSeats}</span>
             </th>
             <th>Стоимость</th>
             <th>

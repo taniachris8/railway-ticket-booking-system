@@ -1,49 +1,82 @@
-import type { SeatPriceType } from "../../../types";
+import type { SeatsInfoType } from "../../../types";
+
+import {
+  calculateAvailableTopSeats,
+  calculateAvailableBottomSeats,
+  calculateAvailableSideSeats,
+} from "../../../utils/calculateAvailableSeats";
 
 import { Price } from "../../price/Price";
 
 import styles from "./AvailableSeatsTooltip.module.css";
 
 type AvailableSeatsTooltipProps = {
-  availableSeats: SeatPriceType;
+  carriages: SeatsInfoType[];
+  class_type: string;
 };
 
 export function AvailableSeatsTooltip({
-  availableSeats,
+  carriages,
+  class_type,
 }: AvailableSeatsTooltipProps) {
-  const { bottom_price, top_price, side_price } = availableSeats;
+  let topSeatsCount = 0;
+  let bottomSeatsCount = 0;
+  let sideSeatsCount = 0;
+
+  for (const coach of carriages) {
+    topSeatsCount += calculateAvailableTopSeats(coach.seats);
+    bottomSeatsCount += calculateAvailableBottomSeats(coach.seats);
+
+    if (class_type === "third") {
+      sideSeatsCount += calculateAvailableSideSeats(coach.seats);
+    }
+  }
+
+  const getMinPrice = (key: "top_price" | "bottom_price" | "side_price") => {
+    const prices = carriages
+      .map((c) => Number(c.coach[key]) || 0)
+      .filter((p) => p > 0);
+
+    return prices.length ? Math.min(...prices) : 0;
+  };
+
+  const topPrice = getMinPrice("top_price");
+  const bottomPrice = getMinPrice("bottom_price");
+  const sidePrice = getMinPrice("side_price");
 
   return (
     <>
       <div className={styles.seats}>
-        {top_price && (
+        {topPrice > 0 && topSeatsCount > 0 && (
           <div className={styles.seat}>
             <p className={styles.seat__type}>верхние</p>
-            <span className={styles.seat__count}>19</span>
+            <span className={styles.seat__count}>{topSeatsCount}</span>
             <Price
-              amount={top_price}
+              amount={topPrice}
               amountClassName={styles.seat__value}
               iconClassName={styles.seat__currency}
             />
           </div>
         )}
-        {bottom_price && (
+
+        {bottomPrice > 0 && bottomSeatsCount > 0 && (
           <div className={styles.seat}>
             <p className={styles.seat__type}>нижние</p>
-            <span className={styles.seat__count}>19</span>
+            <span className={styles.seat__count}>{bottomSeatsCount}</span>
             <Price
-              amount={bottom_price}
+              amount={bottomPrice}
               amountClassName={styles.seat__value}
               iconClassName={styles.seat__currency}
             />
           </div>
         )}
-        {side_price && (
+
+        {class_type === "third" && sidePrice > 0 && sideSeatsCount > 0 && (
           <div className={styles.seat}>
             <p className={styles.seat__type}>боковые</p>
-            <span className={styles.seat__count}>19</span>
+            <span className={styles.seat__count}>{sideSeatsCount}</span>
             <Price
-              amount={side_price}
+              amount={sidePrice}
               amountClassName={styles.seat__value}
               iconClassName={styles.seat__currency}
             />

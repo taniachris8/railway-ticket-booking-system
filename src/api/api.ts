@@ -44,6 +44,15 @@ export const searchDirections = async (
   return response.data;
 };
 
+export const getAvailableSeats = async (
+  id: string,
+): Promise<SeatsInfoType[]> => {
+  const response = await axios.get(
+    `https://students.netoservices.ru/fe-diplom/routes/${id}/seats`,
+  );
+  return response.data;
+};
+
 export const searchSeats = async (
   params: Partial<FilterSeatsState>,
 ): Promise<SeatsInfoType[]> => {

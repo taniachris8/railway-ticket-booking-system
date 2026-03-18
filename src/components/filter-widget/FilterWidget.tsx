@@ -18,7 +18,7 @@ export function FilterWidget({
   handleCarriageTypeChange,
 }: {
   filterType: "filters" | "seatsFilters";
-  handleCarriageTypeChange: (
+  handleCarriageTypeChange?: (
     id: "first" | "second" | "third" | "fourth",
   ) => void;
 }) {

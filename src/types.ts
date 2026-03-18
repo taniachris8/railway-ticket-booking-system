@@ -34,7 +34,6 @@ export type SeatType = {
   available: boolean;
 };
 
-
 export type TicketType = {
   have_first_class: boolean;
   have_second_class: boolean;

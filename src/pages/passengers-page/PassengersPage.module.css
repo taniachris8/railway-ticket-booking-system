@@ -1,0 +1,46 @@
+.hero__passengers_page {
+  height: 596px;
+}
+
+.hero__passengers_page > div {
+  padding-top: 269px;
+}
+
+.find_tickets__passengers_container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find_tickets__inputs__passengers_page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.passengers {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 200px;
+}
+
+.passengers__sidebar {
+  width: 379px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.passengers__content {
+  width: 959px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button {
+  align-self: flex-end;
+  margin-top: 60px;
+}

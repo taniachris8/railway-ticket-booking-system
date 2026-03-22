@@ -4,6 +4,7 @@ import ticketsReducer from "./reducers/ticketsSlice";
 import filterReducer from "./reducers/filterSlice";
 import seatsReducer from "./reducers/seatsSlice";
 import seatsFilterReducer from "./reducers/filterSeatsSlice";
+import passengersReducer from "./reducers/passengersSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas/rootSaga";
 import { persistStore, persistReducer } from "redux-persist";
@@ -31,6 +32,11 @@ const seatsFiltersPersistConfig = {
   storage,
 };
 
+const passengersPersistConfig = {
+  key: "passengers",
+  storage,
+};
+
 const persistedTicketReducer = persistReducer(
   ticketPersistConfig,
   ticketsReducer,
@@ -41,6 +47,10 @@ const persistedSeatsFiltersReducer = persistReducer(
   seatsFiltersPersistConfig,
   seatsFilterReducer,
 );
+const persistedPassengersReducer = persistReducer(
+  passengersPersistConfig,
+  passengersReducer
+);
 
 export const store = configureStore({
   reducer: {
@@ -49,6 +59,7 @@ export const store = configureStore({
     filters: persistedFilterReducer,
     seats: persistedSeatsReducer,
     seatsFilters: persistedSeatsFiltersReducer,
+    passengers: persistedPassengersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

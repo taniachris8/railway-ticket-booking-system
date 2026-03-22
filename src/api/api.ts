@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import type { CityType } from "../state/reducers/citiesSlice";
-import type { DirectionType, SeatsInfoType } from "../types";
+import type { DirectionType, OrderType, SeatsInfoType } from "../types";
 import type { TicketsType } from "../types";
 import type { FilterState } from "../state/reducers/filterSlice";
 import type { FilterSeatsState } from "../state/reducers/filterSeatsSlice";
@@ -82,4 +82,8 @@ export const searchSeats = async (
   );
 
   return response.data;
+};
+
+export const orderTickets = async (data: OrderType): Promise<void> => {
+  axios.post(BASE_URL + "order", data);
 };

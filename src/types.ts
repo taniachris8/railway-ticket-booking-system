@@ -123,3 +123,43 @@ export type SeatPriceType = {
   bottom_price?: number;
   side_price?: number;
 };
+
+export type OrderType = {
+  user: UserType;
+  departure: DirectionOrderType;
+  arrival?: DirectionOrderType;
+};
+
+export type UserType = {
+  first_name: string;
+  last_name: string;
+  patronymic: string;
+  phone: string;
+  email: string;
+  payment_method: string;
+};
+
+export type PersonInfoType = {
+  is_adult: boolean;
+  first_name: string;
+  last_name: string;
+  patronymic: string;
+  gender: boolean;
+  birthday: string;
+  document_type: string;
+  document_data: string;
+};
+
+export type DirectionOrderType = {
+  route_direction_id: string;
+  seats: [
+    {
+      coach_id: string;
+      person_info: PersonInfoType;
+      seat_number: number;
+      is_child: boolean;
+      include_children_seat: boolean;
+    },
+  ];
+};
+

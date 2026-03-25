@@ -1,0 +1,42 @@
+.gender {
+  display: flex;
+  width: 204px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #928f94;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  color: #928f94;
+}
+
+.gender_item {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.gender .gender_item:first-child {
+  border-right: 1px solid #928f94;
+}
+
+.gender_item:active {
+  background-color: #ffa800;
+}
+
+.gender_item.active {
+  background-color: #ffa800;
+}

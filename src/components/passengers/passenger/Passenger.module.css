@@ -1,0 +1,135 @@
+.passenger {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 2px 2px 0px #00000040;
+}
+
+.passenger__header {
+  width: 100%;
+  height: 107px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-bottom: 1px dashed #928f94;
+  padding-left: 20px;
+  padding-right: 40px;
+}
+
+.passenger__header_closed {
+  border-bottom: none;
+}
+
+.passenger__header_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.passenger__title {
+  font-weight: 400;
+  font-size: 30px;
+  color: #292929;
+}
+
+.passenger__icon {
+  color: #928f94;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.passenger__icon_open {
+  color: #ffa800;
+  cursor: pointer;
+}
+
+.passenger__icon_close {
+  color: #928f94;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+.passenger__icon:active {
+  color: #ffa800;
+}
+
+.passenger__content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 36px 30px 30px 30px;
+  border-bottom: 1px dashed #928f94;
+}
+
+.passenger_details_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.passenger_personal_info {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.passenger__footer {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.passenger__footer_with_error {
+  background-color: #ff3d0061;
+}
+
+.error_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.error__icon {
+  color: #ffffffcf;
+  width: 32px;
+  height: 32px;
+}
+
+.error_message {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929;
+}
+
+.passenger__footer_with_success {
+  background-color: #B2F6A1;
+}
+
+.success_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.success__icon {
+  color: #F9FEF7;
+  width: 32px;
+  height: 32px;
+}
+
+.success_message {
+  font-weight: 400;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+
+.passenger__button {
+  width: 300px;
+  height: 52px;
+  align-self: flex-end;
+}

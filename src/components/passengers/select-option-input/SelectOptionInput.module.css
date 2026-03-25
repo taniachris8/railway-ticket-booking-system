@@ -1,0 +1,47 @@
+.input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 280px;
+  height: 50px;
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid #928f94;
+  padding-left: 12px;
+  padding-right: 20px;
+}
+
+.input_long {
+  width: 444px;
+}
+
+.value {
+  font-weight: 400;
+  font-size: 24px;
+  color: #292929;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 280px;
+  border-radius: 5px;
+  background-color: #f4f3f6;
+  box-shadow: 0px 2px 2px 0px #00000033;
+}
+
+.item {
+  width: 100%;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 24px;
+  color: #292929;
+  padding: 8px;
+}
+
+.dropdown .item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}

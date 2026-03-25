@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-
-import type { SeatsInfoType, TicketType } from "../../../types";
-
-import { getAvailableSeats } from "../../../api/api";
+import type { TicketType } from "../../../types";
 
 import { formatCityName } from "../../../utils/formatCityName";
 import { formatDuration } from "../../../utils/formatDuration";

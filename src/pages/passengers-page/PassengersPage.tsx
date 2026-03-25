@@ -7,13 +7,18 @@ import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsF
 import { Loader } from "../../components/loader/Loader";
 import styles from "./PassengersPage.module.css";
 import { ProgressWidget } from "../../components/progress-widget/ProgressWidget";
-import { FilterWidget } from "../../components/filter-widget/FilterWidget";
 import { Button } from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
+import { AsideWidget } from "../../components/passengers/aside-widget/AsideWidget";
+import { Passenger } from "../../components/passengers/passenger/Passenger";
 
 export function PassengersPage() {
   const navigate = useNavigate();
-  const status = useSelector((state: RootState) => state.passengers.status);
+  const status = useSelector((state: RootState) => state.passengers.status); 
+  
+  const numberOfPassengers = useSelector((state: RootState) => state.seats.departure.adultCount + state.seats.departure.childCount); 
+  console.log("from passengers page", numberOfPassengers);
+
 
   const handleNavigateToPaymentClick = () => {
     navigate("/payment");
@@ -37,10 +42,13 @@ export function PassengersPage() {
           <ProgressWidget stage="passengers-page" />
           <section className={styles.passengers}>
             <aside className={styles.passengers__sidebar}>
-              <FilterWidget filterType="seatsFilters" />
+              <AsideWidget/>
             </aside>
 
-            <main className={styles.passengers__content}>
+              <main className={styles.passengers__content}>
+                { [...Array(numberOfPassengers)].map((_, index) => (
+                  <Passenger key={index} passengerIndex={index} />
+                ))}
               <Button
                 className={styles.button}
                 variant="more"

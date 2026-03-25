@@ -1,4 +1,4 @@
-.filter__title {
+/* .filter__title {
   font-weight: 700;
   font-size: 30px;
   color: #ffffff;
@@ -37,9 +37,9 @@
 .filter__icon_more:active,
 .filter__icon_less:active {
   color: #fcdc9d;
-}
+} */
 
-.filter__direction_slices {
+/* .filter__direction_slices {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,7 +47,7 @@
   gap: 20px;
   padding-bottom: 20px;
   padding-top: 20px;
-}
+} */
 
 .filter__direction__slider_outer {
   height: 18px;

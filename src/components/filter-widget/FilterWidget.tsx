@@ -5,6 +5,7 @@ import type { RootState } from "../../state/store";
 import { setFilterField } from "../../state/reducers/filterSlice";
 import { setSeatsFiltersField } from "../../state/reducers/filterSeatsSlice";
 
+import { AsideContainer } from "../aside-container/AsideContainer";
 import { DepartureDateInput } from "../date-inputs/departure-date-input/DepartureDateInput";
 import { ReturnDateInput } from "../date-inputs/return-date-input/ReturnDateInput";
 import { FilterDirection } from "./filter-direction/FilterDirection";
@@ -36,7 +37,7 @@ export function FilterWidget({
 
   return (
     <>
-      <section className={styles.filter}>
+      <AsideContainer>
         <div className={styles.filter__dates}>
           <div
             className={`${styles.filter__date} ${styles.filter__date_departure}`}>
@@ -74,7 +75,7 @@ export function FilterWidget({
           title="Обратно"
           base="arrival"
         />
-      </section>
+      </AsideContainer>
     </>
   );
 }

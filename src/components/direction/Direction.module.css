@@ -1,0 +1,103 @@
+.aside_widget_direction {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 40px;
+  padding: 0 20px 20px 20px;
+}
+
+.train_info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.train_info__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.train_info__label {
+  font-weight: 400;
+  font-size: 18px;
+  color: #e5e5e5;
+}
+
+.train_info__value_number {
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.train_info__value_cities {
+  text-align: right;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.direction {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.time {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.city {
+  font-weight: 400;
+  font-size: 18px;
+  color: white;
+}
+
+.station {
+  font-weight: 400;
+  font-size: 16px;
+  color: #928f94;
+  white-space: pre-line;
+}
+
+.duration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.duration__text {
+  font-weight: 400;
+  font-size: 18px;
+  color: #e5e5e5;
+  padding-bottom: 5px;
+}
+
+.direction__arrow {
+  width: 30px;
+  height: 20px;
+  color: #ffa800;
+}
+
+.departure {
+  align-items: flex-start;
+}
+
+.destination {
+  align-items: flex-end;
+  text-align: left;
+}
+
+.destination .station {
+  text-align: right;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 18px;
+  color: #928f94;
+  letter-spacing: 0%;
+  margin-bottom: 10px;
+}

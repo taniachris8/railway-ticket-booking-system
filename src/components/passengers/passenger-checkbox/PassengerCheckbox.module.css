@@ -1,0 +1,31 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox_wrapper {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  border: 1px solid #928f94;
+  cursor: pointer;
+}
+
+.checkbox_input {
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+}
+
+.checkbox_wrapper:has(input:checked) {
+  background-color: #ffa800;
+}
+
+.checkbox_text {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929;
+}

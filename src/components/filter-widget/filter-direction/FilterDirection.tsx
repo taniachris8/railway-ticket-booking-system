@@ -1,8 +1,9 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { FilterSlider } from "../filter-slider/FilterSlider";
 
-import { MoreIcon } from "../../../icons/MoreIcon";
-import { LessIcon } from "../../../icons/LessIcon";
+import { TripCollapsibleSection } from "../../trip-collapsible-section/TripCollapsibleSection";
+// import { MoreIcon } from "../../../icons/MoreIcon";
+// import { LessIcon } from "../../../icons/LessIcon";
 
 import styles from "./FilterDirection.module.css";
 
@@ -17,11 +18,11 @@ export function FilterDirection({
   iconSrc,
   base,
 }: FilterDirectionProps) {
-  const [opened, setOpened] = useState(false);
+  // const [opened, setOpened] = useState(false);
 
   return (
     <>
-      <div className={styles.filter__direction}>
+      {/* <div className={styles.filter__direction}>
         <div className={styles.filter__direction_header}>
           <div className={styles.filter__direction_wrapper}>
             <img src={iconSrc} alt="icon" className={styles.filter__icon} />
@@ -39,45 +40,48 @@ export function FilterDirection({
               onClick={() => setOpened(true)}
             />
           )}
-        </div>
+        </div> */}
+      <TripCollapsibleSection title={title} iconSrc={iconSrc}>
+        <FilterSlider
+          MIN={0}
+          MAX={24}
+          fromKey={`start_${base}_hour_from`}
+          toKey={`start_${base}_hour_to`}
+          sliderOuterClassName={styles.filter__direction__slider_outer}
+          trackHeight="10px"
+          thumbClassName={styles.filter__direction_thumb}
+          sliderTextClassName={styles.filter__direction__slider_text}
+          time={true}>
+          <h3 className={styles.filter__direction__slider_title}>
+            Время отбытия
+          </h3>
+        </FilterSlider>
 
-        {opened && (
+        <FilterSlider
+          MIN={0}
+          MAX={24}
+          fromKey={`end_${base}_hour_from`}
+          toKey={`end_${base}_hour_to`}
+          sliderOuterClassName={styles.filter__direction__slider_outer}
+          trackHeight="10px"
+          thumbClassName={styles.filter__direction_thumb}
+          sliderTextClassName={styles.filter__direction__slider_text}
+          time={true}>
+          <h3
+            className={`${styles.filter__direction__slider_title} ${styles.filter__direction__slider_title_right}`}>
+            Время прибытия
+          </h3>
+        </FilterSlider>
+      </TripCollapsibleSection>
+
+      {/* {opened && (
           <>
-            <div className={styles.filter__direction_slices}>
-              <FilterSlider
-                MIN={0}
-                MAX={24}
-                fromKey={`start_${base}_hour_from`}
-                toKey={`start_${base}_hour_to`}
-                sliderOuterClassName={styles.filter__direction__slider_outer}
-                trackHeight="10px"
-                thumbClassName={styles.filter__direction_thumb}
-                sliderTextClassName={styles.filter__direction__slider_text}
-                time={true}>
-                <h3 className={styles.filter__direction__slider_title}>
-                  Время отбытия
-                </h3>
-              </FilterSlider>
+            <div className={styles.filter__direction_slices}> */}
 
-              <FilterSlider
-                MIN={0}
-                MAX={24}
-                fromKey={`end_${base}_hour_from`}
-                toKey={`end_${base}_hour_to`}
-                sliderOuterClassName={styles.filter__direction__slider_outer}
-                trackHeight="10px"
-                thumbClassName={styles.filter__direction_thumb}
-                sliderTextClassName={styles.filter__direction__slider_text}
-                time={true}>
-                <h3
-                  className={`${styles.filter__direction__slider_title} ${styles.filter__direction__slider_title_right}`}>
-                  Время прибытия
-                </h3>
-              </FilterSlider>
-            </div>
+      {/* </div>
           </>
         )}
-      </div>
+      </div> */}
     </>
   );
 }

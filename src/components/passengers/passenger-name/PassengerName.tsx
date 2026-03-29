@@ -10,17 +10,18 @@ import { validateName } from "../../../utils/validatePersonsInfo";
 import styles from "./PassengerName.module.css";
 
 type PassengerNameProps = {
+  passengerIndex: number;
   setErrorMessage: (message: string) => void;
 };
 
-export function PassengerName({ setErrorMessage }: PassengerNameProps) {
+export function PassengerName({ passengerIndex, setErrorMessage }: PassengerNameProps) {
   const dispatch = useDispatch();
   const [fieldWithError, setFieldWithError] = useState<
     "first_name" | "last_name" | "patronymic" | null
   >(null);
 
   const { last_name, first_name, patronymic } = useSelector(
-    (state: RootState) => state.passengers.departure.seats[0].person_info,
+    (state: RootState) => state.passengers.departure.seats[passengerIndex].person_info,
   );
 
   console.log(
@@ -43,7 +44,7 @@ export function PassengerName({ setErrorMessage }: PassengerNameProps) {
   ) => {
     dispatch(
       setPersonInfoField({
-        seatIndex: 0,
+        seatIndex: passengerIndex,
         key,
         value: e.target.value,
       }),
@@ -59,7 +60,7 @@ export function PassengerName({ setErrorMessage }: PassengerNameProps) {
 
     dispatch(
       setPersonInfoField({
-        seatIndex: 0,
+        seatIndex: passengerIndex,
         key,
         value: formatted,
       }),
@@ -83,7 +84,7 @@ export function PassengerName({ setErrorMessage }: PassengerNameProps) {
   };
 
   const handleFocus = () => {
-    setErrorMessage("");
+    // setErrorMessage("");
     setFieldWithError(null);
   };
 

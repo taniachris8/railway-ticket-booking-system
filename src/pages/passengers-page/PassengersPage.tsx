@@ -1,28 +1,57 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import type { RootState } from "../../state/store";
+import {  useState } from "react";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
 import { Loader } from "../../components/loader/Loader";
-import styles from "./PassengersPage.module.css";
 import { ProgressWidget } from "../../components/progress-widget/ProgressWidget";
 import { Button } from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 import { AsideWidget } from "../../components/passengers/aside-widget/AsideWidget";
 import { Passenger } from "../../components/passengers/passenger/Passenger";
 
+import styles from "./PassengersPage.module.css";
+
 export function PassengersPage() {
   const navigate = useNavigate();
-  const status = useSelector((state: RootState) => state.passengers.status); 
-  
-  const numberOfPassengers = useSelector((state: RootState) => state.seats.departure.adultCount + state.seats.departure.childCount); 
-  console.log("from passengers page", numberOfPassengers);
+  const status = useSelector((state: RootState) => state.passengers.status);
 
+  const numberOfPassengers = useSelector(
+    (state: RootState) =>
+      state.seats.departure.adultCount + state.seats.departure.childCount,
+  );
+  console.log("from passengers page", numberOfPassengers);
+  const [openedPassengerIndex, setOpenedPassengerIndex] = useState<
+    number | null
+  >(null);
+
+  const seatsFromPassengersState = useSelector(
+    (state: RootState) => state.passengers.departure.seats,
+  );
+
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [infoModalMessage, setInfoModalMessage] = useState("");
 
   const handleNavigateToPaymentClick = () => {
-    navigate("/payment");
-  }
+    if (
+      seatsFromPassengersState.every(
+        (seat) =>
+          seat.person_info.first_name &&
+          seat.person_info.last_name &&
+          seat.person_info.patronymic &&
+          seat.person_info.document_data,
+      )
+    ) {
+      navigate("/payment");
+    } else {
+      setInfoModalMessage("Пожалуйста, заполните информацию о всех пассажирах");
+      setShowInfoModal(true);
+    }
+  };
+
+  console.log("passengers", seatsFromPassengersState);
 
   return (
     <>
@@ -42,13 +71,18 @@ export function PassengersPage() {
           <ProgressWidget stage="passengers-page" />
           <section className={styles.passengers}>
             <aside className={styles.passengers__sidebar}>
-              <AsideWidget/>
+              <AsideWidget />
             </aside>
 
-              <main className={styles.passengers__content}>
-                { [...Array(numberOfPassengers)].map((_, index) => (
-                  <Passenger key={index} passengerIndex={index} />
-                ))}
+            <main className={styles.passengers__content}>
+              {seatsFromPassengersState.map((seat, index) => (
+                <Passenger
+                  key={seat.coach_id + seat.seat_number}
+                  passengerIndex={index}
+                  openedPassengerIndex={openedPassengerIndex}
+                  setOpenedPassengerIndex={setOpenedPassengerIndex}
+                />
+              ))}
               <Button
                 className={styles.button}
                 variant="more"
@@ -56,20 +90,13 @@ export function PassengersPage() {
                 onClick={handleNavigateToPaymentClick}
               />
             </main>
-            {/* {showModal && (
+            {showInfoModal && (
               <Modal
                 type="info"
-                message="Пожалуйста, выберите хотя бы одно место"
-                onClick={() => setShowModal(false)}
+                message={infoModalMessage}
+                onClick={() => setShowInfoModal(false)}
               />
             )}
-            {showTypeModal && (
-              <Modal
-                type="info"
-                message="Выбранный тип вагона недоступен для данного поезда"
-                onClick={() => setShowTypeModal(false)}
-              />
-            )} */}
           </section>
         </>
       )}

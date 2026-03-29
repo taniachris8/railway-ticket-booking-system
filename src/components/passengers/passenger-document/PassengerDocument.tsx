@@ -1,131 +1,75 @@
-import { useDispatch, useSelector } from "react-redux";
-import { IMaskInput } from "react-imask";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 
 import type { RootState } from "../../../state/store";
 
-import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
-
 import { SelectOptionInput } from "../select-option-input/SelectOptionInput";
 
+import { DocumentTypeDropdown } from "../document-type-dropdown/DocumentTypeDropdown";
+import { BirthCertificate } from "../birth-certificate/BirthCertificate";
+import { PassportRf } from "../passport-rf/PassportRf";
+import { InternationalPassport } from "../international-passport/InternationalPassport";
+
 import styles from "./PassengerDocument.module.css";
-import { validateDocumentData } from "../../../utils/validatePersonsInfo";
 
-export function PassengerDocument({ setErrorMessage }: { setErrorMessage: (message: string) => void }) {
-  const dispatch = useDispatch();
-  const documentTypes = ["Паспорт РФ", "Свидетельство о рождении"];
+type PassengerDocumentProps = {
+  passengerIndex: number;
+  errorMessage: string;
+  setErrorMessage: (message: string) => void;
+};
 
-  const [certificateNumber, setCertificateNumber] = useState("");
-  const [passportSeries, setPassportSeries] = useState("");
-  const [passportNumber, setPassportNumber] = useState("");
+export function PassengerDocument({
+  passengerIndex,
+  setErrorMessage,
+}: PassengerDocumentProps) {
+  const [dropdownActive, setDropdownActive] = useState(false);
 
-  const { document_type, is_adult } = useSelector(
-    (state: RootState) => state.passengers.departure.seats[0].person_info,
+  const { document_type } = useSelector(
+    (state: RootState) =>
+      state.passengers.departure.seats[passengerIndex].person_info,
   );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      setPersonInfoField({
-        seatIndex: 0,
-        key: "document_data",
-        value: e.target.value,
-      }),
-    );
-  };
-
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement>,
-  ) => {
-    const value = e.target.value;
-
-    dispatch(
-      setPersonInfoField({
-        seatIndex: 0,
-        key: "document_data",
-        value
-      }),
-    );
-
-    if (!validateDocumentData(document_type, value)) {
-      setErrorMessage(
-        `Номер документа указан неверно.`,
-      );
-    } else {
-      setErrorMessage("");
-    }
-  };
-
-  const handleFocus = () => {
-    setErrorMessage("");
-  };
 
   return (
     <div className={styles.container}>
       <div className={styles.input_group}>
         <label className={styles.label}>Тип документа</label>
-        <SelectOptionInput category="document_type" types={documentTypes} setErrorMessage={setErrorMessage}/>
+        <SelectOptionInput
+          selected={
+            document_type === "passport"
+              ? "Паспорт"
+              : document_type === "birth_certificate"
+                ? "Свидетельство о рождении"
+                : "Паспорт РФ"
+          }
+          dropdownActive={dropdownActive}
+          setDropdownActive={setDropdownActive}>
+          <DocumentTypeDropdown
+            passengerIndex={passengerIndex}
+            setErrorMessage={setErrorMessage}
+            setDropdownActive={setDropdownActive}
+          />
+        </SelectOptionInput>
       </div>
 
       <div className={styles.document_number_inputs}>
-        {document_type === "Паспорт РФ" && (
-          <>
-            <div className={styles.input_group}>
-              <label className={styles.label}>Серия</label>
-              <div className={styles.input_wrapper}>
-                <IMaskInput
-                  className={`${styles.input} ${
-                    passportSeries.length === 4 ? styles.filled : ""
-                  }`}
-                  mask="0 0 0 0"
-                  lazy={false}
-                  placeholderChar="_"
-                  overwrite
-                  unmask={true}
-                  value={passportSeries}
-                  onAccept={(value) => setPassportSeries(value)}
-                />
-              </div>
-            </div>
-            <div className={styles.input_group}>
-              <label className={styles.label}>Номер</label>
-              <div className={styles.input_wrapper}>
-                <IMaskInput
-                  className={`${styles.input} ${
-                    passportNumber.length === 6 ? styles.filled : ""
-                  }`}
-                  mask="0 0 0 0 0 0"
-                  lazy={false}
-                  placeholderChar="_"
-                  overwrite
-                  unmask={true}
-                  value={passportNumber}
-                  onAccept={(value) => setPassportNumber(value)}
-                />
-              </div>
-            </div>
-          </>
+        {document_type === "passport_rf" && (
+          <PassportRf
+            passengerIndex={passengerIndex}
+            setErrorMessage={setErrorMessage}
+          />
         )}
-        {document_type === "Свидетельство о рождении" && (
-          <div className={styles.input_group}>
-            <label className={styles.label}>Номер</label>
-            <div className={styles.input_wrapper}>
-              <IMaskInput
-                className={`${styles.input} ${styles.certificate} ${
-                  certificateNumber.length === 12 ? styles.filled : ""
-                }`}
-                mask="0 0 0 0 0 0 0 0 0 0 0 0"
-                lazy={false}
-                placeholderChar="_"
-                overwrite
-                unmask={true}
-                value={certificateNumber}
-                onAccept={(value) => setCertificateNumber(value)}
-              />
-              {!certificateNumber && (
-                <div className={styles.fake_placeholder}>12 символов</div>
-              )}
-            </div>
-          </div>
+        {document_type === "birth_certificate" && (
+          <BirthCertificate
+            passengerIndex={passengerIndex}
+            setErrorMessage={setErrorMessage}
+          />
+        )}
+
+        {document_type === "passport" && (
+          <InternationalPassport
+            passengerIndex={passengerIndex}
+            setErrorMessage={setErrorMessage}
+          />
         )}
       </div>
     </div>

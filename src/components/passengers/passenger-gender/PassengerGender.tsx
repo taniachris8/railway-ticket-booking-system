@@ -1,13 +1,16 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import type { RootState } from "../../../state/store";
 
 import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
 
 import styles from "./PassengerGender.module.css";
 
-export function PassengerGender() {
+export function PassengerGender({ passengerIndex }: { passengerIndex: number }) {
   const dispatch = useDispatch();
-  const [sex, setSex] = useState("");
+  const { gender } = useSelector(
+    (state: RootState) => state.passengers.departure.seats[passengerIndex].person_info,
+  );
 
   return (
     <div className={styles.input_group}>
@@ -17,26 +20,28 @@ export function PassengerGender() {
       <div className={styles.gender}>
         <div
           onClick={() => {
-            setSex("male");
             dispatch(
               setPersonInfoField({
-                seatIndex: 0,
+                seatIndex: passengerIndex,
                 key: "gender",
                 value: true,
               }),
             );
           }}
-          className={`${styles.gender_item} ${sex === "male" ? styles.active : ""}`}>
+          className={`${styles.gender_item} ${gender ? styles.active : ""}`}>
           M
         </div>
         <div
           onClick={() => {
-            setSex("female");
             dispatch(
-              setPersonInfoField({ seatIndex: 0, key: "gender", value: true }),
+              setPersonInfoField({
+                seatIndex: passengerIndex,
+                key: "gender",
+                value: false,
+              }),
             );
           }}
-          className={`${styles.gender_item} ${sex === "female" ? styles.active : ""}`}>
+          className={`${styles.gender_item} ${!gender ? styles.active : ""}`}>
           Ж
         </div>
       </div>

@@ -88,6 +88,10 @@
   background-color: #ff3d0061;
 }
 
+.passenger__footer_success {
+ background-color: #B2F6A1;
+}
+
 .error_container {
   display: flex;
   gap: 10px;
@@ -106,8 +110,10 @@
   color: #292929;
 }
 
-.passenger__footer_with_success {
-  background-color: #B2F6A1;
+.passenger__footer_group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .success_container {

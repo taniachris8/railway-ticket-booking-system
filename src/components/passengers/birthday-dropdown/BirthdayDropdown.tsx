@@ -1,12 +1,16 @@
 import styles from "./BirthdayDropdown.module.css";
 
 type BirthdayDropdownProps = {
-    setDay: (day: number) => void;
-    setMonth: (month: number) => void;
-    setYear: (year: number) => void;
-}
+  setSelectedDate: React.Dispatch<
+    React.SetStateAction<{
+      day: number;
+      month: number;
+      year: number;
+    } | null>
+  >;
+};
 
-export function BirthdayDropdown({ setDay, setMonth, setYear }: BirthdayDropdownProps) {   
+export function BirthdayDropdown({  setSelectedDate }: BirthdayDropdownProps) {   
     return (
       <>
         <div
@@ -16,7 +20,13 @@ export function BirthdayDropdown({ setDay, setMonth, setYear }: BirthdayDropdown
           }}>
           <select
             className={styles.dropdown_item}
-            onChange={(e) => setDay(Number(e.target.value))}>
+            onChange={(e) =>
+              setSelectedDate((prev) => ({
+                day: Number(e.target.value),
+                month: prev?.month ?? 0,
+                year: prev?.year ?? 0,
+              }))
+            }>
             <option value="">День</option>
             {[...Array(31)].map((_, i) => (
               <option key={i} value={i + 1}>
@@ -26,7 +36,13 @@ export function BirthdayDropdown({ setDay, setMonth, setYear }: BirthdayDropdown
           </select>
           <select
             className={styles.dropdown_item}
-            onChange={(e) => setMonth(Number(e.target.value))}>
+            onChange={(e) =>
+              setSelectedDate((prev) => ({
+                day: prev?.day ?? 0,
+                month: Number(e.target.value),
+                year: prev?.year ?? 0,
+              }))
+            }>
             <option value="">Месяц</option>
             {[
               "Январь",
@@ -49,7 +65,13 @@ export function BirthdayDropdown({ setDay, setMonth, setYear }: BirthdayDropdown
           </select>
           <select
             className={styles.dropdown_item}
-            onChange={(e) => setYear(Number(e.target.value))}>
+            onChange={(e) =>
+              setSelectedDate((prev) => ({
+                day: prev?.day ?? 0,
+                month: prev?.month ?? 0,
+                year: Number(e.target.value),
+              }))
+            }>
             <option value="">Год</option>
             {Array.from(
               { length: 100 },

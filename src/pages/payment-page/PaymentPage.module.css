@@ -1,0 +1,114 @@
+.hero__payment_page {
+  height: 596px;
+}
+
+.hero__payment_page > div {
+  padding-top: 269px;
+}
+
+.find_tickets__payment_container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find_tickets__inputs__payment_page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.payment {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 200px;
+}
+
+.payment__sidebar {
+  width: 379px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.payment__content {
+  width: 959px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment__details {
+  width: 100%;
+  height: 1072px;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 2px 2px 0px #00000040;
+}
+
+.payment__details_group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* .payment__details_group > *:not(:last-child) {
+  border-bottom: 1px dashed #928f94;
+} */
+
+.personal_info__header {
+  width: 100%;
+  height: 107px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f9f9f9;
+  /* border-bottom: 1px dashed #928f94; */
+  padding-left: 30px;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 30px;
+  color: #292929;
+}
+
+.personal_info__content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 30px 30px 80px 30px;
+  /* padding-bottom: 50px; */
+}
+
+.name_inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment_method {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.payment_options {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.payment_option {
+  font-weight: 700;
+  font-size: 24px;
+  color: #292929;
+  cursor: pointer;
+}
+
+.button {
+  align-self: flex-end;
+  margin-top: 60px;
+}
+

@@ -1,0 +1,34 @@
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929
+}
+
+.input {
+  width: 280px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #928f94;
+  outline: none;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 24px;
+  color: #292929;
+}
+
+.input_with_error {
+  color: #ff3d00cc;
+  border: 1px solid #ff3d00cc;
+}
+
+.input::placeholder {
+  color: #c4c4c4;
+  font-weight: 400;
+  font-size: 24px;
+}

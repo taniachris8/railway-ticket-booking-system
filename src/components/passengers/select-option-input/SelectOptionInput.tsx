@@ -1,58 +1,21 @@
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import type { RootState } from "../../../state/store";
-
-import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
+import { useEffect, useRef } from "react";
 
 import styles from "./SelectOptionInput.module.css";
 
 type SelectOptionInputProps = {
-  types: string[];
-  category: "document_type" | "is_adult";
-  setErrorMessage: (message: string) => void;
+  selected: string;
+  children: React.ReactNode;
+  dropdownActive: boolean;
+  setDropdownActive: (active: boolean) => void;
 };
 
 export function SelectOptionInput({
-  types,
-  category,
-  setErrorMessage,
+  selected,
+  dropdownActive,
+  setDropdownActive,
+  children,
 }: SelectOptionInputProps) {
-  const { is_adult } = useSelector(
-    (state: RootState) => state.passengers.departure.seats[0].person_info,
-  );
-  const [dropdownActive, setDropdownActive] = useState(false);
-  const dispatch = useDispatch();
-  const [selected, setSelected] = useState(types[0]);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleSelect = (type: string) => {
-    if (category === "is_adult") {
-      dispatch(
-        setPersonInfoField({
-          seatIndex: 0,
-          key: category,
-          value: type === "Взрослый" ? true : false,
-        }),
-      );
-      setSelected(type);
-    } else {
-      if (type === "Свидетельство о рождении" && is_adult) {
-        setErrorMessage(
-          "Взрослый пассажир старше 18 лет не может указать свидетельство о рождении в качестве документа. Выберите другой тип документа.",
-        );
-        setSelected(types[0]);
-        setDropdownActive(false);
-        return;
-      }
-      dispatch(
-        setPersonInfoField({ seatIndex: 0, key: category, value: type }),
-      );
-      setSelected(type);
-      setErrorMessage("");
-    }
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -69,7 +32,7 @@ export function SelectOptionInput({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [setDropdownActive]);
 
   return (
     <>
@@ -83,22 +46,7 @@ export function SelectOptionInput({
           onClick={() => setDropdownActive(true)}>
           <p className={styles.value}>{selected}</p>
           <img src="/icons/dropdown-arrow.png" alt="arrow-down" />
-          {dropdownActive && (
-            <ul className={styles.dropdown}>
-              {types.map((type, index) => (
-                <li
-                  key={index}
-                  className={styles.item}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSelect(type);
-                    setDropdownActive(false);
-                  }}>
-                  {type}
-                </li>
-              ))}
-            </ul>
-          )}
+          {dropdownActive && children}
         </div>
       </div>
     </>

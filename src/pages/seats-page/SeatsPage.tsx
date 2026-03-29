@@ -20,6 +20,7 @@ import { Button } from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 
 import styles from "./SeatsPage.module.css";
+import { setSeatsFromSelection } from "../../state/reducers/passengersSlice";
 
 export function SeatsPage() {
   const navigate = useNavigate();
@@ -69,6 +70,10 @@ export function SeatsPage() {
     selectSelectedSeats(state, "arrival"),
   );
 
+  // const selectedSeats = useSelector(
+  //   (state: RootState) => state.seats.departure.selectedSeats,
+  // );
+
   const [showModal, setShowModal] = useState(false);
 
   const handleNavigateToPassengersClick = () => {
@@ -83,6 +88,13 @@ export function SeatsPage() {
       setShowModal(true);
       return;
     }
+
+     setSeatsFromSelection({
+       departure: departureSelectedSeats,
+       arrival: arrivalSelectedSeats,
+     });
+
+    console.log("selected seats in passengers page", selectedSeats);
     navigate("/passengers");
   };
 

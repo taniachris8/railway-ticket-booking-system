@@ -4,7 +4,7 @@ import styles from "./InputGroup.module.css";
 
 type InputGroupProps = {
   label: string;
-  error?: boolean;
+  error?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const InputGroup: FC<InputGroupProps> = ({
@@ -21,6 +21,9 @@ export const InputGroup: FC<InputGroupProps> = ({
         className={`${styles.input} ${error ? styles.input_with_error : ""}`}
         {...inputProps}
       />
+      <span className={`${styles.error} ${error ? "" : "hidden"}`}>
+        {error}
+      </span>
     </div>
   );
 };

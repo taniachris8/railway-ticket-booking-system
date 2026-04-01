@@ -1,0 +1,136 @@
+.hero__confirmation_page {
+  height: 596px;
+}
+
+.hero__confirmation_page > div {
+  padding-top: 269px;
+}
+
+.find_tickets__confirmation_container {
+  width: 1490px;
+  height: 350px;
+}
+
+.find_tickets__inputs__confirmation_page {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.confirmation {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 200px;
+}
+
+.confirmation__sidebar {
+  width: 379px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.confirmation__content {
+  width: 959px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.confirmation_item {
+  width: 100%;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 2px 2px 0px #00000040;
+}
+
+.item_header {
+  width: 100%;
+  height: 107px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid #928f94;
+  padding: 40px;
+}
+
+.item_title {
+  font-weight: 400;
+  font-size: 30px;
+  color: #292929;
+}
+
+.passengers_content {
+  display: flex;
+}
+
+.passengers {
+  width: 678px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px dashed #e5e5e5;
+}
+
+.passengers > *:not(:last-child) {
+  border-bottom: 1px dashed #e5e5e5;
+}
+
+.total_price {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  gap: 20px;
+  padding: 20px;
+}
+
+.total_price_value {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total_price_label {
+  font-weight: 400;
+  font-size: 30px;
+  color: #292929;
+}
+
+.total_price_amount {
+  font-weight: 700;
+  font-size: 30px;
+  color: #292929;
+}
+
+.total_price_icon {
+  color: #928f94;
+  width: 20px;
+  height: 24px;
+}
+
+.payment_method_content {
+  display: flex;
+}
+
+.payment_method {
+  width: 678px;
+  border-right: 1px dashed #e5e5e5;
+}
+
+.payment_method_chosen {
+  font-weight: 400;
+  font-size: 24px;
+  color: #292929;
+  padding: 40px;
+}
+
+.button_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-self: flex-end;
+}
+
+.button {
+  align-self: flex-end;
+}

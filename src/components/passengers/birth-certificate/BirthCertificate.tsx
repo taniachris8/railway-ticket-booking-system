@@ -21,11 +21,6 @@ export function BirthCertificate({ passengerIndex, setErrorMessage }: BirthCerti
   );
   const [error, setError] = useState(false);
 
-  // const isValidCertificateNumber = (value: string) => {
-  //   const regex = /^[A-ZА-ЯIVX]{1,4}-[A-ZА-Я]{2}-\d{6}$/i;
-  //   return regex.test(value);
-  // };
-
   const handleCertificateNumberChange = (value: string) => {
     dispatch(
       setPersonInfoField({

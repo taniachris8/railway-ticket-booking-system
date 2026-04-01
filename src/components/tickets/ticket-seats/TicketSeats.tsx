@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 
 import type { SeatsInfoType, TicketType } from "../../../types";
 
@@ -8,6 +9,7 @@ import { getAvailableSeats } from "../../../api/api";
 
 import { setSeatsFiltersField } from "../../../state/reducers/filterSeatsSlice";
 import { setSeatsField } from "../../../state/reducers/seatsSlice";
+import { setRouteDirectionId } from "../../../state/reducers/passengersSlice";
 
 import { AvailableSeatsTooltip } from "../available-seats-tooltip/AvailableSeatsTooltip";
 import { Price } from "../../price/Price";
@@ -32,6 +34,7 @@ type PriceGroup = {
 export function TicketSeats({ ticket }: TicketSeatsProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { departure, arrival } = ticket;
   const { have_air_conditioning, have_wifi, is_express } = ticket;
@@ -74,7 +77,7 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
     return Array.from(map.values());
   }, [carriages]);
 
-  const getMinPriceFromGroup = (pricesArray: PriceGroup[]) : number => {
+  const getMinPriceFromGroup = (pricesArray: PriceGroup[]): number => {
     const allPrices = pricesArray.flatMap((p) => Object.values(p));
     const filtered = allPrices.filter((p) => p > 0);
     return filtered.length ? Math.min(...filtered) : 0;
@@ -82,12 +85,29 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
 
   const navigateToSeatsPage = () => {
     dispatch(setSeatsFiltersField({ key: "id", value: departure._id }));
+    dispatch(setSeatsField({ key: "departureTrain", value: departure }));
+    dispatch(
+      setRouteDirectionId({
+        direction: "departure",
+        route_direction_id: departure._id,
+      }),
+    );
     if (arrival) {
       dispatch(setSeatsFiltersField({ key: "id", value: arrival._id }));
+      dispatch(setSeatsField({ key: "arrivalTrain", value: arrival }));
+      dispatch(
+        setRouteDirectionId({
+          direction: "arrival",
+          route_direction_id: arrival._id,
+        }),
+      );
     }
-    dispatch(setSeatsField({ key: "departureTrain", value: departure }));
-    dispatch(setSeatsField({ key: "arrivalTrain", value: arrival }));
+    dispatch(setSeatsField({ key: "ticket", value: ticket }));
     navigate("/seats");
+  };
+
+  const navigateToTicketsPage = () => {
+    navigate("/tickets");
   };
 
   const getAvailableSeatsCount = async () => {
@@ -168,11 +188,20 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
             {is_express && <ExpressIcon className={styles.seats__icon} />}
             {have_air_conditioning && <ACIcon className={styles.seats__icon} />}
           </div>
-          <Button
-            variant="choose"
-            text="Выбрать места"
-            onClick={navigateToSeatsPage}
-          />
+          {location.pathname === "/confirmation" && (
+            <Button
+              variant="change"
+              text="Изменить"
+              onClick={navigateToTicketsPage}
+            />
+          )}
+          {location.pathname === "/tickets" && (
+            <Button
+              variant="choose"
+              text="Выбрать места"
+              onClick={navigateToSeatsPage}
+            />
+          )}
         </div>
       </div>
     </>

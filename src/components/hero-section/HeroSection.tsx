@@ -4,7 +4,7 @@ import styles from "./HeroSection.module.css";
 
 type HeroSectionProps = {
   image: string;
-  children: ReactNode;
+  children?: ReactNode;
   containerClassName: string;
 };
 

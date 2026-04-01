@@ -7,7 +7,12 @@ type SeatsPayload = {
   arrival: Record<string, number[]>;
 };
 
-type PassengersState = {
+type RouteDirectionPayload = {
+  direction: "departure" | "arrival";
+  route_direction_id: string;
+};
+
+export type PassengersState = {
   user: {
     first_name: string;
     last_name: string;
@@ -79,6 +84,13 @@ const passengersSlice = createSlice({
   name: "passengers",
   initialState,
   reducers: {
+    setRouteDirectionId: (
+      state,
+      action: PayloadAction<RouteDirectionPayload>,
+    ) => {
+      const { direction, route_direction_id } = action.payload;
+      state[direction].route_direction_id = route_direction_id;
+    },
     setUserField: (
       state,
       action: PayloadAction<{ key: keyof PassengersState["user"]; value: any }>,
@@ -137,7 +149,11 @@ const passengersSlice = createSlice({
   },
 });
 
-export const { setUserField, setSeatsFromSelection, setPersonInfoField } =
-  passengersSlice.actions;
+export const {
+  setUserField,
+  setSeatsFromSelection,
+  setPersonInfoField,
+  setRouteDirectionId,
+} = passengersSlice.actions;
 
 export default passengersSlice.reducer;

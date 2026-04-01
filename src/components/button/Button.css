@@ -3,6 +3,7 @@ button {
   border-radius: 5px;
   font-weight: 700;
   font-size: 24px;
+  text-transform: uppercase;
 }
 
 .find {

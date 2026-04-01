@@ -1,0 +1,46 @@
+.passenger {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 40px;
+}
+
+.passenger__icon_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.passenger__type {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929;
+}
+
+.passenger__info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.passenger__name {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929;
+}
+
+.passenger_details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #928f94;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.passenger_detail {
+  display: flex;
+  gap: 5px;
+}

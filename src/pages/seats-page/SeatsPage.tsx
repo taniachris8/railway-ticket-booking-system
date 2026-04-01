@@ -9,6 +9,7 @@ import { selectSelectedSeats } from "../../state/selectors/seatSelectors";
 
 import { setSeatsFiltersField } from "../../state/reducers/filterSeatsSlice";
 
+
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
 import { ProgressWidget } from "../../components/progress-widget/ProgressWidget";
@@ -70,10 +71,6 @@ export function SeatsPage() {
     selectSelectedSeats(state, "arrival"),
   );
 
-  // const selectedSeats = useSelector(
-  //   (state: RootState) => state.seats.departure.selectedSeats,
-  // );
-
   const [showModal, setShowModal] = useState(false);
 
   const handleNavigateToPassengersClick = () => {
@@ -94,7 +91,6 @@ export function SeatsPage() {
        arrival: arrivalSelectedSeats,
      });
 
-    console.log("selected seats in passengers page", selectedSeats);
     navigate("/passengers");
   };
 

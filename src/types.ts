@@ -43,7 +43,7 @@ export type TicketType = {
   have_air_conditioning: boolean;
   is_express: boolean;
   min_price: number;
-  arrival: DepartureType;
+  arrival?: DepartureType;
   departure: DepartureType;
   total_avaliable_seats: number;
 };
@@ -163,3 +163,14 @@ export type DirectionOrderType = {
   ];
 };
 
+export type SeatsForOrderType = {
+  coach_id: string;
+  person_info: PersonInfoType;
+  seat_number: number;
+  is_child: boolean;
+  include_children_seat: boolean;
+};
+
+export type SubmitTicketResponseType = {
+  status: boolean;
+}

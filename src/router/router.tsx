@@ -7,6 +7,8 @@ import { TicketsPage } from "../pages/tickets-page/TicketsPage";
 import { SeatsPage } from "../pages/seats-page/SeatsPage";
 import { PassengersPage } from "../pages/passengers-page/PassengersPage";
 import { PaymentPage } from "../pages/payment-page/PaymentPage";
+import { ConfirmationPage } from "../pages/confirmation-page/ConfirmationPage";
+import { SuccessfulOrderPage } from "../pages/successful-order-page/SuccessfulOrderPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: "/payment",
         element: <PaymentPage />,
+      },
+      {
+        path: "/confirmation",
+        element: <ConfirmationPage />,
+      },
+      {
+        path: "/successful-order",
+        element: <SuccessfulOrderPage />,
       },
     ],
   },

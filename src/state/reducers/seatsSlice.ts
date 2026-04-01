@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { DepartureType, SeatsInfoType } from "../../types";
+import type { DepartureType, SeatsInfoType, TicketType } from "../../types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { resetSearchStateAction } from "../actions/resetSearch";
@@ -24,8 +24,11 @@ export type SeatsState = {
   error: string | null;
   progressSeats: number;
 
+
   departureTrain: DepartureType | null;
   arrivalTrain: DepartureType | null;
+
+  ticket: TicketType | null;
 
   departure: TrainSeatsState;
   arrival: TrainSeatsState;
@@ -50,6 +53,7 @@ const initialState: SeatsState = {
   error: null,
   progressSeats: 0,
 
+  ticket: null,
   departureTrain: null,
   arrivalTrain: null,
 

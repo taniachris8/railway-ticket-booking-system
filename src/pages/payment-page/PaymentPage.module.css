@@ -42,7 +42,7 @@
 
 .payment__details {
   width: 100%;
-  height: 1072px;
+  /* height: 1072px; */
   border: 1px solid #c4c4c4;
   box-shadow: 0px 2px 2px 0px #00000040;
 }
@@ -53,9 +53,13 @@
   gap: 20px;
 }
 
-/* .payment__details_group > *:not(:last-child) {
+.user_info {
   border-bottom: 1px dashed #928f94;
-} */
+}
+
+.payment__details_group > *:not(:last-child) {
+  border-bottom: 1px dashed #928f94;
+}
 
 .personal_info__header {
   width: 100%;
@@ -64,7 +68,6 @@
   justify-content: flex-start;
   align-items: center;
   background-color: #f9f9f9;
-  /* border-bottom: 1px dashed #928f94; */
   padding-left: 30px;
 }
 
@@ -77,9 +80,8 @@
 .personal_info__content {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 30px 30px 80px 30px;
-  /* padding-bottom: 50px; */
+  gap: 20px;
+  padding: 30px 30px 60px 30px;
 }
 
 .name_inputs {
@@ -87,10 +89,20 @@
   justify-content: space-between;
 }
 
+.payment__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment__content > * + * {
+  border-top: 1px dashed #928f94;
+}
+
 .payment_method {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding: 40px 30px 48px 30px;
 }
 
 .payment_options {
@@ -107,8 +119,72 @@
   cursor: pointer;
 }
 
+.payment_option_active {
+  color: #ffa800;
+}
+
+.checkbox_text {
+  font-weight: 400;
+  font-size: 24px;
+  color: #928f94;
+}
+
+.checkbox_container {
+  gap: 20px;
+}
+
 .button {
   align-self: flex-end;
   margin-top: 60px;
 }
 
+.input_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 18px;
+  color: #292929;
+}
+
+.input {
+  width: 280px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #928f94;
+  outline: none;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 24px;
+  color: #C4C4C4;
+}
+
+.input.filled {
+  color: #292929;
+}
+
+.input_with_error {
+  color: #ff3d00cc;
+  border: 1px solid #ff3d00cc;
+}
+
+.error {
+  color: #ff3d00cc;
+  font-size: 14px;
+  height: 14px;      
+  line-height: 14px;
+  visibility: visible;
+}
+
+.error.hidden {
+  visibility: hidden; 
+}

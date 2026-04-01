@@ -19,7 +19,7 @@ export function ProgressWidget({ stage }: ProgressWidgetProps) {
       <ul className={styles.progress}>
         {stages.map((stageItem, index) => {
           const isActive = index <= currentStageIndex;
-          const isBeforeActive = index === currentStageIndex - 1;
+          const isBeforeActive = index < currentStageIndex;
           return (
             <li
               key={stageItem.name}
@@ -30,18 +30,6 @@ export function ProgressWidget({ stage }: ProgressWidgetProps) {
               <p className={styles.progress__item__name}>{stageItem.label}</p>
             </li>
           );
-          // const isActive = index === currentStageIndex ;
-          // const isBeforeActive = index === currentStageIndex - 1;
-          // return (
-          //   <li
-          //     key={stageItem.name}
-          //     className={`${styles.progress__item}
-          //     ${isActive ? styles.active : ""}
-          //     ${isBeforeActive ? styles.beforeactive : ""}`}>
-          //     <div className={styles.progress__item__position}>{index + 1}</div>
-          //     <p className={styles.progress__item__name}>{stageItem.label}</p>
-          //   </li>
-          // );
         })}
       </ul>
     </>

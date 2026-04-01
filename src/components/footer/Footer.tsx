@@ -1,4 +1,8 @@
 import { NavLink } from "react-router";
+import { useState } from "react";
+
+import { subscribe } from "../../api/api";
+import { getErrorMessage } from "../../utils/getErrorMessage";
 
 import { Button } from "../button/Button";
 import { PhoneIcon } from "../../icons/PhoneIcon";
@@ -15,11 +19,47 @@ import { ScrollUpIcon } from "../../icons/ScrollUpIcon";
 import styles from "./Footer.module.css";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleScroll = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  const subscribeForNews = async () => {
+    try {
+      setLoader(true);
+      const response = await subscribe(email);
+      if (response.status) {
+        setEmail("");
+        setSuccessMessage("Вы успешно подписаны на наши новости!");
+        console.log("from footer", response);
+      }
+    } catch (err) {
+      console.log("from footer", err)
+      setErrorMessage(getErrorMessage(err));
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (validEmail) {
+      subscribeForNews();
+      setErrorMessage("");
+    } else {
+      setErrorMessage(
+        "Введите корректный имейл, например, inbox.gmail.com",
+      );
+    }
+    console.log("from footer", email);
   };
 
   return (
@@ -53,16 +93,54 @@ export function Footer() {
           <ul className={styles.subscribe__list}>
             <li className={styles.subscribe__item}>
               <h3 className={styles.title}>Подписка</h3>
-              <form action="" className={styles.form}>
+              <form
+                action=""
+                className={styles.form}
+                onSubmit={handleSubscribe}>
                 <label className={styles.label}>Будьте в курсе событий</label>
-                <div className={styles.group}>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    placeholder="email"
-                  />
-                  <Button variant="send" text="отправить" />
-                </div>
+
+                <>
+                  <div className={styles.group}>
+                    {loader ? (
+                      <p className={styles.loader}>
+                        Идёт загрузка, подождите...
+                      </p>
+                    ) : (
+                      <>
+                        <input
+                          type="text"
+                          className={styles.input}
+                          placeholder="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          onFocus={() => {
+                            setErrorMessage("");
+                            setSuccessMessage("");
+                          }}
+                        />
+                        <Button
+                          variant="send"
+                          text="отправить"
+                          // onClick={handleSubscribe}
+                        />
+                      </>
+                    )}
+                  </div>
+                  <p
+                    className={
+                      errorMessage
+                        ? `${styles.error_message}`
+                        : successMessage
+                          ? `${styles.success_message}`
+                          : `${styles.message}`
+                    }>
+                    {errorMessage
+                      ? errorMessage
+                      : successMessage
+                        ? successMessage
+                        : ""}
+                  </p>
+                </>
               </form>
             </li>
 

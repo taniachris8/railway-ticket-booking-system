@@ -176,7 +176,7 @@
   cursor: pointer;
 }
 
-.icon.scrollup{
+.icon.scrollup {
   width: 36px;
   height: 36px;
   cursor: pointer;
@@ -186,4 +186,30 @@
   font-weight: 300;
   font-size: 24px;
   color: #e5e5e5;
+}
+
+.message {
+  visibility: hidden;
+   min-height: 20px;
+}
+
+.error_message {
+  visibility: visible;
+  color: red;
+}
+
+.success_message {
+  color: green;
+  visibility: visible;
+}
+
+.loader {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  width: 632px;
+  height:  60px;
+  color: #e5e5e5;
+  font-weight: 400;
+  font-size: 24px;
 }

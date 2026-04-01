@@ -88,8 +88,17 @@ export const orderTickets = async (data: OrderType): Promise<void> => {
   axios.post(BASE_URL + "order", data);
 };
 
-export const submitTicketOrder = async (newOrder: OrderType): Promise<unknown> => {
-  console.log("from api func", newOrder)
+export const submitTicketOrder = async (
+  newOrder: OrderType,
+): Promise<unknown> => {
+  console.log("from api func", newOrder);
   const response = await axios.post(BASE_URL + "order", newOrder);
+  return response.data;
+};
+
+export const subscribe = async (
+  email: string,
+): Promise<unknown> => {
+  const response = await axios.post(BASE_URL + "subscribe", email);
   return response.data;
 };

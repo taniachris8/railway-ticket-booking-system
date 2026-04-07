@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-type SeatsPayload = {
-  departure: Record<string, number[]>;
-  arrival: Record<string, number[]>;
-};
+import { resetPassengersStateAction } from "../actions/resetPassengers";
 
 type RouteDirectionPayload = {
   direction: "departure" | "arrival";
@@ -91,67 +87,50 @@ const passengersSlice = createSlice({
       const { direction, route_direction_id } = action.payload;
       state[direction].route_direction_id = route_direction_id;
     },
-    setUserField: (
-      state,
-      action: PayloadAction<{ key: keyof PassengersState["user"]; value: any }>,
+    setUserField: <K extends keyof PassengersState["user"]>(
+      state: PassengersState,
+      action: PayloadAction<{
+        key: K;
+        value: PassengersState["user"][K];
+      }>,
     ) => {
       const { key, value } = action.payload;
       state.user[key] = value;
     },
-    setPersonInfoField: (
-      state,
+    setPersonInfoField: <
+      K extends
+        keyof PassengersState["departure"]["seats"][number]["person_info"],
+    >(
+      state: PassengersState,
       action: PayloadAction<{
         seatIndex: number;
-        key: keyof (typeof state.departure.seats)[number]["person_info"];
-        value: any;
+        key: K;
+        value: PassengersState["departure"]["seats"][number]["person_info"][K];
       }>,
     ) => {
       const { seatIndex, key, value } = action.payload;
       state.departure.seats[seatIndex].person_info[key] = value;
     },
-    setSeatsFromSelection: (state, action: PayloadAction<SeatsPayload>) => {
-      const { departure, arrival } = action.payload;
-
-      type SeatType = PassengersState["departure"]["seats"][0];
-
-      const buildSeats = (
-        selectedSeats: Record<string, number[]>,
-      ): SeatType[] => {
-        const result: SeatType[] = [];
-
-        Object.entries(selectedSeats).forEach(([coachId, seats]) => {
-          seats.forEach((seatNumber) => {
-            result.push({
-              coach_id: coachId,
-              seat_number: seatNumber,
-              is_child: false,
-              include_children_seat: false,
-              person_info: {
-                is_adult: true,
-                first_name: "",
-                last_name: "",
-                patronymic: "",
-                gender: true,
-                birthday: "",
-                document_type: "passport_rf",
-                document_data: "",
-              },
-            });
-          });
-        });
-
-        return result;
-      };
-
-      state.departure.seats = buildSeats(departure);
-      state.arrival.seats = buildSeats(arrival);
+    setSeats: (
+      state,
+      action: PayloadAction<{
+        direction: "departure" | "arrival";
+        seats: PassengersState["departure"]["seats"];
+      }>,
+    ) => {
+      state[action.payload.direction].seats = action.payload.seats;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetPassengersStateAction, () => {
+      return initialState;
+    });
   },
 });
 
 export const {
   setUserField,
-  setSeatsFromSelection,
+  setSeats,
   setPersonInfoField,
   setRouteDirectionId,
 } = passengersSlice.actions;

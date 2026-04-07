@@ -38,10 +38,8 @@ export function Footer() {
       if (response.status) {
         setEmail("");
         setSuccessMessage("Вы успешно подписаны на наши новости!");
-        console.log("from footer", response);
       }
     } catch (err) {
-      console.log("from footer", err)
       setErrorMessage(getErrorMessage(err));
     } finally {
       setLoader(false);
@@ -55,11 +53,8 @@ export function Footer() {
       subscribeForNews();
       setErrorMessage("");
     } else {
-      setErrorMessage(
-        "Введите корректный имейл, например, inbox.gmail.com",
-      );
+      setErrorMessage("Введите корректный имейл, например, inbox.gmail.com");
     }
-    console.log("from footer", email);
   };
 
   return (
@@ -118,11 +113,7 @@ export function Footer() {
                             setSuccessMessage("");
                           }}
                         />
-                        <Button
-                          variant="send"
-                          text="отправить"
-                          // onClick={handleSubscribe}
-                        />
+                        <Button variant="send" text="отправить" />
                       </>
                     )}
                   </div>

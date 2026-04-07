@@ -132,5 +132,7 @@
 }
 
 .button {
+  width: 323px ;
+  height: 60px;
   align-self: flex-end;
 }

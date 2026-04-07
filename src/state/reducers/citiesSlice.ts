@@ -22,7 +22,7 @@ const citiesSlice = createSlice({
   name: "cities",
   initialState,
   reducers: {
-    getCitiesRequired: (state, action: PayloadAction<string>) => {
+    getCitiesRequired: (state) => {
     state.status = "loading";
     state.error = null;
     },

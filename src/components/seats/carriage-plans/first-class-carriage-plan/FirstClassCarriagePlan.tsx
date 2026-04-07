@@ -16,7 +16,9 @@ export function FirstClassCarriagePlan({
     for (let i = 0; i < 16; i++) {
       const seatNumber = i + 1;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+      const isSelected = selected.some(
+        (seat) => seat.seatNumber === seatNumber,
+      );
       const y = 60;
 
       seats.push(

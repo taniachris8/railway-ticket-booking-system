@@ -46,7 +46,6 @@ function* workGetSeatsFetch(): Generator {
     });
 
     const data: SeatsInfoType[] = yield call(searchSeats, filters);
-    console.log("Response from seats saga:", data);
 
     yield cancel(progressTask);
     yield put(setSeatsProgress(100));

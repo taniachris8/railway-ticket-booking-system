@@ -1,9 +1,6 @@
-// import { useState } from "react";
 import { FilterSlider } from "../filter-slider/FilterSlider";
 
 import { TripCollapsibleSection } from "../../trip-collapsible-section/TripCollapsibleSection";
-// import { MoreIcon } from "../../../icons/MoreIcon";
-// import { LessIcon } from "../../../icons/LessIcon";
 
 import styles from "./FilterDirection.module.css";
 
@@ -18,29 +15,8 @@ export function FilterDirection({
   iconSrc,
   base,
 }: FilterDirectionProps) {
-  // const [opened, setOpened] = useState(false);
-
   return (
     <>
-      {/* <div className={styles.filter__direction}>
-        <div className={styles.filter__direction_header}>
-          <div className={styles.filter__direction_wrapper}>
-            <img src={iconSrc} alt="icon" className={styles.filter__icon} />
-            <h5 className={styles.filter__title}>{title}</h5>
-          </div>
-
-          {opened ? (
-            <LessIcon
-              className={styles.filter__icon_less}
-              onClick={() => setOpened(false)}
-            />
-          ) : (
-            <MoreIcon
-              className={styles.filter__icon_more}
-              onClick={() => setOpened(true)}
-            />
-          )}
-        </div> */}
       <TripCollapsibleSection title={title} iconSrc={iconSrc}>
         <FilterSlider
           MIN={0}
@@ -73,15 +49,6 @@ export function FilterDirection({
           </h3>
         </FilterSlider>
       </TripCollapsibleSection>
-
-      {/* {opened && (
-          <>
-            <div className={styles.filter__direction_slices}> */}
-
-      {/* </div>
-          </>
-        )}
-      </div> */}
     </>
   );
 }

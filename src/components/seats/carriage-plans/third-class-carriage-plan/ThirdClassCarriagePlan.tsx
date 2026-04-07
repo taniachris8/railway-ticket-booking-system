@@ -1,10 +1,12 @@
+import type { SelectedSeat } from "../../../../state/reducers/seatsSlice";
+
 import { CarriagePlanNumber } from "../carriage-plan-number/CarriagePlanNumber";
 import { CarriageSeatNumber } from "../carriage-seat-number/CarriageSeatNumber";
 
 export type ClassCarriagePlanProps = {
   isSeatAvailable: (seatNumber: number) => boolean;
   handleSelectSeat: (seatNumber: number) => void;
-  selected: number[];
+  selected: SelectedSeat[];
   carriageNumber: string;
 };
 
@@ -22,7 +24,9 @@ export function ThirdClassCarriagePlan({
       const seatNumber = i + 1;
       const y = i % 2 === 0 ? 60 : 28;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+       const isSelected = selected.some(
+         (seat) => seat.seatNumber === seatNumber,
+       );
 
       seats.push(
         <CarriageSeatNumber
@@ -58,7 +62,9 @@ export function ThirdClassCarriagePlan({
     for (let i = 33; i <= 48; i++) {
       const seatNumber = i;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+      const isSelected = selected.some(
+        (seat) => seat.seatNumber === seatNumber,
+      );
 
       sideSeats.push(
         <CarriageSeatNumber

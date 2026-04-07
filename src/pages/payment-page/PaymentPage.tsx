@@ -13,7 +13,6 @@ import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsF
 import { ProgressWidget } from "../../components/progress-widget/ProgressWidget";
 import { AsideWidget } from "../../components/passengers/aside-widget/AsideWidget";
 import { Button } from "../../components/button/Button";
-import { Modal } from "../../components/modal/Modal";
 import { InputGroup } from "../../components/input-group/InputGroup";
 import { PassengerCheckbox } from "../../components/passengers/passenger-checkbox/PassengerCheckbox";
 
@@ -25,24 +24,10 @@ export function PaymentPage() {
   const { last_name, first_name, patronymic, phone, email, payment_method } =
     useSelector((state: RootState) => state.passengers.user);
 
-  console.log(
-    "from payment page",
-    last_name,
-    first_name,
-    patronymic,
-    phone,
-    email,
-    payment_method,
-    phone.length,
-  );
-
   const [onlinePaymentOption, setOnlinePaymentOption] = useState<
     "bank_card" | "paypal" | "qiwi_wallet" | null
   >(null);
 
-  const [showInfoModal, setShowInfoModal] = useState(false);
-    const [infoModalMessage, setInfoModalMessage] = useState("");
-    
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [patronymicError, setPatronymicError] = useState("");
@@ -304,13 +289,6 @@ export function PaymentPage() {
             onClick={handleNavigateToPaymentClick}
           />
         </main>
-        {showInfoModal && (
-          <Modal
-            type="info"
-            message={infoModalMessage}
-            onClick={() => setShowInfoModal(false)}
-          />
-        )}
       </section>
     </>
   );

@@ -1,34 +1,25 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../../state/store";
-import { useState } from "react";
 
 import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
-
-import { validateName } from "../../../utils/validatePersonsInfo";
 
 import styles from "./PassengerName.module.css";
 
 type PassengerNameProps = {
   passengerIndex: number;
   setErrorMessage: (message: string) => void;
+  fieldWithError: "first_name" | "last_name" | "patronymic" | null;
+  setFieldWithError: (
+    value: "first_name" | "last_name" | "patronymic" | null,
+  ) => void;
 };
 
-export function PassengerName({ passengerIndex, setErrorMessage }: PassengerNameProps) {
+export function PassengerName({ passengerIndex, fieldWithError, setFieldWithError, setErrorMessage }: PassengerNameProps) {
   const dispatch = useDispatch();
-  const [fieldWithError, setFieldWithError] = useState<
-    "first_name" | "last_name" | "patronymic" | null
-  >(null);
 
   const { last_name, first_name, patronymic } = useSelector(
     (state: RootState) => state.passengers.departure.seats[passengerIndex].person_info,
-  );
-
-  console.log(
-    "from passenger name component",
-    last_name,
-    first_name,
-    patronymic,
   );
 
   const formatName = (value: string) => {
@@ -42,22 +33,8 @@ export function PassengerName({ passengerIndex, setErrorMessage }: PassengerName
     e: React.ChangeEvent<HTMLInputElement>,
     key: "first_name" | "last_name" | "patronymic",
   ) => {
-    dispatch(
-      setPersonInfoField({
-        seatIndex: passengerIndex,
-        key,
-        value: e.target.value,
-      }),
-    );
-  };
-
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement>,
-    key: "first_name" | "last_name" | "patronymic",
-  ) => {
     const formatted = formatName(e.target.value);
-    console.log("formatted:", JSON.stringify(formatted));
-
+    
     dispatch(
       setPersonInfoField({
         seatIndex: passengerIndex,
@@ -65,26 +42,10 @@ export function PassengerName({ passengerIndex, setErrorMessage }: PassengerName
         value: formatted,
       }),
     );
-
-    if (!validateName(formatted)) {
-      const fieldWithErrors =
-        key === "first_name"
-          ? "Имя"
-          : key === "last_name"
-            ? "Фамилия"
-            : "Отчество";
-      setFieldWithError(key);
-      setErrorMessage(
-        `${fieldWithErrors} указано неверно. ${fieldWithErrors} должно содержать только буквы и быть от 2 до 20 символов.`,
-      );
-    } else {
-      setFieldWithError(null);
-      setErrorMessage("");
-    }
   };
 
   const handleFocus = () => {
-    // setErrorMessage("");
+    setErrorMessage("");
     setFieldWithError(null);
   };
 
@@ -105,7 +66,6 @@ export function PassengerName({ passengerIndex, setErrorMessage }: PassengerName
           placeholder=""
           value={last_name}
           onChange={(e) => handleChange(e, "last_name")}
-          onBlur={(e) => handleBlur(e, "last_name")}
           onFocus={handleFocus}
         />
       </div>
@@ -124,7 +84,6 @@ export function PassengerName({ passengerIndex, setErrorMessage }: PassengerName
           placeholder=""
           value={first_name}
           onChange={(e) => handleChange(e, "first_name")}
-          onBlur={(e) => handleBlur(e, "first_name")}
           onFocus={handleFocus}
         />
       </div>
@@ -144,7 +103,6 @@ export function PassengerName({ passengerIndex, setErrorMessage }: PassengerName
           placeholder=""
           value={patronymic}
           onChange={(e) => handleChange(e, "patronymic")}
-          onBlur={(e) => handleBlur(e, "patronymic")}
           onFocus={handleFocus}
         />
       </div>

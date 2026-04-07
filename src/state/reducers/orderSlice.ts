@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
+import type { SuccessResponseType } from "../../types";
+import type { ErrorResponseType } from "../../types";
 
 type OrderState = {
   loading: boolean;
-  error: "" | null;
-  data: unknown | null;
+  error: ErrorResponseType | null;
+  data: SuccessResponseType | null;
 };
 
 const initialState: OrderState = {
@@ -21,11 +24,11 @@ const orderSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    submitOrderSuccess: (state, action: PayloadAction<unknown>) => {
+    submitOrderSuccess: (state, action: PayloadAction<SuccessResponseType>) => {
       state.loading = false;
       state.data = action.payload;
     },
-    submitOrderFailure: (state, action: PayloadAction<string>) => {
+    submitOrderFailure: (state, action: PayloadAction<ErrorResponseType>) => {
       state.loading = false;
       state.error = action.payload;
     },

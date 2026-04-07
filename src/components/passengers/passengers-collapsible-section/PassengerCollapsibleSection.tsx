@@ -6,14 +6,20 @@ import { Price } from "../../price/Price";
 
 import styles from "./PassengerCollapsibleSection.module.css";
 
-export function PassengerCollapsibleSection() {
+type PassengerCollapsibleSectionProps = {
+  priceForEachPassenger: (passengerIndex: number) => number;
+};
+
+export function PassengerCollapsibleSection({
+  priceForEachPassenger,
+}: PassengerCollapsibleSectionProps) {
   const { departure } = useSelector((state: RootState) => state.seats);
   const { adultCount, childCount, infantCount } = departure;
 
   const passengerTypes = [
-    { type: "Взрослый", price: 5840, count: adultCount },
-    { type: "Ребенок", price: 2920, count: childCount },
-    { type: "Младенец", price: 0, count: infantCount },
+    { type: "Взрослый", count: adultCount },
+    { type: "Ребенок", count: childCount },
+    { type: "Младенец", count: infantCount },
   ];
 
   const existingPassengerTypes = passengerTypes.filter(
@@ -56,7 +62,11 @@ export function PassengerCollapsibleSection() {
             </div>
             <div className={styles.price}>
               <Price
-                amount={passenger.price}
+                amount={
+                  passenger.type === "Младенец"
+                    ? 0
+                    : priceForEachPassenger(index)
+                }
                 amountClassName={styles.price_value}
                 iconClassName={styles.price_icon}
               />

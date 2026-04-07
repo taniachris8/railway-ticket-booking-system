@@ -11,27 +11,30 @@ import styles from "./PassportRf.module.css";
 type PassportRfProps = {
   passengerIndex: number;
   setErrorMessage: (message: string) => void;
+  passportRfError: boolean;
+  setPassportRfError: (value: boolean) => void;
 };
 
-export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps) {
+export function PassportRf({
+  passengerIndex,
+  setErrorMessage,
+  passportRfError,
+  setPassportRfError,
+}: PassportRfProps) {
   const dispatch = useDispatch();
   const { document_data } = useSelector(
-    (state: RootState) => state.passengers.departure.seats[passengerIndex].person_info,
+    (state: RootState) =>
+      state.passengers.departure.seats[passengerIndex].person_info,
   );
 
   const [series, setSeries] = useState("");
   const [number, setNumber] = useState("");
 
-  const [seriesError, setSeriesError] = useState(false);
-  const [numberError, setNumberError] = useState(false);
-
-    //   const [seriesPart = "", numberPart = ""] = document_data.split(" ");
-    
-     useEffect(() => {
-       const [s = "", n = ""] = document_data.split(" ");
-       setSeries(s);
-       setNumber(n);
-     }, [document_data]);
+  useEffect(() => {
+    const [s = "", n = ""] = document_data.split(" ");
+    setSeries(s);
+    setNumber(n);
+  }, [document_data]);
 
   const handleChangeSeries = (value: string) => {
     setSeries(value);
@@ -60,62 +63,6 @@ export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps)
     );
   };
 
-  const handleSeriesBlur = () => {
-    if (series.length < 4) {
-      setErrorMessage("Серия паспорта должна состоять из 4 цифр.");
-      setSeriesError(true);
-      return;
-    }
-
-    if (series === "0000") {
-      setErrorMessage(
-        "Серия паспорта не может состоять из одних нулей. Введите корректную серию.",
-      );
-      setSeriesError(true);
-      return;
-    }
-
-    const fullValue = `${series}${number ? " " + number : ""}`;
-
-    dispatch(
-      setPersonInfoField({
-        seatIndex: passengerIndex,
-        key: "document_data",
-        value: fullValue,
-      }),
-    );
-    setErrorMessage("");
-    setSeriesError(false);
-  };
-
-  const handleNumberBlur = () => {
-    if (number.length < 6) {
-      setErrorMessage("Номер паспорта должен состоять из 6 цифр.");
-      setNumberError(true);
-      return;
-    }
-
-    if (number === "000000") {
-      setErrorMessage(
-        "Номер паспорта не может состоять из одних нулей. Введите корректный номер.",
-      );
-      setNumberError(true);
-      return;
-    }
-
-    const fullValue = `${series}${number ? " " + number : ""}`;
-
-    dispatch(
-      setPersonInfoField({
-        seatIndex: passengerIndex,
-        key: "document_data",
-        value: fullValue,
-      }),
-    );
-    setErrorMessage("");
-    setNumberError(false);
-  };
-
   return (
     <>
       <div className={styles.input_group}>
@@ -123,7 +70,7 @@ export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps)
         <div className={styles.input_wrapper}>
           <IMaskInput
             className={
-              !seriesError
+              !passportRfError
                 ? `${styles.input} ${series.length === 4 ? styles.filled : ""}`
                 : `${styles.input} ${styles.input_error}`
             }
@@ -134,8 +81,10 @@ export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps)
             unmask={true}
             value={series}
             onAccept={(value) => handleChangeSeries(value)}
-            onBlur={handleSeriesBlur}
-            onFocus={() => setErrorMessage("")}
+            onFocus={() => {
+              setErrorMessage("");
+              setPassportRfError(false);
+            }}
           />
         </div>
       </div>
@@ -144,7 +93,7 @@ export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps)
         <div className={styles.input_wrapper}>
           <IMaskInput
             className={
-              !numberError
+              !passportRfError
                 ? `${styles.input} ${number.length === 6 ? styles.filled : ""}`
                 : `${styles.input} ${styles.input_error}`
             }
@@ -155,8 +104,10 @@ export function PassportRf({ passengerIndex, setErrorMessage }: PassportRfProps)
             unmask={true}
             value={number}
             onAccept={(value) => handleChangeNumber(value)}
-            onBlur={handleNumberBlur}
-            onFocus={() => setErrorMessage("")}
+            onFocus={() => {
+              setErrorMessage("");
+              setPassportRfError(false);
+            }}
           />
         </div>
       </div>

@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 
+import type { RootState } from "../../../state/store";
+
+import { formatDateForDisplaying } from "../../../utils/formatDateForDisplaying";
+import { calculateTotalPrice } from "../../../utils/calculateTotalPrice";
+
 import { AsideContainer } from "../../aside-container/AsideContainer";
 import { TripCollapsibleSection } from "../../trip-collapsible-section/TripCollapsibleSection";
-
-import styles from "./AsideWidget.module.css";
-import type { RootState } from "../../../state/store";
-import { formatDateForDisplaying } from "../../../utils/formatDateForDisplaying";
 import { PassengerCollapsibleSection } from "../passengers-collapsible-section/PassengerCollapsibleSection";
 import { Price } from "../../price/Price";
 import { Direction } from "../../direction/Direction";
+
+import styles from "./AsideWidget.module.css";
 
 export function AsideWidget() {
   const arrivalTrain = useSelector(
@@ -19,8 +22,20 @@ export function AsideWidget() {
     (state: RootState) => state.filters,
   );
 
-  const { departure, arrival } = useSelector((state: RootState) => state.seats);
-  console.log("departure and arrival from AsideWidget:", departure, arrival);
+  const selectedCoaches = useSelector(
+    (state: RootState) => state.seats.departure.selectedSeats,
+  );
+
+  const seats = Object.values(selectedCoaches);
+
+  const priceForEachPassenger = (passengerIndex: number) => {
+    const allSeats = seats.flat();
+
+    if (passengerIndex >= allSeats.length) return "0";
+
+    const price = allSeats[passengerIndex].price;
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
 
   return (
     <>
@@ -39,12 +54,14 @@ export function AsideWidget() {
           {arrivalTrain && <Direction train="arrivalTrain" />}
         </TripCollapsibleSection>
         <TripCollapsibleSection title="Пассажиры" iconSrc="/icons/user.svg">
-          <PassengerCollapsibleSection />
+          <PassengerCollapsibleSection
+            priceForEachPassenger={priceForEachPassenger}
+          />
         </TripCollapsibleSection>
         <div className={styles.total_price}>
           <h4 className={styles.total_price_title}>Итого</h4>
           <Price
-            amount={7760}
+            amount={calculateTotalPrice(seats)}
             amountClassName={styles.total_price_value}
             iconClassName={styles.total_price_icon}
           />

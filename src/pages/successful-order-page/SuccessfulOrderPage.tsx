@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 
-import type { RootState } from "../../state/store";
+import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { Button } from "../../components/button/Button";
@@ -12,15 +11,16 @@ import { StarIcon } from "../../icons/StarIcon";
 import styles from "./SuccessfulOrderPage.module.css";
 
 export function SuccessfulOrderPage() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [rating, setRating] = useState<number | null>(null);
 
-  const { first_name, patronymic } = useSelector(
-    (state: RootState) => state.passengers.user,
-  );
+  const { user, seats } = location.state || {
+    user: { first_name: "", patronymic: "" },
+    seats: [],
+  };
 
   const handleBackToHomePage = () => {
-    //сделать ресеты здесь?
     navigate("/");
   };
 
@@ -43,7 +43,7 @@ export function SuccessfulOrderPage() {
               <div className={styles.order_sum}>
                 <p className={styles.order_sum_text}>сумма</p>
                 <Price
-                  amount={7760}
+                  amount={calculateTotalPrice(seats)}
                   amountClassName={styles.amount}
                   iconClassName={styles.currency}
                 />
@@ -85,7 +85,7 @@ export function SuccessfulOrderPage() {
               <div className={styles.order_message}>
                 <div className={styles.success_message}>
                   <p className={styles.order_name}>
-                    {first_name} {patronymic}!
+                    {user.first_name} {user.patronymic}!
                   </p>
                   <p className={styles.order_text}>
                     Ваш заказ успешно оформлен. <br />В ближайшее время с вами

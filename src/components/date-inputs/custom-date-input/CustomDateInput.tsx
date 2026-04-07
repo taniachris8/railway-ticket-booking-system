@@ -4,10 +4,12 @@ import { CalendarIcon } from "../../../icons/CalendarIcon";
 
 import styles from "./CustomDateInput.module.css";
 
-
 type CustomDateInputProps = {
   value?: string;
   onClick?: () => void;
+  onClear?: () => void;
+  inputActive: boolean;
+  setInputActive: (value: boolean) => void;
   placeholder?: string;
   className?: string;
   inputFieldClassName?: string;
@@ -19,6 +21,9 @@ export const CustomDateInput = forwardRef<HTMLDivElement, CustomDateInputProps>(
     {
       value,
       onClick,
+      onClear,
+      inputActive,
+      setInputActive,
       placeholder,
       className,
       inputFieldClassName,
@@ -36,7 +41,19 @@ export const CustomDateInput = forwardRef<HTMLDivElement, CustomDateInputProps>(
         placeholder={placeholder}
         readOnly
         className={`${styles.date__input_field} ${inputFieldClassName}`}
+        onFocus={() => setInputActive(true)}
       />
+      {value && inputActive && (
+        <button
+          className={styles.button}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClear?.();
+          }}>
+          ✕
+        </button>
+      )}
       <CalendarIcon className={`${styles.date__icon} ${iconClassName}`} />
     </div>
   ),

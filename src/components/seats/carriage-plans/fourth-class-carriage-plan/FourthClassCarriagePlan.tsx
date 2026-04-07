@@ -17,7 +17,9 @@ export function FourthClassCarriagePlan({
       const seatNumber = i + 1;
       const y = i % 2 === 0 ? 55 : 34;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+      const isSelected = selected.some(
+        (seat) => seat.seatNumber === seatNumber,
+      );
 
       seats.push(
         <CarriageSeatNumber
@@ -57,7 +59,7 @@ export function FourthClassCarriagePlan({
         height={18}
         seatNumber={33}
         available={isSeatAvailable(33)}
-        isSelected={selected.includes(33)}
+        isSelected={selected.some((seat) => seat.seatNumber === 33)}
         handleSelectSeat={handleSelectSeat}
         textOffsetX={12}
         textOffsetY={9}
@@ -69,7 +71,9 @@ export function FourthClassCarriagePlan({
     for (let seatNumber = 34, i = 0; seatNumber <= 61; seatNumber++, i++) {
       const y = seatNumber % 2 === 0 ? 95 : 115;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+      const isSelected = selected.some(
+        (seat) => seat.seatNumber === seatNumber,
+      );
 
       seats.push(
         <CarriageSeatNumber
@@ -103,7 +107,7 @@ export function FourthClassCarriagePlan({
         height={18}
         seatNumber={62}
         available={isSeatAvailable(62)}
-        isSelected={selected.includes(62)}
+        isSelected={selected.some((seat) => seat.seatNumber === 62)}
         handleSelectSeat={handleSelectSeat}
         textOffsetX={12}
         textOffsetY={9}

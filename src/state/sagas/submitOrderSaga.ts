@@ -3,6 +3,7 @@ import { submitTicketOrder } from "../../api/api";
 
 import type { PassengersState } from "../reducers/passengersSlice";
 import type { RootState } from "../store";
+import type { ApiResponseType } from "../../types";
 
 import {
   submitOrderRequest,
@@ -12,13 +13,13 @@ import {
 
 function* submitOrderSaga() {
   try {
-    const passengers = (yield select(
+    const passengers: PassengersState = yield select(
       (state: RootState) => state.passengers,
-      )) as PassengersState & { [key: string]: any }; // для TS
-      
-      const hasArrival =
-        passengers.arrival.route_direction_id &&
-        passengers.arrival.seats.length > 0;
+    );
+
+    const hasArrival =
+      passengers.arrival.route_direction_id &&
+      passengers.arrival.seats.length > 0;
 
     const newOrderForAPI = {
       user: passengers.user,
@@ -28,19 +29,21 @@ function* submitOrderSaga() {
       }),
     };
 
-    console.log("Submitting order:", newOrderForAPI);
-
-    const response: unknown = yield call<unknown, [typeof newOrderForAPI]>(
-      submitTicketOrder,
-      newOrderForAPI,
+    const response: ApiResponseType = yield call(() =>
+      submitTicketOrder(newOrderForAPI),
     );
 
-    yield put(submitOrderSuccess(response));
-    console.log("from order saga:", response);
+    if ("status" in response && response.status) {
+      yield put(submitOrderSuccess(response));
+    } else if ("error" in response) {
+      yield put(submitOrderFailure({ error: response.error }));
+    }
   } catch (error) {
     yield put(
       submitOrderFailure(
-        error instanceof Error ? error.message : "Unknown error",
+        error instanceof Error
+          ? { error: error.message }
+          : { error: "Unknown error" },
       ),
     );
   }

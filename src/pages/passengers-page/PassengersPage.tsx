@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+
 import type { RootState } from "../../state/store";
-import {  useState } from "react";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
@@ -18,11 +19,6 @@ export function PassengersPage() {
   const navigate = useNavigate();
   const status = useSelector((state: RootState) => state.passengers.status);
 
-  const numberOfPassengers = useSelector(
-    (state: RootState) =>
-      state.seats.departure.adultCount + state.seats.departure.childCount,
-  );
-  console.log("from passengers page", numberOfPassengers);
   const [openedPassengerIndex, setOpenedPassengerIndex] = useState<
     number | null
   >(null);
@@ -50,8 +46,6 @@ export function PassengersPage() {
       setShowInfoModal(true);
     }
   };
-
-  console.log("passengers", seatsFromPassengersState);
 
   return (
     <>

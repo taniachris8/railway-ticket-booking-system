@@ -5,11 +5,16 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { resetSearchStateAction } from "../actions/resetSearch";
 
+export type SelectedSeat = {
+  seatNumber: number;
+  price: number;
+};
+
 type TrainSeatsState = {
   adultCount: number;
   childCount: number;
   infantCount: number;
-  selectedSeats: Record<string, number[]>;
+  selectedSeats: Record<string, SelectedSeat[]>;
   wifiSelected: boolean;
   linenSelected: boolean;
   ACSelected: boolean;
@@ -24,7 +29,6 @@ export type SeatsState = {
   error: string | null;
   progressSeats: number;
 
-
   departureTrain: DepartureType | null;
   arrivalTrain: DepartureType | null;
 
@@ -32,6 +36,8 @@ export type SeatsState = {
 
   departure: TrainSeatsState;
   arrival: TrainSeatsState;
+
+  totalPrice: number;
 };
 
 const trainInitialState: TrainSeatsState = {
@@ -59,6 +65,8 @@ const initialState: SeatsState = {
 
   departure: { ...trainInitialState },
   arrival: { ...trainInitialState },
+
+  totalPrice: 0,
 };
 
 const seatsSlice = createSlice({
@@ -71,10 +79,10 @@ const seatsSlice = createSlice({
         direction: "departure" | "arrival";
         carriageId: string;
         seatNumber: number;
+        seatPrice: number;
       }>,
     ) => {
-      const { direction, carriageId, seatNumber } = action.payload;
-
+      const { direction, carriageId, seatNumber, seatPrice } = action.payload;
       const trainState = state[direction];
 
       if (!trainState.selectedSeats[carriageId]) {
@@ -83,12 +91,14 @@ const seatsSlice = createSlice({
 
       const seats = trainState.selectedSeats[carriageId];
 
-      if (seats.includes(seatNumber)) {
-        trainState.selectedSeats[carriageId] = seats.filter(
-          (seat) => seat !== seatNumber,
-        );
+      const existingIndex = seats.findIndex(
+        (seat) => seat.seatNumber === seatNumber,
+      );
+
+      if (existingIndex !== -1) {
+        seats.splice(existingIndex, 1);
       } else {
-        seats.push(seatNumber);
+        seats.push({ seatNumber, price: seatPrice });
       }
     },
     setPassengers: (
@@ -159,20 +169,20 @@ const seatsSlice = createSlice({
       state[direction] = { ...trainInitialState };
     },
   },
-   extraReducers: (builder) => {
-     builder.addCase(resetSearchStateAction, (state) => {
-          state.status = "idle";
-          state.progressSeats = 0;
-          state.error = null;
-          state.data = [];
+  extraReducers: (builder) => {
+    builder.addCase(resetSearchStateAction, (state) => {
+      state.status = "idle";
+      state.progressSeats = 0;
+      state.error = null;
+      state.data = [];
 
-          state.departureTrain = null;
-          state.arrivalTrain = null;
+      state.departureTrain = null;
+      state.arrivalTrain = null;
 
-          state.departure = { ...trainInitialState };
-          state.arrival = { ...trainInitialState };
-      });
-    },
+      state.departure = { ...trainInitialState };
+      state.arrival = { ...trainInitialState };
+    });
+  },
 });
 
 export const {

@@ -171,6 +171,12 @@ export type SeatsForOrderType = {
   include_children_seat: boolean;
 };
 
-export type SubmitTicketResponseType = {
-  status: boolean;
-}
+export type SuccessResponseType = {
+  status: true;
+};
+
+export type ErrorResponseType = {
+  error: string;
+};
+
+export type ApiResponseType = SuccessResponseType | ErrorResponseType;

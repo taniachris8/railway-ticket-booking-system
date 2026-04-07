@@ -16,10 +16,21 @@ type PassengerDocumentProps = {
   passengerIndex: number;
   errorMessage: string;
   setErrorMessage: (message: string) => void;
+  birthCertificateError: boolean;
+  setBirthCertificateError: (value: boolean) => void;
+  passportNumberError: boolean;
+  setPassportNumberError: (value: boolean) => void;
+  passportRfError: boolean;
+  setPassportRfError: (value: boolean) => void;
 };
 
 export function PassengerDocument({
   passengerIndex,
+  birthCertificateError,
+  setBirthCertificateError,
+  passportNumberError, 
+  setPassportNumberError,
+  passportRfError, setPassportRfError, 
   setErrorMessage,
 }: PassengerDocumentProps) {
   const [dropdownActive, setDropdownActive] = useState(false);
@@ -56,12 +67,16 @@ export function PassengerDocument({
           <PassportRf
             passengerIndex={passengerIndex}
             setErrorMessage={setErrorMessage}
+            passportRfError={passportRfError}
+            setPassportRfError={setPassportRfError}
           />
         )}
         {document_type === "birth_certificate" && (
           <BirthCertificate
             passengerIndex={passengerIndex}
             setErrorMessage={setErrorMessage}
+            birthCertificateError={birthCertificateError}
+            setBirthCertificateError={setBirthCertificateError}
           />
         )}
 
@@ -69,6 +84,8 @@ export function PassengerDocument({
           <InternationalPassport
             passengerIndex={passengerIndex}
             setErrorMessage={setErrorMessage}
+            passportNumberError={passportNumberError}
+            setPassportNumberError={setPassportNumberError}
           />
         )}
       </div>

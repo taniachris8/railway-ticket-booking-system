@@ -39,7 +39,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
   const [showMaxSeatsModal, setShowMaxSeatsModal] = useState(false);
 
   const maxSeats = adultCount + childCount;
-  const totalSelected = Object.values(selectedSeats).flat().length;
+ const totalSelected = Object.values(selectedSeats).flat().length;
   const selected = selectedSeats[_id] ?? [];
 
   const availableSeatIndexes = new Set(
@@ -69,6 +69,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
   };
 
   const handleSelectSeat = (seatNumber: number) => {
+   
     if (adultCount === 0) {
       setShowWarningModal(true);
       return;
@@ -78,13 +79,20 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
       return;
     }
 
-    const isSelected = selected.includes(seatNumber);
+    const isSelected = selected.some((seat) => seat.seatNumber === seatNumber);
     if (!isSelected && totalSelected >= maxSeats) {
       setShowMaxSeatsModal(true);
       return;
     }
 
-    dispatch(toggleSeat({ direction, carriageId: _id, seatNumber }));
+  dispatch(
+    toggleSeat({
+      direction,
+      carriageId: _id,
+      seatNumber,
+      seatPrice: getSeatPrice(seatNumber),
+    }),
+  );
   };
 
   const seatsInCarriage = selectedSeats[_id] ?? [];
@@ -92,7 +100,7 @@ export function CarriagePlan({ data, direction }: CarriagePlanProps) {
   const optionPrice = ((wifiPrice ?? 0) + (linenPrice ?? 0)) * totalPassengers;
 
   const carriagePrice = seatsInCarriage.reduce(
-    (sum, seatNumber) => sum + getSeatPrice(seatNumber) + optionPrice,
+    (sum, seat) => sum + seat.price + optionPrice,
     0,
   );
 

@@ -39,7 +39,13 @@ export function FilterOptions({
             </div>
             <ToggleSwitch
               checked={filters.have_second_class}
-              onChange={() => handleCarriageTypeChange("second")}
+              onChange={(checked) => {
+                if (handleCarriageTypeChange) {
+                  handleCarriageTypeChange("second");
+                } else {
+                  onChange("have_second_class", checked);
+                }
+              }}
             />
           </li>
 
@@ -54,7 +60,13 @@ export function FilterOptions({
             </div>
             <ToggleSwitch
               checked={filters.have_third_class}
-              onChange={() => handleCarriageTypeChange("third")}
+              onChange={(checked) => {
+                if (handleCarriageTypeChange) {
+                  handleCarriageTypeChange("third");
+                } else {
+                  onChange("have_third_class", checked);
+                }
+              }}
             />
           </li>
 
@@ -69,7 +81,13 @@ export function FilterOptions({
             </div>
             <ToggleSwitch
               checked={filters.have_fourth_class}
-              onChange={() => handleCarriageTypeChange("fourth")}
+              onChange={(checked) => {
+                if (handleCarriageTypeChange) {
+                  handleCarriageTypeChange("fourth");
+                } else {
+                  onChange("have_fourth_class", checked);
+                }
+              }}
             />
           </li>
           <li className={styles.options__item}>
@@ -83,7 +101,13 @@ export function FilterOptions({
             </div>
             <ToggleSwitch
               checked={filters.have_first_class}
-              onChange={() => handleCarriageTypeChange("first")}
+              onChange={(checked) => {
+                if (handleCarriageTypeChange) {
+                  handleCarriageTypeChange("first");
+                } else {
+                  onChange("have_first_class", checked);
+                }
+              }}
             />
           </li>
           <li className={styles.options__item}>

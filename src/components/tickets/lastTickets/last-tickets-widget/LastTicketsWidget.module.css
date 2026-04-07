@@ -17,3 +17,8 @@
   gap: 20px;
 }
 
+.error_message {
+ color: #FF3D00CC;
+ font-size: 18px;
+}
+

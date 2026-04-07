@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import type { RootState } from "../../state/store";
 import { submitOrderRequest } from "../../state/reducers/orderSlice";
+
+import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
+import { resetSearchStateAction } from "../../state/actions/resetSearch";
+import { resetPassengersStateAction } from "../../state/actions/resetPassengers";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
@@ -12,6 +16,7 @@ import { AsideWidget } from "../../components/passengers/aside-widget/AsideWidge
 import { Button } from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 import { Price } from "../../components/price/Price";
+import { Loader } from "../../components/loader/Loader";
 
 import { TicketCard } from "../../components/tickets/ticket-card/TicketCard";
 import { ConfirmationPassenger } from "../../components/confirmation/confirmation-passenger/ConfirmationPassenger";
@@ -22,17 +27,34 @@ export function ConfirmationPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-    const ticket = useSelector((state: RootState) => state.seats.ticket);
-    console.log("from conf page", ticket)
+  const ticket = useSelector((state: RootState) => state.seats.ticket);
   const passengers = useSelector(
     (state: RootState) => state.passengers.departure.seats,
   );
-
   const payment_method = useSelector(
     (state: RootState) => state.passengers.user.payment_method,
-    );
-    
-    const [showErrorModal, setShowErrorModal] = useState(false);
+  );
+
+  const { first_name, patronymic } = useSelector(
+    (state: RootState) => state.passengers.user,
+  );
+
+  const selectedCoaches = useSelector(
+    (state: RootState) => state.seats.departure.selectedSeats,
+  );
+  const seats = Object.values(selectedCoaches);
+
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  const { loading, data, error } = useSelector(
+    (state: RootState) => state.order,
+  );
+
+  useEffect(() => {
+    if (error) {
+      setShowErrorModal(true);
+    }
+  }, [error]);
 
   const handleChangePassengersInfo = () => {
     navigate("/passengers");
@@ -40,18 +62,23 @@ export function ConfirmationPage() {
 
   const handleChangePaymentMethod = () => {
     navigate("/payment");
-    };
-    
-    const response = useSelector((state: RootState) => state.order.data);
+  };
 
-    const handleSubmitOrder = () => {
-        dispatch(submitOrderRequest());
-        if (response.status) {
-            navigate("/successful-order")
-        } else { 
-            setShowErrorModal(true)
-        }
-      console.log("from confirmation page", "submitted")
+  const handleSubmitOrder = () => {
+    dispatch(submitOrderRequest());
+    if (data && data.status) {
+      const savedUser = { first_name, patronymic };
+      const savedSeats = seats;
+
+      dispatch(resetPassengersStateAction());
+      dispatch(resetSearchStateAction());
+
+      navigate("/successful-order", {
+        state: { user: savedUser, seats: savedSeats },
+      });
+    } else {
+      setShowErrorModal(true);
+    }
   };
 
   return (
@@ -64,6 +91,7 @@ export function ConfirmationPage() {
           inputsDivClassName={styles.find_tickets__inputs__confirmation_page}
         />
       </HeroSection>
+      {loading && <Loader />}
 
       <ProgressWidget stage="confirmation-page" />
       <section className={styles.confirmation}>
@@ -94,7 +122,7 @@ export function ConfirmationPage() {
                 <div className={styles.total_price_value}>
                   <p className={styles.total_price_label}>Всего</p>
                   <Price
-                    amount={7760}
+                    amount={calculateTotalPrice(seats)}
                     amountClassName={styles.total_price_amount}
                     iconClassName={styles.total_price_icon}
                   />
@@ -136,7 +164,13 @@ export function ConfirmationPage() {
             onClick={handleSubmitOrder}
           />
         </main>
-        {showErrorModal && <Modal message="Возникла ошибка при оформлении заказа. Повторите позже" type="error" onClick={()=> setShowErrorModal(false)} />}
+        {showErrorModal && (
+          <Modal
+            message="Возникла ошибка при оформлении заказа. Проверьте подключение к Интернету или попробуйте позже."
+            type="error"
+            onClick={() => setShowErrorModal(false)}
+          />
+        )}
       </section>
     </>
   );

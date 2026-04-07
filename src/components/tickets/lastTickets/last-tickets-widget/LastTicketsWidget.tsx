@@ -42,6 +42,7 @@ export function LastTicketsWidget() {
             <LastTicketCard direction={direction} key={index} />
           ))}
         </div>
+        {error && <p className={ styles.error_message}>Не удалось загрузить последние билеты.</p>}
       </section>
     </>
   );

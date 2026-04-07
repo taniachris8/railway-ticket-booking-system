@@ -31,3 +31,10 @@
 :global(.react-datepicker-popper){
   z-index: 9999 !important;
 }
+
+.button {
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: rgb(229, 229, 229);
+}

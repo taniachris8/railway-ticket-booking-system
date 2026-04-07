@@ -137,5 +137,5 @@
 .passenger__button {
   width: 300px;
   height: 52px;
-  align-self: flex-end;
+ margin-left: auto;
 }

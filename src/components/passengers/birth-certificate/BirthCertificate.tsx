@@ -1,25 +1,30 @@
 import { IMaskInput } from "react-imask";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../../state/store";
 
 import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
-import { isValidCertificateNumber } from "../../../utils/validatePersonsInfo";
 
 import styles from "./BirthCertificate.module.css";
 
 type BirthCertificateProps = {
   passengerIndex: number;
   setErrorMessage: (message: string) => void;
+  birthCertificateError: boolean;
+  setBirthCertificateError: (value: boolean) => void;
 };
 
-export function BirthCertificate({ passengerIndex, setErrorMessage }: BirthCertificateProps) {
+export function BirthCertificate({
+  passengerIndex,
+  birthCertificateError,
+  setBirthCertificateError,
+  setErrorMessage,
+}: BirthCertificateProps) {
   const dispatch = useDispatch();
   const { document_data } = useSelector(
-    (state: RootState) => state.passengers.departure.seats[passengerIndex].person_info,
+    (state: RootState) =>
+      state.passengers.departure.seats[passengerIndex].person_info,
   );
-  const [error, setError] = useState(false);
 
   const handleCertificateNumberChange = (value: string) => {
     dispatch(
@@ -31,20 +36,6 @@ export function BirthCertificate({ passengerIndex, setErrorMessage }: BirthCerti
     );
   };
 
-  const handleBlur = () => {
-    if (!document_data) return;
-
-    if (!isValidCertificateNumber(document_data)) {
-      setErrorMessage(
-        "Номер свидетельства о рождении указан некорректно. Пример: VIII-ЫП-123456",
-      );
-      setError(true);
-    } else {
-      // setErrorMessage("");
-      setError(false);
-    }
-  };
-
   return (
     <>
       <div className={styles.input_group}>
@@ -52,7 +43,7 @@ export function BirthCertificate({ passengerIndex, setErrorMessage }: BirthCerti
         <div className={styles.input_wrapper}>
           <IMaskInput
             className={
-              !error
+              !birthCertificateError
                 ? `${styles.input} ${
                     document_data.length === 14 ? styles.filled : ""
                   }`
@@ -69,10 +60,9 @@ export function BirthCertificate({ passengerIndex, setErrorMessage }: BirthCerti
             value={document_data}
             onAccept={(value) => handleCertificateNumberChange(value)}
             onFocus={() => {
-              // setErrorMessage("");
-              setError(false);
+              setErrorMessage("");
+              setBirthCertificateError(false);
             }}
-            onBlur={handleBlur}
           />
           {!document_data && (
             <div className={styles.fake_placeholder}>12 символов</div>

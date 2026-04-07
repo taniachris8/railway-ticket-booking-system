@@ -1,21 +1,23 @@
 import { IMaskInput } from "react-imask";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../../state/store";
 
 import { setPersonInfoField } from "../../../state/reducers/passengersSlice";
-import { isValidInternationalPassportNumber } from "../../../utils/validatePersonsInfo";
 
 import styles from "./InternationalPassport.module.css";
 
 type InternationalPassportProps = {
   passengerIndex: number;
   setErrorMessage: (message: string) => void;
+  passportNumberError: boolean;
+  setPassportNumberError: (value: boolean) => void;
 };
 
 export function InternationalPassport({
   passengerIndex,
+  passportNumberError,
+  setPassportNumberError,
   setErrorMessage,
 }: InternationalPassportProps) {
   const dispatch = useDispatch();
@@ -23,8 +25,6 @@ export function InternationalPassport({
     (state: RootState) =>
       state.passengers.departure.seats[passengerIndex].person_info,
   );
-
-  const [error, setError] = useState(false);
 
   const handlePassportNumberChange = (value: string) => {
     dispatch(
@@ -36,17 +36,6 @@ export function InternationalPassport({
     );
   };
 
-  const handleBlur = () => {
-    if (!document_data) return;
-    if (!isValidInternationalPassportNumber(document_data)) {
-      setErrorMessage("Номер паспорта указан некорректно. Пример: 45 6790195");
-      setError(true);
-    } else {
-      setErrorMessage("");
-      setError(false);
-    }
-  };
-
   return (
     <>
       <div className={styles.input_group}>
@@ -54,7 +43,7 @@ export function InternationalPassport({
         <div className={styles.input_wrapper}>
           <IMaskInput
             className={
-              !error
+              !passportNumberError
                 ? `${styles.input} ${
                     document_data.length === 9 ? styles.filled : ""
                   }`
@@ -68,10 +57,9 @@ export function InternationalPassport({
             value={document_data}
             onAccept={(value) => handlePassportNumberChange(value)}
             onFocus={() => {
-              // setErrorMessage("");
-              setError(false);
+              setErrorMessage("");
+              setPassportNumberError(false);
             }}
-            onBlur={handleBlur}
           />
         </div>
       </div>

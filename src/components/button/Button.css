@@ -3,7 +3,6 @@ button {
   border-radius: 5px;
   font-weight: 700;
   font-size: 24px;
-  text-transform: uppercase;
 }
 
 .find {
@@ -33,6 +32,7 @@ button {
   border: none;
   background-color: #ffa800;
   color: #ffff;
+  text-transform: uppercase;
 }
 
 .more.disabled {

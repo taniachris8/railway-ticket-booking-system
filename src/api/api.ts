@@ -5,6 +5,7 @@ import type { DirectionType, OrderType, SeatsInfoType } from "../types";
 import type { TicketsType } from "../types";
 import type { FilterState } from "../state/reducers/filterSlice";
 import type { FilterSeatsState } from "../state/reducers/filterSeatsSlice";
+import type { ApiResponseType } from "../types";
 
 const BASE_URL = "https://students.netoservices.ru/fe-diplom/";
 
@@ -90,15 +91,14 @@ export const orderTickets = async (data: OrderType): Promise<void> => {
 
 export const submitTicketOrder = async (
   newOrder: OrderType,
-): Promise<unknown> => {
-  console.log("from api func", newOrder);
+): Promise<ApiResponseType> => {
   const response = await axios.post(BASE_URL + "order", newOrder);
   return response.data;
 };
 
 export const subscribe = async (
   email: string,
-): Promise<unknown> => {
+): Promise<ApiResponseType> => {
   const response = await axios.post(BASE_URL + "subscribe", email);
   return response.data;
 };

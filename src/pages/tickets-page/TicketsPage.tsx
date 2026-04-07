@@ -1,8 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
-
-
-
 import { useSelector, useDispatch } from "react-redux";
+
+import type { RootState } from "../../state/store";
+
+import { getTicketsRequired } from "../../state/reducers/ticketsSlice";
+import { getErrorMessage } from "../../utils/getErrorMessage";
+
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { ProgressWidget } from "../../components/progress-widget/ProgressWidget";
@@ -11,9 +14,8 @@ import { FilterWidget } from "../../components/filter-widget/FilterWidget";
 import { LastTicketsWidget } from "../../components/tickets/lastTickets/last-tickets-widget/LastTicketsWidget";
 import { TicketCard } from "../../components/tickets/ticket-card/TicketCard";
 import { FilterToolbar } from "../../components/filter-toolbar/FilterToolbar";
-import type { RootState } from "../../state/store";
-import { getTicketsRequired } from "../../state/reducers/ticketsSlice";
 import { Loader } from "../../components/loader/Loader";
+import { Modal } from "../../components/modal/Modal";
 
 import styles from "./TicketsPage.module.css";
 
@@ -22,6 +24,15 @@ export function TicketsPage() {
 
   const tickets = useSelector((state: RootState) => state.tickets.data);
   const status = useSelector((state: RootState) => state.tickets.status);
+  
+  const error = useSelector((state: RootState) => state.tickets.error);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setShowErrorModal(true);
+    }
+  }, [error]);
 
   const {
     from_city_id,
@@ -179,6 +190,12 @@ export function TicketsPage() {
               </nav>
             </main>
           </section>
+          {showErrorModal && (
+            <Modal
+              type="error"
+              message="Не удалось найти билеты. Проверьте настройки подключения к Интернету или попробуйте позже."
+              onClick={() => setShowErrorModal(false)}></Modal>
+          )}
         </>
       )}
     </>

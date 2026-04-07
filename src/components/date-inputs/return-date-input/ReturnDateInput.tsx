@@ -24,6 +24,8 @@ export function ReturnDateInput({
     (state: RootState) => state.filters.date_start,
   );
 
+   const departureDateObj = departureDate ? new Date(departureDate) : null;
+
   const handleSelectDate = (date: Date | null) => {
     dispatch(setFilterField({ key: "date_end", value: formatDate(date) }));
   };
@@ -36,7 +38,7 @@ export function ReturnDateInput({
         inputFieldClassName={inputFieldClassName}
         iconClassName={iconClassName}
         setDate={handleSelectDate}
-        minDate={departureDate}
+        minDate={departureDateObj ?? undefined}
       />
     </>
   );

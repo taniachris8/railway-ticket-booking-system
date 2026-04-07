@@ -46,7 +46,6 @@ function* workGetTicketsFetch(): Generator {
     });
 
     const data: TicketsType = yield call(searchDirections, filters);
-    console.log("Response from tickets saga:", data);
 
     yield cancel(progressTask);
     yield put(setProgress(100));

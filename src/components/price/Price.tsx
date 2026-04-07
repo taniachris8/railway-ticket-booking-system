@@ -3,7 +3,7 @@ import { RubIcon } from "../../icons/RubIcon";
 import styles from "./Price.module.css";
 
 type PriceProps = {
-  amount: number;
+  amount: number | string;
   amountClassName: string;
   iconClassName: string;
 };

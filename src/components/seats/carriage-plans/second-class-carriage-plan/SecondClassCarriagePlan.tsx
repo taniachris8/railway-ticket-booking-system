@@ -16,7 +16,9 @@ export function SecondClassCarriagePlan({
     for (let i = 0; i < 32; i++) {
       const seatNumber = i + 1;
       const available = isSeatAvailable(seatNumber);
-      const isSelected = selected.includes(seatNumber);
+       const isSelected = selected.some(
+         (seat) => seat.seatNumber === seatNumber,
+       );
       const y = i % 2 === 0 ? 58 : 28;
 
       seats.push(

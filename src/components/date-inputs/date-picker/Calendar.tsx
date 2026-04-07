@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { useState } from "react";
 
 import { format } from "date-fns";
 import { ru } from "date-fns/locale/ru";
@@ -33,6 +34,8 @@ export function Calendar({
   today.setHours(0, 0, 0, 0);
   const endOfYear = new Date(today.getFullYear(), 11, 31);
 
+  const [inputActive, setInputActive] = useState(false)
+
   return (
     <>
       <DatePicker
@@ -41,7 +44,7 @@ export function Calendar({
         maxDate={endOfYear}
         locale="ru"
         selected={date}
-        onChange={(date: Date | null) => setDate(date)}
+        onChange={(date: Date | null) => { setDate(date); setInputActive(false) }}
         dateFormat="dd/MM/yy"
         placeholderText="ДД/ММ/ГГ"
         popperPlacement="bottom"
@@ -51,6 +54,9 @@ export function Calendar({
             className={inputClassName}
             inputFieldClassName={inputFieldClassName}
             iconClassName={iconClassName}
+            onClear={() => setDate(null)}
+            inputActive={ inputActive}
+            setInputActive={setInputActive}
           />
         }
         renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => {

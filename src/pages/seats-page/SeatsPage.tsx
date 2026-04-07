@@ -8,7 +8,7 @@ import { getSeatsRequired } from "../../state/reducers/seatsSlice";
 import { selectSelectedSeats } from "../../state/selectors/seatSelectors";
 
 import { setSeatsFiltersField } from "../../state/reducers/filterSeatsSlice";
-
+import { setSeats } from "../../state/reducers/passengersSlice";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
@@ -21,7 +21,6 @@ import { Button } from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 
 import styles from "./SeatsPage.module.css";
-import { setSeatsFromSelection } from "../../state/reducers/passengersSlice";
 
 export function SeatsPage() {
   const navigate = useNavigate();
@@ -42,6 +41,11 @@ export function SeatsPage() {
   const seatsData = useSelector((state: RootState) => state.seats.data);
   const [showTypeModal, setShowTypeModal] = useState(false);
 
+  const departureCounts = useSelector(
+    (state: RootState) => state.seats.departure,
+  );
+  const arrivalCounts = useSelector((state: RootState) => state.seats.arrival);
+
   const instantFilters = useMemo(
     () => ({
       have_wifi,
@@ -58,6 +62,15 @@ export function SeatsPage() {
     [instantFilters],
   );
 
+  const error = useSelector((state: RootState) => state.seats.error);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setShowErrorModal(true);
+    }
+  }, [error]);
+
   useEffect(() => {
     if (departureTrain?._id) {
       dispatch(getSeatsRequired());
@@ -73,6 +86,64 @@ export function SeatsPage() {
 
   const [showModal, setShowModal] = useState(false);
 
+  const buildSeats = (
+    selectedSeats: Record<string, { seatNumber: number; price: number }[]>,
+    counts: { adultCount: number; childCount: number; infantCount: number },
+  ) => {
+    const result = [];
+
+    const allSeats: { coach_id: string; seat_number: number }[] = [];
+
+    Object.entries(selectedSeats).forEach(([coachId, seats]) => {
+      seats.forEach((seat) => {
+        allSeats.push({
+          coach_id: coachId,
+          seat_number: seat.seatNumber,
+        });
+      });
+    });
+
+    let seatIndex = 0;
+
+    for (let i = 0; i < counts.adultCount; i++) {
+      result.push({
+        ...allSeats[seatIndex++],
+        is_child: false,
+        include_children_seat: i < counts.infantCount,
+        person_info: {
+          is_adult: true,
+          first_name: "",
+          last_name: "",
+          patronymic: "",
+          gender: true,
+          birthday: "",
+          document_type: "passport_rf",
+          document_data: "",
+        },
+      });
+    }
+
+    for (let i = 0; i < counts.childCount; i++) {
+      result.push({
+        ...allSeats[seatIndex++],
+        is_child: true,
+        include_children_seat: false,
+        person_info: {
+          is_adult: false,
+          first_name: "",
+          last_name: "",
+          patronymic: "",
+          gender: true,
+          birthday: "",
+          document_type: "birth_certificate",
+          document_data: "",
+        },
+      });
+    }
+
+    return result;
+  };
+
   const handleNavigateToPassengersClick = () => {
     const hasDepartureSeats = Object.values(departureSelectedSeats).some(
       (seats) => seats.length > 0,
@@ -86,10 +157,27 @@ export function SeatsPage() {
       return;
     }
 
-     setSeatsFromSelection({
-       departure: departureSelectedSeats,
-       arrival: arrivalSelectedSeats,
-     });
+    if (departureTrain) {
+      const seats = buildSeats(departureSelectedSeats, departureCounts);
+
+      dispatch(
+        setSeats({
+          direction: "departure",
+          seats,
+        }),
+      );
+    }
+
+    if (arrivalTrain) {
+      const seats = buildSeats(arrivalSelectedSeats, arrivalCounts);
+
+      dispatch(
+        setSeats({
+          direction: "arrival",
+          seats,
+        }),
+      );
+    }
 
     navigate("/passengers");
   };
@@ -183,6 +271,12 @@ export function SeatsPage() {
               />
             )}
           </section>
+          {showErrorModal && (
+            <Modal
+              type="error"
+              message="Ошибка соединения. Проверьте настройки подключения к Интернету или попробуйте позже."
+              onClick={() => setShowErrorModal(false)}></Modal>
+          )}
         </>
       )}
     </>

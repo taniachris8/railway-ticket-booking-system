@@ -24,6 +24,9 @@ export function ReturnDateInput({
     (state: RootState) => state.filters.date_start,
   );
 
+   const today = new Date();
+  const endOfYear = new Date(today.getFullYear(), 11, 31);
+
    const departureDateObj = departureDate ? new Date(departureDate) : null;
 
   const handleSelectDate = (date: Date | null) => {
@@ -39,6 +42,7 @@ export function ReturnDateInput({
         iconClassName={iconClassName}
         setDate={handleSelectDate}
         minDate={departureDateObj ?? undefined}
+        maxDate={endOfYear}
       />
     </>
   );

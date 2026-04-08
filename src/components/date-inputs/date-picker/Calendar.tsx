@@ -14,12 +14,13 @@ registerLocale("ru", ru);
 setDefaultLocale("ru");
 
 type CalendarProps = {
-  date: Date | null;
-  inputClassName: string;
+  date: string | Date | null;
+  inputClassName?: string;
   inputFieldClassName?: string;
   iconClassName?: string;
   setDate: (date: Date | null) => void;
   minDate?: Date | null;
+  maxDate?: Date | null;
 };
 
 export function Calendar({
@@ -29,10 +30,11 @@ export function Calendar({
   inputFieldClassName,
   iconClassName,
   minDate,
+  maxDate
 }: CalendarProps) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const endOfYear = new Date(today.getFullYear(), 11, 31);
+  
 
   const [inputActive, setInputActive] = useState(false)
 
@@ -41,7 +43,7 @@ export function Calendar({
       <DatePicker
         showDisabledMonthNavigation
         minDate={minDate ?? undefined}
-        maxDate={endOfYear}
+        maxDate={maxDate}
         locale="ru"
         selected={date}
         onChange={(date: Date | null) => { setDate(date); setInputActive(false) }}

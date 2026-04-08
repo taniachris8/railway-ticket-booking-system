@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../state/store";
 
 import { getTicketsRequired } from "../../state/reducers/ticketsSlice";
-import { getErrorMessage } from "../../utils/getErrorMessage";
 
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
 import { HeroSection } from "../../components/hero-section/HeroSection";
@@ -148,7 +147,13 @@ export function TicketsPage() {
   }, [sliderFilters]);
 
   useEffect(() => {
-    if (preparedFilters.from_city_id && preparedFilters.to_city_id) {
+    const isValidDates = date_start || (!date_start && !date_end); 
+    
+    if (
+      preparedFilters.from_city_id &&
+      preparedFilters.to_city_id &&
+      isValidDates
+    ) {
       dispatch(getTicketsRequired());
     }
   }, [dispatch, preparedFilters]);

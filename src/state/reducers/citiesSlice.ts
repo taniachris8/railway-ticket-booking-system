@@ -22,9 +22,10 @@ const citiesSlice = createSlice({
   name: "cities",
   initialState,
   reducers: {
-    getCitiesRequired: (state) => {
-    state.status = "loading";
-    state.error = null;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getCitiesRequired: (state, action: PayloadAction<string>) => {
+      state.status = "loading";
+      state.error = null;
     },
     getCitiesSuccess: (state, action: PayloadAction<CityType[]>) => {
       state.data = action.payload;

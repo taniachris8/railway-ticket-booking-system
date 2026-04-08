@@ -45,10 +45,26 @@ export function ConfirmationPage() {
   const seats = Object.values(selectedCoaches);
 
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
   const { loading, data, error } = useSelector(
     (state: RootState) => state.order,
   );
+
+  useEffect(() => {
+    if (submitButtonClicked && data && data.status) {
+      const savedUser = { first_name, patronymic };
+      const savedSeats = seats;
+
+      dispatch(resetPassengersStateAction());
+      dispatch(resetSearchStateAction());
+
+      navigate("/successful-order", {
+        state: { user: savedUser, seats: savedSeats },
+      });
+      // setSubmitButtonClicked(false);
+    }
+  }, [data, submitButtonClicked]);
 
   useEffect(() => {
     if (error) {
@@ -65,20 +81,8 @@ export function ConfirmationPage() {
   };
 
   const handleSubmitOrder = () => {
+    setSubmitButtonClicked(true);
     dispatch(submitOrderRequest());
-    if (data && data.status) {
-      const savedUser = { first_name, patronymic };
-      const savedSeats = seats;
-
-      dispatch(resetPassengersStateAction());
-      dispatch(resetSearchStateAction());
-
-      navigate("/successful-order", {
-        state: { user: savedUser, seats: savedSeats },
-      });
-    } else {
-      setShowErrorModal(true);
-    }
   };
 
   return (

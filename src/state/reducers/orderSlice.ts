@@ -20,6 +20,9 @@ const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
+    clearOrderError: (state) => {
+      state.error = null;
+    },
     submitOrderRequest: (state) => {
       state.loading = true;
       state.error = null;
@@ -35,7 +38,7 @@ const orderSlice = createSlice({
   },
 });
 
-export const { submitOrderRequest, submitOrderSuccess, submitOrderFailure } =
+export const { clearOrderError, submitOrderRequest, submitOrderSuccess, submitOrderFailure } =
   orderSlice.actions;
 
 export default orderSlice.reducer;

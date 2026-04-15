@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../state/store";
 
+import { clearTicketsError } from "../../state/reducers/ticketsSlice";
 import { getTicketsRequired } from "../../state/reducers/ticketsSlice";
 
 import { FindTicketsForm } from "../../components/find-tickets-form/FindTicketsForm";
@@ -22,16 +23,11 @@ export function TicketsPage() {
   const dispatch = useDispatch();
 
   const tickets = useSelector((state: RootState) => state.tickets.data);
+  console.log("from tickets page", tickets)
   const status = useSelector((state: RootState) => state.tickets.status);
   
   const error = useSelector((state: RootState) => state.tickets.error);
-  const [showErrorModal, setShowErrorModal] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      setShowErrorModal(true);
-    }
-  }, [error]);
 
   const {
     from_city_id,
@@ -195,11 +191,11 @@ export function TicketsPage() {
               </nav>
             </main>
           </section>
-          {showErrorModal && (
+          {error && (
             <Modal
               type="error"
               message="Не удалось найти билеты. Проверьте настройки подключения к Интернету или попробуйте позже."
-              onClick={() => setShowErrorModal(false)}></Modal>
+              onClick={() => dispatch(clearTicketsError())}></Modal>
           )}
         </>
       )}

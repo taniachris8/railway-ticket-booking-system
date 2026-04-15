@@ -51,6 +51,9 @@ const ticketsSlice = createSlice({
     setProgress: (state, action: PayloadAction<number>) => {
       state.progress = action.payload;
     },
+    clearTicketsError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetSearchStateAction, (state) => {
@@ -70,6 +73,7 @@ export const {
   getTicketsSuccess,
   getTicketsFailure,
   setProgress,
+  clearTicketsError,
 } = ticketsSlice.actions;
 
 export default ticketsSlice.reducer;

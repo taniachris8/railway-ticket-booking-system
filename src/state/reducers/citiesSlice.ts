@@ -36,10 +36,13 @@ const citiesSlice = createSlice({
       state.status = "failed";
       state.error = action.payload;
     },
+    clearCitiesError: (state) => {
+      state.error = null;
+    },
   },
 });
 
-export const { getCitiesRequired, getCitiesSuccess, getCitiesFailure } =
+export const { getCitiesRequired, getCitiesSuccess, getCitiesFailure, clearCitiesError} =
   citiesSlice.actions;
 
 export default citiesSlice.reducer;

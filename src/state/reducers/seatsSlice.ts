@@ -168,6 +168,9 @@ const seatsSlice = createSlice({
       const direction = action.payload;
       state[direction] = { ...trainInitialState };
     },
+    clearSeatsError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetSearchStateAction, (state) => {
@@ -194,6 +197,7 @@ export const {
   setSeatsProgress,
   setSeatsField,
   resetTrainState,
+  clearSeatsError,
 } = seatsSlice.actions;
 
 export default seatsSlice.reducer;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -20,6 +20,7 @@ export function FindTicketsForm({
   inputsDivClassName,
 }: FindTicketsFormProps) {
   const navigate = useNavigate();
+
   const from_city = useSelector((state: RootState) => state.tickets.from_city);
   const to_city = useSelector((state: RootState) => state.tickets.to_city);
   const departureDate = useSelector(
@@ -27,66 +28,43 @@ export function FindTicketsForm({
   );
   const returnDate = useSelector((state: RootState) => state.filters.date_end);
 
-  const [visibleFromCityTooltip, setVisibleFromCityTooltip] = useState(false);
-  const [visibleToCityTooltip, setVisibleToCityTooltip] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [visibleDepartureDateTooltip, setVisibleDepartureDateTooltip] =
-    useState(false);
+  const fromCityError = isSubmitted && !from_city;
+  const toCityError = isSubmitted && !to_city;
+  const departureDateError =
+    isSubmitted && !departureDate && Boolean(returnDate);
 
   const handleFindTickets = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!departureDate && returnDate) {
-      setVisibleDepartureDateTooltip(true);
+    const hasFromCityError = !from_city;
+    const hasToCityError = !to_city;
+    const hasDepartureDateError = !departureDate && Boolean(returnDate);
+
+    setIsSubmitted(true);
+
+    if (hasFromCityError || hasToCityError || hasDepartureDateError) {
       return;
     }
 
-    if (!from_city) {
-      setVisibleFromCityTooltip(true);
-      return;
-    }
-    if (!to_city) {
-      setVisibleToCityTooltip(true);
-      return;
-    }
     navigate("/tickets");
   };
 
-  useEffect(() => {
-    if (departureDate) {
-      setVisibleDepartureDateTooltip(false);
-    }
-    if (!returnDate && !departureDate) {
-      setVisibleDepartureDateTooltip(false);
-    }
-
-    if (from_city) {
-      setVisibleFromCityTooltip(false);
-    }
-    if (to_city) {
-      setVisibleToCityTooltip(false);
-    }
-  }, [departureDate, returnDate, from_city, to_city]);
-
   return (
-    <>
-      <div className={`${styles.find__tickets} ${containerClassName}`}>
-        <form
-          action=""
-          className={styles.find__tickets_form}
-          onSubmit={handleFindTickets}>
-          <div className={inputsDivClassName}>
-            <DirectionInputs
-              visibleFromCityTooltip={visibleFromCityTooltip}
-              visibleToCityTooltip={visibleToCityTooltip}
-            />
-            <DateInputsContainer
-              visibleDepartureDateTooltip={visibleDepartureDateTooltip}
-            />
-          </div>
-          <Button variant="find" text="Найти билеты" />
-        </form>
-      </div>
-    </>
+    <div className={`${styles.find__tickets} ${containerClassName}`}>
+      <form className={styles.find__tickets_form} onSubmit={handleFindTickets}>
+        <div className={inputsDivClassName}>
+          <DirectionInputs
+            visibleFromCityTooltip={fromCityError}
+            visibleToCityTooltip={toCityError}
+          />
+          <DateInputsContainer
+            visibleDepartureDateTooltip={departureDateError}
+          />
+        </div>
+        <Button variant="find" text="Найти билеты" />
+      </form>
+    </div>
   );
 }

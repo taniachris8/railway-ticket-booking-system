@@ -110,18 +110,19 @@ export function TicketSeats({ ticket }: TicketSeatsProps) {
     navigate("/tickets");
   };
 
-  const getAvailableSeatsCount = async () => {
-    try {
-      const data = await getAvailableSeats(departure._id);
-      setCarriages(data);
-    } catch (error) {
-      console.error("Ошибка при получении мест:", error);
-    }
-  };
 
   useEffect(() => {
-    getAvailableSeatsCount();
-  }, []);
+    const fetchSeats = async () => {
+      try {
+        const data = await getAvailableSeats(departure._id);
+        setCarriages(data);
+      } catch (error) {
+        console.error("Ошибка при получении мест:", error);
+      }
+    };
+
+    fetchSeats();
+  }, [departure._id]);
 
   const handleOnMouseEnter = (key: string) => {
     if (!departure._id) return;

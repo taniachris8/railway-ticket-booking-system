@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import type { RootState } from "../../state/store";
 import { submitOrderRequest } from "../../state/reducers/orderSlice";
+import { clearOrderError } from "../../state/reducers/orderSlice";
 
 import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
 import { resetSearchStateAction } from "../../state/actions/resetSearch";
@@ -44,12 +45,12 @@ export function ConfirmationPage() {
   );
   const seats = Object.values(selectedCoaches);
 
-  const [showErrorModal, setShowErrorModal] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
   const { loading, data, error } = useSelector(
     (state: RootState) => state.order,
   );
+
 
   useEffect(() => {
     if (submitButtonClicked && data && data.status) {
@@ -66,11 +67,11 @@ export function ConfirmationPage() {
     }
   }, [data, submitButtonClicked]);
 
-  useEffect(() => {
-    if (error) {
-      setShowErrorModal(true);
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     setShowErrorModal(true);
+  //   }
+  // }, [error]);
 
   const handleChangePassengersInfo = () => {
     navigate("/passengers");
@@ -168,11 +169,11 @@ export function ConfirmationPage() {
             onClick={handleSubmitOrder}
           />
         </main>
-        {showErrorModal && (
+        {error && (
           <Modal
             message="Возникла ошибка при оформлении заказа. Проверьте подключение к Интернету или попробуйте позже."
             type="error"
-            onClick={() => setShowErrorModal(false)}
+            onClick={() => dispatch(clearOrderError())}
           />
         )}
       </section>

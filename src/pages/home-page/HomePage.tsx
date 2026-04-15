@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../state/store";
+
+import { clearCitiesError } from "../../state/reducers/citiesSlice";
 
 import { AboutUs } from "../../components/about-us/AboutUs";
 import { Feedback } from "../../components/feedback/Feedback";
@@ -15,15 +17,8 @@ import styles from "./HomePage.module.css";
 
 export function HomePage() {
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const error = useSelector((state: RootState) => state.cities.error);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-
-  useEffect(() => {
-    if (error) {
-      setShowErrorModal(true);
-    }
-  }, [error]);
 
   useEffect(() => {
     if (location.hash) {
@@ -53,11 +48,11 @@ export function HomePage() {
       <AboutUs />
       <HowItWorks />
       <Feedback />
-      {showErrorModal && (
+      {error && (
         <Modal
           type="error"
           message="Не удалось загрузить список городов. Проверьте настройки подключения к Интернету или попробуйте позже."
-          onClick={() => setShowErrorModal(false)}></Modal>
+          onClick={() => dispatch(clearCitiesError())}></Modal>
       )}
     </>
   );

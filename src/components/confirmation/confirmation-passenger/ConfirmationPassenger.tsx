@@ -11,7 +11,7 @@ type ConfirmationPassengerProps = {
 export function ConfirmationPassenger({
   passenger,
 }: ConfirmationPassengerProps) {
-  const { person_info, seat_number, is_child, include_children_seat } =
+  const { person_info } =
     passenger;
 
   const {

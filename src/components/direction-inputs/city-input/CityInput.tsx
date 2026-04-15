@@ -1,5 +1,7 @@
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 
+import type { RootState } from "../../../state/store";
 import type { CityType } from "../../../types";
 
 import { formatCityName } from "../../../utils/formatCityName";
@@ -42,6 +44,7 @@ export function CityInput({
   setShowDropdown,
 }: CityInputProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const error = useSelector((state: RootState) => state.cities.error);
 
   return (
     <div ref={containerRef} className={containerClassName}>
@@ -63,7 +66,7 @@ export function CityInput({
 
       <LocationIcon className={iconClassName} />
 
-      {showDropdown && (
+      {showDropdown && !error && (
         <CitiesDropdown
           searchTerm={searchTerm.trim()}
           setShowDropdown={setShowDropdown}

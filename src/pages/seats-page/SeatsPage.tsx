@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 import type { RootState } from "../../state/store";
 
+import { clearSeatsError } from "../../state/reducers/seatsSlice";
 import { getSeatsRequired } from "../../state/reducers/seatsSlice";
 import { selectSelectedSeats } from "../../state/selectors/seatSelectors";
 
@@ -39,6 +40,7 @@ export function SeatsPage() {
   );
 
   const seatsData = useSelector((state: RootState) => state.seats.data);
+  console.log("from seats page", seatsData);
   const [showTypeModal, setShowTypeModal] = useState(false);
 
   const departureCounts = useSelector(
@@ -63,13 +65,6 @@ export function SeatsPage() {
   );
 
   const error = useSelector((state: RootState) => state.seats.error);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-
-  useEffect(() => {
-    if (error) {
-      setShowErrorModal(true);
-    }
-  }, [error]);
 
   useEffect(() => {
     if (departureTrain?._id) {
@@ -271,11 +266,11 @@ export function SeatsPage() {
               />
             )}
           </section>
-          {showErrorModal && (
+          {error && (
             <Modal
               type="error"
               message="Ошибка соединения. Проверьте настройки подключения к Интернету или попробуйте позже."
-              onClick={() => setShowErrorModal(false)}></Modal>
+              onClick={() => dispatch(clearSeatsError())}></Modal>
           )}
         </>
       )}

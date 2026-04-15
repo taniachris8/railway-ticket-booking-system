@@ -1,5 +1,5 @@
 import { IMaskInput } from "react-imask";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import type { RootState } from "../../../state/store";
@@ -27,41 +27,67 @@ export function PassportRf({
       state.passengers.departure.seats[passengerIndex].person_info,
   );
 
-  const [series, setSeries] = useState("");
-  const [number, setNumber] = useState("");
+  // const [series, setSeries] = useState("");
+  // const [number, setNumber] = useState("");
 
-  useEffect(() => {
-    const [s = "", n = ""] = document_data.split(" ");
-    setSeries(s);
-    setNumber(n);
-  }, [document_data]);
+   const [series = "", number = ""] = document_data.split(" ");
 
-  const handleChangeSeries = (value: string) => {
-    setSeries(value);
-    const fullValue = `${value}${number ? " " + number : ""}`;
+  // useEffect(() => {
+  //   const [s = "", n = ""] = document_data.split(" ");
+  //   setSeries(s);
+  //   setNumber(n);
+  // }, [document_data]);
 
-    dispatch(
-      setPersonInfoField({
-        seatIndex: passengerIndex,
-        key: "document_data",
-        value: fullValue,
-      }),
-    );
-  };
+  // const handleChangeSeries = (value: string) => {
+  //   setSeries(value);
+  //   const fullValue = `${value}${number ? " " + number : ""}`;
 
-  const handleChangeNumber = (value: string) => {
-    setNumber(value);
+  //   dispatch(
+  //     setPersonInfoField({
+  //       seatIndex: passengerIndex,
+  //       key: "document_data",
+  //       value: fullValue,
+  //     }),
+  //   );
+  // };
 
-    const fullValue = `${series}${value ? " " + value : ""}`;
+  // const handleChangeNumber = (value: string) => {
+  //   setNumber(value);
 
-    dispatch(
-      setPersonInfoField({
-        seatIndex: passengerIndex,
-        key: "document_data",
-        value: fullValue,
-      }),
-    );
-  };
+  //   const fullValue = `${series}${value ? " " + value : ""}`;
+
+  //   dispatch(
+  //     setPersonInfoField({
+  //       seatIndex: passengerIndex,
+  //       key: "document_data",
+  //       value: fullValue,
+  //     }),
+  //   );
+  // };
+
+    const handleChangeSeries = (value: string) => {
+      const fullValue = `${value}${number ? " " + number : ""}`;
+
+      dispatch(
+        setPersonInfoField({
+          seatIndex: passengerIndex,
+          key: "document_data",
+          value: fullValue,
+        }),
+      );
+    };
+
+    const handleChangeNumber = (value: string) => {
+      const fullValue = `${series}${value ? " " + value : ""}`;
+
+      dispatch(
+        setPersonInfoField({
+          seatIndex: passengerIndex,
+          key: "document_data",
+          value: fullValue,
+        }),
+      );
+    };
 
   return (
     <>

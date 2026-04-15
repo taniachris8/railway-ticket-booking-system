@@ -1,3 +1,5 @@
+import { getPublicAssetPath } from "../../utils/getPublicAssetPath";
+
 import styles from "./Feedback.module.css";
 
 export function Feedback() {
@@ -9,7 +11,7 @@ export function Feedback() {
           <div className={styles.item}>
             <div className={styles.image__wrapper}>
               <img
-                src="/images/image3.png"
+                src={getPublicAssetPath("/images/image3.png")}
                 alt="feedback image"
                 className={styles.image}
               />
@@ -28,7 +30,7 @@ export function Feedback() {
           <div className={styles.item}>
             <div className={styles.image__wrapper}>
               <img
-                src="/images/image4.png"
+                src={getPublicAssetPath("/images/image4.png")}
                 alt="feedback image"
                 className={styles.image}
               />

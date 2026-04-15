@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 
 import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
+import { getPublicAssetPath } from "../../utils/getPublicAssetPath";
 
 import { HeroSection } from "../../components/hero-section/HeroSection";
 import { Button } from "../../components/button/Button";
@@ -53,7 +54,9 @@ export function SuccessfulOrderPage() {
               <div className={styles.order_icons}>
                 <div className={styles.order_icon_group}>
                   <div className={styles.icon_wrapper}>
-                    <img src="/icons/success-order-icon1.png"></img>
+                    <img
+                      src={getPublicAssetPath("/icons/success-order-icon1.png")}
+                    ></img>
                   </div>
                   <p className={styles.icon_info}>
                     билеты будут
@@ -63,7 +66,9 @@ export function SuccessfulOrderPage() {
                 </div>
                 <div className={styles.order_icon_group}>
                   <div className={styles.icon_wrapper}>
-                    <img src="/icons/success-order-icon2.png"></img>
+                    <img
+                      src={getPublicAssetPath("/icons/success-order-icon2.png")}
+                    ></img>
                   </div>
                   <p className={styles.icon_info}>
                     <span>распечатайте</span>
@@ -73,7 +78,9 @@ export function SuccessfulOrderPage() {
                 </div>
                 <div className={styles.order_icon_group}>
                   <div className={styles.icon_wrapper}>
-                    <img src="/icons/success-order-icon3.png"></img>
+                    <img
+                      src={getPublicAssetPath("/icons/success-order-icon3.png")}
+                    ></img>
                   </div>
                   <p className={styles.icon_info}>
                     <span>предьявите</span>

@@ -6,6 +6,7 @@ import type { RootState } from "../../../state/store";
 
 import { setTicketField } from "../../../state/reducers/ticketsSlice";
 import { setFilterField } from "../../../state/reducers/filterSlice";
+import { getPublicAssetPath } from "../../../utils/getPublicAssetPath";
 
 import { DepartureInput } from "../departure-input/DepartureInput";
 import { DestinationInput } from "../destination-input/DestinationInput";
@@ -56,7 +57,7 @@ export function DirectionInputs({
           </Tippy>
           <img
             onClick={handleSwitchCities}
-            src="/icons/ic_cached_white_48dp.png"
+            src={getPublicAssetPath("/icons/ic_cached_white_48dp.png")}
             alt=""
             className={styles.direction__switcher}
           />

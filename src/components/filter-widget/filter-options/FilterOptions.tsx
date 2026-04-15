@@ -1,4 +1,5 @@
 import { ToggleSwitch } from "../toggle-switch/ToggleSwitch";
+import { getPublicAssetPath } from "../../../utils/getPublicAssetPath";
 
 import styles from "./FilterOptions.module.css";
 
@@ -31,7 +32,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/compartment.svg"
+                src={getPublicAssetPath("/icons/compartment.svg")}
                 alt=""
                 className={styles.options__icon}
               />
@@ -52,7 +53,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/general.svg"
+                src={getPublicAssetPath("/icons/general.svg")}
                 alt=""
                 className={styles.options__icon}
               />
@@ -73,7 +74,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/seated.svg"
+                src={getPublicAssetPath("/icons/seated.svg")}
                 alt=""
                 className={styles.options__icon}
               />
@@ -93,7 +94,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/luxe.svg"
+                src={getPublicAssetPath("/icons/luxe.svg")}
                 alt=""
                 className={styles.options__icon}
               />
@@ -113,7 +114,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/wifi.svg"
+                src={getPublicAssetPath("/icons/wifi.svg")}
                 alt=""
                 className={styles.options__icon}
               />
@@ -127,7 +128,7 @@ export function FilterOptions({
           <li className={styles.options__item}>
             <div className={styles.option}>
               <img
-                src="/icons/express.svg"
+                src={getPublicAssetPath("/icons/express.svg")}
                 alt=""
                 className={styles.options__icon}
               />

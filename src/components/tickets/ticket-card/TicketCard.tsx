@@ -3,6 +3,7 @@ import type { TicketType } from "../../../types";
 import { formatCityName } from "../../../utils/formatCityName";
 import { formatDuration } from "../../../utils/formatDuration";
 import { formatTime } from "../../../utils/formatTime";
+import { getPublicAssetPath } from "../../../utils/getPublicAssetPath";
 
 import { TicketLocation } from "../ticket-location/TicketLocation";
 import { TicketSeats } from "../ticket-seats/TicketSeats";
@@ -45,7 +46,7 @@ export function TicketCard({ ticket }: TicketCardProps) {
                 {formatDuration(departure.duration)}
               </p>
               <img
-                src="/icons/arrow-right.svg"
+                src={getPublicAssetPath("/icons/arrow-right.svg")}
                 alt=""
                 className={styles.direction__arrow}
               />
@@ -80,7 +81,7 @@ export function TicketCard({ ticket }: TicketCardProps) {
                     {formatDuration(arrival.duration)}
                   </p>
                   <img
-                    src="/icons/arrow-left.svg"
+                    src={getPublicAssetPath("/icons/arrow-left.svg")}
                     alt=""
                     className={styles.direction__arrow}
                   />

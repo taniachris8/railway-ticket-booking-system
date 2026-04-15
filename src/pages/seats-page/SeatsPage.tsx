@@ -40,7 +40,6 @@ export function SeatsPage() {
   );
 
   const seatsData = useSelector((state: RootState) => state.seats.data);
-  console.log("from seats page", seatsData);
   const [showTypeModal, setShowTypeModal] = useState(false);
 
   const departureCounts = useSelector(

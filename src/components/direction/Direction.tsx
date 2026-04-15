@@ -6,6 +6,7 @@ import { formatCityName } from "../../utils/formatCityName";
 import { formatTime } from "../../utils/formatTime";
 import { formatDateForDisplaying } from "../../utils/formatDateForDisplaying";
 import { formatDuration } from "../../utils/formatDuration";
+import { getPublicAssetPath } from "../../utils/getPublicAssetPath";
 
 import { TicketLocation } from "../tickets/ticket-location/TicketLocation";
 import styles from "./Direction.module.css";
@@ -65,9 +66,11 @@ export function Direction({ train }: DirectionProps) {
             </p>
             <img
               src={
-                train === "departureTrain"
-                  ? "/icons/arrow-left.svg"
-                  : "/icons/arrow-right.svg"
+                getPublicAssetPath(
+                  train === "departureTrain"
+                    ? "/icons/arrow-left.svg"
+                    : "/icons/arrow-right.svg",
+                )
               }
               alt=""
               className={styles.direction__arrow}

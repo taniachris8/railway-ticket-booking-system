@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-import styles from "./TripCollapsibleSection.module.css";
 import { MoreIcon } from "../../icons/MoreIcon";
 import { LessIcon } from "../../icons/LessIcon";
+import { getPublicAssetPath } from "../../utils/getPublicAssetPath";
+
+import styles from "./TripCollapsibleSection.module.css";
 
 type TripCollapsibleSectionProps = {
   title: string;
@@ -24,7 +26,11 @@ export function TripCollapsibleSection({
       <section className={styles.trip_collapsible_section}>
         <div className={styles.trip_collapsible_section_header}>
           <div className={styles.trip_collapsible_section_wrapper}>
-            <img src={iconSrc} alt="icon" className={styles.filter__icon} />
+            <img
+              src={getPublicAssetPath(iconSrc)}
+              alt="icon"
+              className={styles.filter__icon}
+            />
             <div className={styles.trip_collapsible_section_title_wrapper}>
               <h5 className={styles.trip_collapsible_section_title}>{title}</h5>
               { date && <time className={styles.trip_collapsible_section_date}>{date}</time> }

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+import { getPublicAssetPath } from "../../../utils/getPublicAssetPath";
+
 import styles from "./SelectOptionInput.module.css";
 
 type SelectOptionInputProps = {
@@ -45,7 +47,10 @@ export function SelectOptionInput({
           }
           onClick={() => setDropdownActive(true)}>
           <p className={styles.value}>{selected}</p>
-          <img src="/icons/dropdown-arrow.png" alt="arrow-down" />
+          <img
+            src={getPublicAssetPath("/icons/dropdown-arrow.png")}
+            alt="arrow-down"
+          />
           {dropdownActive && children}
         </div>
       </div>

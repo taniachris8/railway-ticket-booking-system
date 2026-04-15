@@ -23,9 +23,7 @@ export function TicketsPage() {
   const dispatch = useDispatch();
 
   const tickets = useSelector((state: RootState) => state.tickets.data);
-  console.log("from tickets page", tickets)
   const status = useSelector((state: RootState) => state.tickets.status);
-  
   const error = useSelector((state: RootState) => state.tickets.error);
 
 

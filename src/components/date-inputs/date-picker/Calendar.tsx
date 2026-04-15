@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale/ru";
 
 import { CustomDateInput } from "../custom-date-input/CustomDateInput";
+import { getPublicAssetPath } from "../../../utils/getPublicAssetPath";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./Calendar.module.css";
@@ -71,14 +72,14 @@ export function Calendar({
             <div className={styles.custom__header}>
               <img
                 className={styles.custom__icon}
-                src="/icons/calendar-left-arrow.png"
+                src={getPublicAssetPath("/icons/calendar-left-arrow.png")}
                 alt="left arrow"
                 onClick={decreaseMonth}
               />
               <span className={styles.custom__month}>{capitalizedMonth}</span>
               <img
                 className={styles.custom__icon}
-                src="/icons/calendar-right-arrow.png"
+                src={getPublicAssetPath("/icons/calendar-right-arrow.png")}
                 alt="right arrow"
                 onClick={increaseMonth}
               />

@@ -1,4 +1,5 @@
 import { Button } from "../button/Button";
+import { getPublicAssetPath } from "../../utils/getPublicAssetPath";
 
 import styles from "./HowItWorks.module.css";
 
@@ -13,7 +14,10 @@ export function HowItWorks() {
         <div className={styles.advantages}>
           <div className={styles.advantage}>
             <div className={styles.image__wrapper}>
-              <img src="/icons/Subtract1.png" alt="advantage" />
+              <img
+                src={getPublicAssetPath("/icons/Subtract1.png")}
+                alt="advantage"
+              />
             </div>
             <p className={styles.text}>
               Удобный заказ <br /> на сайте
@@ -21,7 +25,10 @@ export function HowItWorks() {
           </div>
           <div className={styles.advantage}>
             <div className={styles.image__wrapper}>
-              <img src="/icons/Subtract2.png" alt="advantage" />
+              <img
+                src={getPublicAssetPath("/icons/Subtract2.png")}
+                alt="advantage"
+              />
             </div>
             <p className={styles.text}>
               Нет необходимости <br /> ехать в офис
@@ -29,7 +36,10 @@ export function HowItWorks() {
           </div>
           <div className={styles.advantage}>
             <div className={styles.image__wrapper}>
-              <img src="/icons/Subtract3.png" alt="advantage" />
+              <img
+                src={getPublicAssetPath("/icons/Subtract3.png")}
+                alt="advantage"
+              />
             </div>
             <p className={styles.text}>
               Огромный выбор <br /> направлений

@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
-import type { CityType } from "../reducers/citiesSlice";
+import type { CityType } from "../../types";
 
 import {
   getCitiesRequired,

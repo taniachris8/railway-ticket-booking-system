@@ -35,7 +35,7 @@ export function Footer() {
     try {
       setLoader(true);
       const response = await subscribe(email);
-      if (response.status) {
+      if ("status" in response && response.status) {
         setEmail("");
         setSuccessMessage("Вы успешно подписаны на наши новости!");
       }
@@ -46,7 +46,7 @@ export function Footer() {
     }
   };
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (validEmail) {

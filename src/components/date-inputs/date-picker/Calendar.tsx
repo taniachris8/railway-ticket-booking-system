@@ -33,20 +33,17 @@ export function Calendar({
   minDate,
   maxDate
 }: CalendarProps) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
-
   const [inputActive, setInputActive] = useState(false)
+  const selectedDate = typeof date === "string" ? date ? new Date(date) : null : date;
 
   return (
     <>
       <DatePicker
         showDisabledMonthNavigation
         minDate={minDate ?? undefined}
-        maxDate={maxDate}
+        maxDate={maxDate ?? undefined}
         locale="ru"
-        selected={date}
+        selected={selectedDate}
         onChange={(date: Date | null) => { setDate(date); setInputActive(false) }}
         dateFormat="dd/MM/yy"
         placeholderText="ДД/ММ/ГГ"

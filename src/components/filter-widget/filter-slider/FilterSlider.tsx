@@ -9,11 +9,15 @@ import type { RootState } from "../../../state/store";
 
 import "./FilterSlider.css";
 
+type NumericFilterKey = {
+  [K in keyof FilterState]: FilterState[K] extends number ? K : never;
+}[keyof FilterState];
+
 type FilterSliderProps = {
   MIN: number;
   MAX: number;
-  fromKey: keyof FilterState;
-  toKey: keyof FilterState;
+  fromKey: NumericFilterKey;
+  toKey: NumericFilterKey;
   children?: React.ReactNode;
   sliderOuterClassName: string;
   trackHeight: string;

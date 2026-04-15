@@ -146,21 +146,13 @@ export type PersonInfoType = {
   patronymic: string;
   gender: boolean;
   birthday: string;
-  document_type: string;
+  document_type: "passport_rf" | "birth_certificate" | "passport";
   document_data: string;
 };
 
 export type DirectionOrderType = {
   route_direction_id: string;
-  seats: [
-    {
-      coach_id: string;
-      person_info: PersonInfoType;
-      seat_number: number;
-      is_child: boolean;
-      include_children_seat: boolean;
-    },
-  ];
+  seats: SeatsForOrderType[];
 };
 
 export type SeatsForOrderType = {

@@ -17,7 +17,7 @@ import styles from "./PassengersPage.module.css";
 
 export function PassengersPage() {
   const navigate = useNavigate();
-  const status = useSelector((state: RootState) => state.passengers.status);
+  const status = useSelector((state: RootState) => state.seats.status);
 
   const [openedPassengerIndex, setOpenedPassengerIndex] = useState<
     number | null

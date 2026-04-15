@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-export type CityType = {
-  _id: number;
-  name: string;
-};
+import type { CityType } from "../../types";
 
 type CitiesType = {
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -22,8 +18,7 @@ const citiesSlice = createSlice({
   name: "cities",
   initialState,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getCitiesRequired: (state, action: PayloadAction<string>) => {
+    getCitiesRequired: (state, _action: PayloadAction<string>) => {
       state.status = "loading";
       state.error = null;
     },

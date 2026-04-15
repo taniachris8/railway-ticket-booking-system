@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
 import type { RootState } from "../../state/store";
+import type { SeatsForOrderType } from "../../types";
 
 import { clearSeatsError } from "../../state/reducers/seatsSlice";
 import { getSeatsRequired } from "../../state/reducers/seatsSlice";
@@ -84,7 +85,7 @@ export function SeatsPage() {
     selectedSeats: Record<string, { seatNumber: number; price: number }[]>,
     counts: { adultCount: number; childCount: number; infantCount: number },
   ) => {
-    const result = [];
+    const result: SeatsForOrderType[] = [];
 
     const allSeats: { coach_id: string; seat_number: number }[] = [];
 
@@ -101,7 +102,8 @@ export function SeatsPage() {
 
     for (let i = 0; i < counts.adultCount; i++) {
       result.push({
-        ...allSeats[seatIndex++],
+        coach_id: allSeats[seatIndex].coach_id,
+        seat_number: allSeats[seatIndex++].seat_number,
         is_child: false,
         include_children_seat: i < counts.infantCount,
         person_info: {
@@ -119,7 +121,8 @@ export function SeatsPage() {
 
     for (let i = 0; i < counts.childCount; i++) {
       result.push({
-        ...allSeats[seatIndex++],
+        coach_id: allSeats[seatIndex].coach_id,
+        seat_number: allSeats[seatIndex++].seat_number,
         is_child: true,
         include_children_seat: false,
         person_info: {

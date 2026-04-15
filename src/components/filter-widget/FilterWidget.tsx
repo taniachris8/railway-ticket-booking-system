@@ -4,6 +4,7 @@ import type { RootState } from "../../state/store";
 
 import { setFilterField } from "../../state/reducers/filterSlice";
 import { setSeatsFiltersField } from "../../state/reducers/filterSeatsSlice";
+import type { FilterOptionKey } from "./filter-options/FilterOptions";
 
 import { AsideContainer } from "../aside-container/AsideContainer";
 import { DepartureDateInput } from "../date-inputs/departure-date-input/DepartureDateInput";
@@ -26,8 +27,16 @@ export function FilterWidget({
   const dispatch = useDispatch();
 
   const filters = useSelector((state: RootState) => state[filterType]);
+  const filterOptions = {
+    have_first_class: filters.have_first_class,
+    have_second_class: filters.have_second_class,
+    have_third_class: filters.have_third_class,
+    have_fourth_class: filters.have_fourth_class,
+    have_wifi: filters.have_wifi,
+    have_express: filters.have_express,
+  };
 
-  const handleChange = (key: keyof typeof filters, value: boolean) => {
+  const handleChange = (key: FilterOptionKey, value: boolean) => {
     if (filterType === "filters") {
       dispatch(setFilterField({ key, value }));
     } else {
@@ -46,6 +55,7 @@ export function FilterWidget({
               inputClassName={styles.filter__date_input}
               inputFieldClassName={styles.input__field}
               iconClassName={styles.input__icon}
+              visibleDepartureDateTooltip={false}
             />
           </div>
           <div
@@ -60,7 +70,7 @@ export function FilterWidget({
         </div>
 
         <FilterOptions
-          filters={filters}
+          filters={filterOptions}
           onChange={handleChange}
           handleCarriageTypeChange={handleCarriageTypeChange}
         />

@@ -7,7 +7,7 @@ import { Price } from "../../price/Price";
 import styles from "./PassengerCollapsibleSection.module.css";
 
 type PassengerCollapsibleSectionProps = {
-  priceForEachPassenger: (passengerIndex: number) => number;
+  priceForEachPassenger: (passengerIndex: number) => number | string;
 };
 
 export function PassengerCollapsibleSection({

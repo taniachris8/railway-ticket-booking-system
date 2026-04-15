@@ -12,10 +12,12 @@ type Filters = {
   have_express: boolean;
 };
 
+export type FilterOptionKey = keyof Filters;
+
 type FilterOptionsProps = {
   filters: Filters;
-  onChange: (key: keyof Filters, value: boolean) => void;
-  handleCarriageTypeChange: (
+  onChange: (key: FilterOptionKey, value: boolean) => void;
+  handleCarriageTypeChange?: (
     id: "first" | "second" | "third" | "fourth",
   ) => void;
 };

@@ -1,7 +1,6 @@
 import axios from "axios";
 
-import type { CityType } from "../state/reducers/citiesSlice";
-import type { DirectionType, OrderType, SeatsInfoType } from "../types";
+import type { CityType, DirectionType, OrderType, SeatsInfoType } from "../types";
 import type { TicketsType } from "../types";
 import type { FilterState } from "../state/reducers/filterSlice";
 import type { FilterSeatsState } from "../state/reducers/filterSeatsSlice";

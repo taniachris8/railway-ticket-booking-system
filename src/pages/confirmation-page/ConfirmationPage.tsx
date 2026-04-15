@@ -63,15 +63,8 @@ export function ConfirmationPage() {
       navigate("/successful-order", {
         state: { user: savedUser, seats: savedSeats },
       });
-      // setSubmitButtonClicked(false);
     }
   }, [data, submitButtonClicked]);
-
-  // useEffect(() => {
-  //   if (error) {
-  //     setShowErrorModal(true);
-  //   }
-  // }, [error]);
 
   const handleChangePassengersInfo = () => {
     navigate("/passengers");
@@ -110,7 +103,7 @@ export function ConfirmationPage() {
               <h2 className={styles.item_title}>Поезд</h2>
             </div>
             <div className={styles.item_content}>
-              <TicketCard ticket={ticket} />
+              {ticket && <TicketCard ticket={ticket} />}
             </div>
           </div>
           <div className={styles.confirmation_item}>

@@ -19,7 +19,7 @@ export function PassengerCheckbox({ text, checked, onChange, containerClassName,
             type="checkbox"
             className={`${styles.checkbox_input} ${inputClassName}`}
             checked={checked}
-            onChange={(e) => onChange(e.target.checked)}
+            onChange={(e) => onChange?.(e.target.checked)}
           />
         </label>
         <span className={`${styles.checkbox_text} ${textClassName}`}>
